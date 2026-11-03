@@ -16,7 +16,7 @@ Weighing-scale photos are usually taken at home with a phone, and contain GPS co
 The app can *require* a photo for every weight entry, store it privately, and link it to that entry. It can't *prove* the photo shows that number or that person; automatic digit reading (OCR) on scale displays is unreliable. **Approach for now:** evidence is mandatory and stored with a hash (re-uploading the same photo is detected). Automatic reading of the number could be an optional later addition.
 
 ## 6. Email for password recovery
-Password recovery needs a working email service and a verified sender domain. **Approach:** an email adapter with a provider (e.g. Resend or any SMTP); in development, emails are printed to the console. A sender domain is needed for production.
+Password recovery needs a working email service and a verified sender domain. **Decision:** for now emails are sent from a Gmail account over SMTP (Nodemailer), using a Gmail *app password* stored as an environment variable, never the normal password. Everything goes through one email adapter, so switching to a provider with its own domain later is a configuration change. Check: Railway blocks outgoing SMTP on some plans; if that applies, an HTTP-based mail API is the fallback.
 
 ## 7. Seven languages, including generated text
 Interface text is straightforward with i18n files. Reports and notifications are generated on the server, so they're stored as translation keys + parameters and translated in the browser. Translations for seven languages will be drafted carefully but should ideally be checked by a native speaker.
@@ -27,14 +27,15 @@ The report must only draw conclusions the data supports. **Approach:** rule-base
 ## 9. Account deletion across database and storage
 See [DATABASE.md](DATABASE.md#notes). Database rows cascade; files are deleted separately with a retry mechanism.
 
-## 10. Local development database
-MySQL and Docker are not installed on this Mac yet. **Options:** `brew install mysql` (lightweight, recommended), or Docker Desktop with a `docker-compose.yml`. MySQL Workbench connects to it the same way in both cases.
+## 10. Development database
+**Decision:** no local MySQL server. Development uses a MySQL database on Railway (separate from the production database), and MySQL Workbench connects to it through Railway's public TCP proxy. The connection string lives only in `server/.env`, which is never committed. `prisma migrate dev` needs a temporary "shadow" database; the Railway root user is allowed to create it.
 
 ## 11. Constraints Prisma doesn't support
 `CHECK` constraints (rating 1–5, duration limits) are added as raw SQL in the migration files. They're the last line of defence after Zod validation.
 
 ## 12. Definitions that affect the statistics
-A few terms need a fixed definition before building, because they change the numbers:
-- **Streak:** consecutive calendar days with at least one session (a rest day breaks the streak) — or consecutive weeks reaching the day goal?
-- **Consistency:** proposed as the percentage of weeks in the selected period in which the training-day goal was reached (or, without a goal, training days ÷ days in the period).
+Decided definitions (they change the numbers):
+- **Streak:** counted in **weeks**. A week counts when the user trained on at least as many days as their training-day goal (e.g. 5 days). A week below the goal resets the streak to 0. The current week only counts once the goal is reached, and it only breaks the streak after the week has ended. Rest days don't break anything. Without a day goal, there is no streak.
+- **Streak achievements** follow this definition: 3-, 7- and 26-week streaks instead of day streaks.
+- **Consistency:** the percentage of weeks in the selected period in which the training-day goal was reached (or, without a goal, training days ÷ days in the period).
 - **Training days vs sessions:** two sessions on one day = 1 day, 2 sessions.

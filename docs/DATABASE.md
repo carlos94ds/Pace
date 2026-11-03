@@ -111,7 +111,7 @@ model PasswordResetToken {
 
 model PrivacySettings {
   userId               String     @id @db.Char(36)
-  discoverable         Boolean    @default(true)      // appear in search & suggestions
+  discoverable         Boolean    @default(true)      // search & suggestions show only username, first name, avatar
   profileVisibility    Visibility @default(FRIENDS)   // bio, gym, sports
   activityVisibility   Visibility @default(FRIENDS)   // date, sport, duration, weekly hours
   streaksVisibility    Visibility @default(FRIENDS)
@@ -183,7 +183,7 @@ model TrainingSession {
   date            DateTime    @db.Date
   durationMinutes Int         @db.SmallInt     // CHECK 1..1440
   punctuality     Punctuality                  // ON_TIME | LATE
-  motivation      Motivation                   // MOTIVATED | UNMOTIVATED
+  motivation      Int         @db.TinyInt      // before training, CHECK 1..5
   rating          Int         @db.TinyInt      // how it went, CHECK 1..5
   intensity       Int         @db.TinyInt      // CHECK 1..5
   reflection      String?     @db.Text         // PRIVATE: why it went well/badly
@@ -269,7 +269,7 @@ model Reaction {
 
 model Achievement {
   id          String              @id @default(uuid()) @db.Char(36)
-  code        String              @unique @db.VarChar(50)  // STREAK_3, STREAK_7, WEEK_20H, TOTAL_100H, WEEKLY_GOAL
+  code        String              @unique @db.VarChar(50)  // STREAK_3W, STREAK_7W, STREAK_26W, WEEK_20H, TOTAL_100H, WEEKLY_GOAL
   category    AchievementCategory
   threshold   Int
   repeatable  Boolean             @default(false)          // e.g. weekly goal reached

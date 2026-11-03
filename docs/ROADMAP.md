@@ -6,7 +6,7 @@ Each phase ends with working, tested functionality and a commit/push. The next p
 - npm workspaces: `client`, `server`, `shared`.
 - Vite + React + TypeScript + Tailwind; design tokens, light/dark and text-size switch, app layout (sidebar on desktop, bottom navigation on mobile), base components.
 - Express + TypeScript: env validation, helmet, error handler, `/api/health`.
-- Local MySQL, Prisma schema from [DATABASE.md](DATABASE.md), first migration, seed (built-in sports, achievement catalogue).
+- Development MySQL on Railway (connected in Workbench), Prisma schema from [DATABASE.md](DATABASE.md), first migration, seed (built-in sports, achievement catalogue).
 - i18n set up with all 7 languages (empty keys filled per phase).
 - ESLint, Prettier, Vitest.
 

@@ -4,7 +4,18 @@
 
 There is no existing PACE code: the GitHub repository was empty and no PACE folder existed locally. The project starts from scratch, so there is no working code that could be overwritten.
 
-Local tooling found: Node.js 26, npm, git, GitHub CLI and Homebrew. **MySQL and Docker are not installed**, so a local database still has to be set up (see [CHALLENGES.md](CHALLENGES.md#10-local-development-database)).
+Local tooling found: Node.js 26, npm, git, GitHub CLI, Homebrew and MySQL Workbench. There is no local MySQL server: development runs against a MySQL database on Railway (see [CHALLENGES.md](CHALLENGES.md#10-development-database)).
+
+## Decisions taken
+
+| Topic | Decision |
+|---|---|
+| Database (dev + prod) | Railway MySQL, inspected with MySQL Workbench |
+| File storage | Railway Storage Bucket (private) |
+| Email | Gmail SMTP with an app password, behind a replaceable adapter |
+| Streak | Consecutive weeks reaching the training-day goal; a week below the goal resets it |
+| Motivation, rating, intensity | Scale 1–5 |
+| Discoverability | On by default; only username, first name and profile picture are shown |
 
 ## 2. Repository structure
 
