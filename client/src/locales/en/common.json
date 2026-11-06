@@ -1,0 +1,56 @@
+{
+  "nav": {
+    "main": "Main navigation",
+    "overview": "Overview",
+    "settings": "Settings"
+  },
+  "status": {
+    "title": "Welcome to PACE",
+    "subtitle": "The foundation is running. Training, your dashboard and friends follow in the next phases.",
+    "systemTitle": "System status",
+    "refresh": "Check again",
+    "api": "API",
+    "database": "Database",
+    "checking": "Checking…",
+    "online": "Online",
+    "offline": "Offline",
+    "lastChecked": "Last checked",
+    "roadmapTitle": "Roadmap",
+    "phase": "Phase {{number}}",
+    "inProgress": "In progress",
+    "phases": {
+      "1": "Foundation",
+      "2": "Accounts and profiles",
+      "3": "Training calendar",
+      "4": "Dashboard and weekly reports",
+      "5": "Friends and achievements",
+      "6": "Weight, goals and notifications",
+      "7": "Testing and launch"
+    }
+  },
+  "settings": {
+    "title": "Settings",
+    "deviceNote": "These settings are saved on this device. Once accounts are available, they move to your account.",
+    "appearance": "Appearance",
+    "appearanceHelp": "Choose a light or dark interface, or follow your device.",
+    "themes": {
+      "light": "Light",
+      "dark": "Dark",
+      "system": "System"
+    },
+    "textSize": "Text size",
+    "textSizeHelp": "Makes all text in PACE smaller or larger.",
+    "textSizes": {
+      "small": "Small",
+      "medium": "Medium",
+      "large": "Large"
+    },
+    "language": "Language",
+    "languageHelp": "All text in PACE changes immediately."
+  },
+  "notFound": {
+    "title": "Page not found",
+    "text": "This page doesn't exist or has moved.",
+    "back": "Back to overview"
+  }
+}

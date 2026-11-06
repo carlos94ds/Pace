@@ -1,0 +1,56 @@
+{
+  "nav": {
+    "main": "Navigazione principale",
+    "overview": "Panoramica",
+    "settings": "Impostazioni"
+  },
+  "status": {
+    "title": "Benvenuto su PACE",
+    "subtitle": "Le fondamenta sono pronte. Allenamenti, la tua dashboard e gli amici arriveranno nelle prossime fasi.",
+    "systemTitle": "Stato del sistema",
+    "refresh": "Controlla di nuovo",
+    "api": "API",
+    "database": "Database",
+    "checking": "Controllo in corso…",
+    "online": "Online",
+    "offline": "Offline",
+    "lastChecked": "Ultimo controllo",
+    "roadmapTitle": "Roadmap",
+    "phase": "Fase {{number}}",
+    "inProgress": "In corso",
+    "phases": {
+      "1": "Fondamenta",
+      "2": "Account e profili",
+      "3": "Calendario allenamenti",
+      "4": "Dashboard e report settimanali",
+      "5": "Amici e traguardi",
+      "6": "Peso, obiettivi e notifiche",
+      "7": "Test e lancio"
+    }
+  },
+  "settings": {
+    "title": "Impostazioni",
+    "deviceNote": "Queste impostazioni sono salvate su questo dispositivo. Quando gli account saranno disponibili, passeranno al tuo account.",
+    "appearance": "Aspetto",
+    "appearanceHelp": "Scegli un'interfaccia chiara o scura, oppure segui il tuo dispositivo.",
+    "themes": {
+      "light": "Chiaro",
+      "dark": "Scuro",
+      "system": "Sistema"
+    },
+    "textSize": "Dimensione del testo",
+    "textSizeHelp": "Rende tutto il testo di PACE più piccolo o più grande.",
+    "textSizes": {
+      "small": "Piccolo",
+      "medium": "Medio",
+      "large": "Grande"
+    },
+    "language": "Lingua",
+    "languageHelp": "Tutto il testo di PACE cambia subito."
+  },
+  "notFound": {
+    "title": "Pagina non trovata",
+    "text": "Questa pagina non esiste o è stata spostata.",
+    "back": "Torna alla panoramica"
+  }
+}

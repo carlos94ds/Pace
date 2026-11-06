@@ -8,14 +8,14 @@ Local tooling found: Node.js 26, npm, git, GitHub CLI, Homebrew and MySQL Workbe
 
 ## Decisions taken
 
-| Topic | Decision |
-|---|---|
-| Database (dev + prod) | Railway MySQL, inspected with MySQL Workbench |
-| File storage | Railway Storage Bucket (private) |
-| Email | Gmail SMTP with an app password, behind a replaceable adapter |
-| Streak | Consecutive weeks reaching the training-day goal; a week below the goal resets it |
-| Motivation, rating, intensity | Scale 1–5 |
-| Discoverability | On by default; only username, first name and profile picture are shown |
+| Topic                         | Decision                                                                          |
+| ----------------------------- | --------------------------------------------------------------------------------- |
+| Database (dev + prod)         | Railway MySQL, inspected with MySQL Workbench                                     |
+| File storage                  | Railway Storage Bucket (private)                                                  |
+| Email                         | Gmail SMTP with an app password, behind a replaceable adapter                     |
+| Streak                        | Consecutive weeks reaching the training-day goal; a week below the goal resets it |
+| Motivation, rating, intensity | Scale 1–5                                                                         |
+| Discoverability               | On by default; only username, first name and profile picture are shown            |
 
 ## 2. Repository structure
 
@@ -53,7 +53,7 @@ Pace/
 
 **Why feature folders instead of "all components / all pages":** every feature (calendar, friends, weight …) has its own components, API calls and pages together. Adding a feature means adding a folder, not editing ten places.
 
-**Why a `shared` package:** the same Zod schema validates a training session form in the browser *and* the request on the server. The rules cannot drift apart, and TypeScript types come for free.
+**Why a `shared` package:** the same Zod schema validates a training session form in the browser _and_ the request on the server. The rules cannot drift apart, and TypeScript types come for free.
 
 ## 3. How frontend, backend and database communicate
 
@@ -93,14 +93,14 @@ Two rules, enforced on the server:
 1. **Owner data is always queried with the logged-in user's id**, never an id from the request: `where: { id: params.id, userId: req.user.id }`. Changing an id in the URL to someone else's session returns 404 (not 403, so you can't tell it exists).
 2. **Viewing another user's data goes through `policies/`.** `canView(viewer, owner, resource)` checks the friendship status plus the owner's privacy settings, and the friend mappers only select public fields.
 
-| Data | Owner | Friends | Others |
-|---|---|---|---|
-| Date, sport, duration, weekly hours | ✓ | if activity sharing on (default **on**) | ✗ |
-| Streaks, achievements | ✓ | if sharing on (default **on**) | ✗ |
-| Reflection ("why it went badly"), motivation, rating | ✓ | only per session when the user shares it explicitly (default **off**) | ✗ |
-| Weekly report / dashboard | ✓ | if dashboard sharing on (default **off**) | ✗ |
-| Weight, height, evidence photos | ✓ | never by default | ✗ |
-| Username, first name, avatar | ✓ | ✓ | only if "discoverable" is on |
+| Data                                                 | Owner | Friends                                                               | Others                       |
+| ---------------------------------------------------- | ----- | --------------------------------------------------------------------- | ---------------------------- |
+| Date, sport, duration, weekly hours                  | ✓     | if activity sharing on (default **on**)                               | ✗                            |
+| Streaks, achievements                                | ✓     | if sharing on (default **on**)                                        | ✗                            |
+| Reflection ("why it went badly"), motivation, rating | ✓     | only per session when the user shares it explicitly (default **off**) | ✗                            |
+| Weekly report / dashboard                            | ✓     | if dashboard sharing on (default **off**)                             | ✗                            |
+| Weight, height, evidence photos                      | ✓     | never by default                                                      | ✗                            |
+| Username, first name, avatar                         | ✓     | ✓                                                                     | only if "discoverable" is on |
 
 Automated tests try to reach each private resource as a stranger, as a friend and as a pending friend.
 
@@ -142,11 +142,11 @@ A weight entry and its evidence are created in one request: no photo means no we
 
 Recommended setup: **one app service + MySQL + bucket**.
 
-| Railway service | Role |
-|---|---|
-| `pace-app` | Express serves `/api/v1` *and* the built React app (`client/dist`) |
-| `MySQL` | Railway MySQL plugin; `DATABASE_URL` injected as a reference variable |
-| `Bucket` | Railway Storage Bucket (S3-compatible). Cloudflare R2 or AWS S3 work via the same adapter |
+| Railway service | Role                                                                                      |
+| --------------- | ----------------------------------------------------------------------------------------- |
+| `pace-app`      | Express serves `/api/v1` _and_ the built React app (`client/dist`)                        |
+| `MySQL`         | Railway MySQL plugin; `DATABASE_URL` injected as a reference variable                     |
+| `Bucket`        | Railway Storage Bucket (S3-compatible). Cloudflare R2 or AWS S3 work via the same adapter |
 
 Why one service: frontend and API on the same domain means the session cookie works without cross-site cookie issues or CORS, and there's one deploy. The frontend still has its own build step. Splitting into two services later is possible.
 

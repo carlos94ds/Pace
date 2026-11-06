@@ -1,0 +1,56 @@
+{
+  "nav": {
+    "main": "Hoofdnavigatie",
+    "overview": "Overzicht",
+    "settings": "Instellingen"
+  },
+  "status": {
+    "title": "Welkom bij PACE",
+    "subtitle": "De basis draait. Trainingen, je dashboard en vrienden volgen in de volgende fases.",
+    "systemTitle": "Systeemstatus",
+    "refresh": "Opnieuw controleren",
+    "api": "API",
+    "database": "Database",
+    "checking": "Controleren…",
+    "online": "Online",
+    "offline": "Offline",
+    "lastChecked": "Laatst gecontroleerd",
+    "roadmapTitle": "Roadmap",
+    "phase": "Fase {{number}}",
+    "inProgress": "Bezig",
+    "phases": {
+      "1": "Fundament",
+      "2": "Accounts en profielen",
+      "3": "Trainingskalender",
+      "4": "Dashboard en weekrapporten",
+      "5": "Vrienden en prestaties",
+      "6": "Gewicht, doelen en meldingen",
+      "7": "Testen en lancering"
+    }
+  },
+  "settings": {
+    "title": "Instellingen",
+    "deviceNote": "Deze instellingen worden op dit apparaat bewaard. Zodra accounts beschikbaar zijn, gaan ze mee naar je account.",
+    "appearance": "Weergave",
+    "appearanceHelp": "Kies een lichte of donkere interface, of volg je apparaat.",
+    "themes": {
+      "light": "Licht",
+      "dark": "Donker",
+      "system": "Systeem"
+    },
+    "textSize": "Tekstgrootte",
+    "textSizeHelp": "Maakt alle tekst in PACE kleiner of groter.",
+    "textSizes": {
+      "small": "Klein",
+      "medium": "Middel",
+      "large": "Groot"
+    },
+    "language": "Taal",
+    "languageHelp": "Alle tekst in PACE verandert direct."
+  },
+  "notFound": {
+    "title": "Pagina niet gevonden",
+    "text": "Deze pagina bestaat niet of is verplaatst.",
+    "back": "Terug naar overzicht"
+  }
+}

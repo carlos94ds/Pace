@@ -1,0 +1,56 @@
+{
+  "nav": {
+    "main": "Hauptnavigation",
+    "overview": "Übersicht",
+    "settings": "Einstellungen"
+  },
+  "status": {
+    "title": "Willkommen bei PACE",
+    "subtitle": "Das Fundament läuft. Training, dein Dashboard und Freunde folgen in den nächsten Phasen.",
+    "systemTitle": "Systemstatus",
+    "refresh": "Erneut prüfen",
+    "api": "API",
+    "database": "Datenbank",
+    "checking": "Wird geprüft…",
+    "online": "Online",
+    "offline": "Offline",
+    "lastChecked": "Zuletzt geprüft",
+    "roadmapTitle": "Roadmap",
+    "phase": "Phase {{number}}",
+    "inProgress": "In Arbeit",
+    "phases": {
+      "1": "Fundament",
+      "2": "Konten und Profile",
+      "3": "Trainingskalender",
+      "4": "Dashboard und Wochenberichte",
+      "5": "Freunde und Erfolge",
+      "6": "Gewicht, Ziele und Benachrichtigungen",
+      "7": "Tests und Launch"
+    }
+  },
+  "settings": {
+    "title": "Einstellungen",
+    "deviceNote": "Diese Einstellungen werden auf diesem Gerät gespeichert. Sobald Konten verfügbar sind, werden sie in dein Konto übernommen.",
+    "appearance": "Darstellung",
+    "appearanceHelp": "Wähle eine helle oder dunkle Oberfläche oder folge deinem Gerät.",
+    "themes": {
+      "light": "Hell",
+      "dark": "Dunkel",
+      "system": "System"
+    },
+    "textSize": "Textgröße",
+    "textSizeHelp": "Macht alle Texte in PACE kleiner oder größer.",
+    "textSizes": {
+      "small": "Klein",
+      "medium": "Mittel",
+      "large": "Groß"
+    },
+    "language": "Sprache",
+    "languageHelp": "Alle Texte in PACE ändern sich sofort."
+  },
+  "notFound": {
+    "title": "Seite nicht gefunden",
+    "text": "Diese Seite existiert nicht oder wurde verschoben.",
+    "back": "Zurück zur Übersicht"
+  }
+}

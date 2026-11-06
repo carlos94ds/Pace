@@ -9,7 +9,8 @@ MySQL 8, managed through Prisma migrations. **The Prisma schema is the single so
 - Training dates are stored as `DATE` in the user's local calendar (a session on Monday stays on Monday, whatever the timezone). Timestamps (`createdAt` …) are UTC.
 - Durations are stored as whole minutes; hours/minutes is only a display format.
 - Weight in kg as `DECIMAL(5,2)`, height in cm as `SMALLINT`.
-- Value ranges Prisma can't express (rating 1–5, duration 1–1440) are added as `CHECK` constraints via raw SQL in the migration and also validated with Zod.
+- Value ranges Prisma can't express (ratings 1–5, duration 1–1440, weight, height) are added as `CHECK` constraints via raw SQL in the migration and also validated with Zod. MySQL doesn't allow a `CHECK` on a column used by a cascading foreign key, so "you can't befriend yourself" is enforced in the application.
+- The schema actually in use is [server/prisma/schema.prisma](../server/prisma/schema.prisma); this page explains it.
 
 ## Overview
 
@@ -142,6 +143,7 @@ model UserPreferences {
 
 model Sport {
   id       String  @id @default(uuid()) @db.Char(36)
+  slug     String? @unique @db.VarChar(40)   // built-in sports only, used for translation
   name     String  @db.VarChar(50)
   color    String  @db.Char(7)               // #RRGGBB for the calendar
   ownerId  String? @db.Char(36)              // NULL = built-in (MMA, BJJ, …)
