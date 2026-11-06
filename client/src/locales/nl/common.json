@@ -10,11 +10,13 @@
     "overview": "Overzicht",
     "profile": "Profiel",
     "settings": "Instellingen",
-    "logout": "Uitloggen"
+    "logout": "Uitloggen",
+    "calendar": "Kalender",
+    "history": "Geschiedenis"
   },
   "status": {
     "greeting": "Welkom, {{name}}",
-    "subtitle": "Je account staat klaar. De trainingskalender en het dashboard volgen in de volgende fases.",
+    "subtitle": "Registreer je trainingen in de kalender. Het dashboard en de weekrapporten volgen in de volgende fase.",
     "systemTitle": "Systeemstatus",
     "refresh": "Opnieuw controleren",
     "api": "API",
@@ -158,7 +160,8 @@
       "appearance": "Weergave",
       "language": "Taal",
       "about": "Over PACE",
-      "delete": "Account verwijderen"
+      "delete": "Account verwijderen",
+      "sports": "Mijn sporten"
     },
     "account": {
       "title": "Account",
@@ -276,6 +279,23 @@
       },
       "timezone": {
         "custom": "Kies een geldige tijdzone."
+      },
+      "date": {
+        "custom": "Vul een geldige datum in.",
+        "in_future": "Je kunt alleen trainingen tot en met vandaag registreren."
+      },
+      "durationMinutes": {
+        "too_small": "Vul minimaal 1 minuut in.",
+        "too_big": "Een training duurt maximaal 24 uur (1440 minuten).",
+        "invalid_type": "Vul de duur in minuten in."
+      },
+      "sportId": {
+        "invalid_format": "Kies een sport.",
+        "not_found": "Deze sport bestaat niet (meer)."
+      },
+      "sportName": {
+        "too_small": "Gebruik minimaal 2 tekens.",
+        "taken": "Je hebt al een sport met deze naam."
       }
     },
     "api": {
@@ -290,12 +310,112 @@
       "conflict": "Dit is al in gebruik.",
       "wrong_password": "Onjuist wachtwoord.",
       "unauthenticated": "Je sessie is verlopen. Log opnieuw in.",
-      "validation_error": "Controleer de gemarkeerde velden."
+      "validation_error": "Controleer de gemarkeerde velden.",
+      "sport_in_use": "Deze sport wordt nog gebruikt in trainingen.",
+      "limit_reached": "Je hebt het maximale aantal eigen sporten bereikt.",
+      "not_found": "Dit item bestaat niet meer."
     }
   },
   "notFound": {
     "title": "Pagina niet gevonden",
     "text": "Deze pagina bestaat niet of is verplaatst.",
     "back": "Terug naar overzicht"
+  },
+  "training": {
+    "add": "Training toevoegen",
+    "sharedWithFriends": "Details gedeeld met vrienden",
+    "privateDetails": "Details privé",
+    "fields": {
+      "date": "Datum",
+      "sport": "Sport",
+      "duration": "Duur (minuten)",
+      "gym": "Gym of locatie",
+      "punctuality": "Op tijd",
+      "motivation": "Motivatie vooraf",
+      "rating": "Hoe ging het",
+      "intensity": "Intensiteit",
+      "reflection": "Reflectie",
+      "shareDetails": "Details delen met vrienden"
+    },
+    "scales": {
+      "motivation": "1 = geen zin · 5 = volledig gemotiveerd",
+      "rating": "1 = slecht · 5 = top",
+      "intensity": "1 = heel licht · 5 = maximaal"
+    },
+    "short": {
+      "motivation": "Motivatie",
+      "rating": "Beoordeling",
+      "intensity": "Intensiteit"
+    },
+    "punctuality": {
+      "on_time": "Op tijd",
+      "late": "Te laat"
+    },
+    "form": {
+      "newTitle": "Training toevoegen",
+      "editTitle": "Training bewerken",
+      "create": "Training opslaan",
+      "delete": "Verwijderen",
+      "deleteConfirm": "Deze training verwijderen?",
+      "chooseSport": "Kies een sport",
+      "chooseScore": "Kies 1 tot 5.",
+      "durationHint": "Bijvoorbeeld 90 voor anderhalf uur.",
+      "reflectionPlaceholder": "Waarom ging het goed of slecht? Wat doe je de volgende keer anders?",
+      "reflectionHint": "Alleen jij ziet dit, tenzij je de details van deze training deelt.",
+      "shareDetailsHelp": "Vrienden die je activiteit mogen zien, zien dan ook motivatie, beoordeling en reflectie van deze training. Standaard uit."
+    },
+    "sports": {
+      "title": "Mijn sporten",
+      "description": "Sporten die je zelf hebt toegevoegd. Alleen jij ziet ze.",
+      "name": "Naam",
+      "color": "Kleur in de kalender",
+      "add": "Sport toevoegen",
+      "addOption": "+ Eigen sport toevoegen…",
+      "newTitle": "Nieuwe sport",
+      "edit": "Bewerken",
+      "delete": "Verwijderen",
+      "none": "Je hebt nog geen eigen sporten toegevoegd.",
+      "inUse": "Deze sport wordt nog gebruikt in trainingen. Wijzig of verwijder die trainingen eerst."
+    },
+    "calendar": {
+      "title": "Kalender",
+      "subtitle": "Al je trainingen in één overzicht. Kies een dag om trainingen te bekijken of toe te voegen.",
+      "previous": "Vorige",
+      "next": "Volgende",
+      "today": "Vandaag",
+      "view": "Weergave",
+      "month": "Maand",
+      "week": "Week",
+      "more": "+{{count}} meer",
+      "restDay": "Geen training: rustdag.",
+      "futureDay": "Deze dag is nog niet geweest."
+    },
+    "stats": {
+      "thisMonth": "Deze maand",
+      "thisWeek": "Deze week",
+      "trainingDays": "Trainingsdagen",
+      "hours": "Uren",
+      "sessions": "Trainingen",
+      "perSport": "Uren per sport",
+      "hoursShort": "{{value}} u",
+      "sessionCount_one": "{{count}} training",
+      "sessionCount_other": "{{count}} trainingen",
+      "empty": "Nog geen trainingen in deze periode."
+    },
+    "history": {
+      "title": "Geschiedenis",
+      "subtitle": "Al je geregistreerde trainingen, nieuwste eerst.",
+      "filters": "Filters",
+      "allSports": "Alle sporten",
+      "any": "Alle",
+      "from": "Van",
+      "to": "Tot en met",
+      "clear": "Filters wissen",
+      "empty": "Nog geen trainingen",
+      "emptyHint": "Voeg je eerste training toe om je geschiedenis op te bouwen.",
+      "noResults": "Geen trainingen gevonden met deze filters",
+      "noResultsHint": "Probeer andere filters of wis ze.",
+      "loadMore": "Meer laden"
+    }
   }
 }

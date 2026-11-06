@@ -8,6 +8,8 @@ import { ResetPasswordPage } from '../features/auth/ResetPasswordPage';
 import { OverviewPage } from '../features/overview/OverviewPage';
 import { ProfilePage } from '../features/profile/ProfilePage';
 import { SettingsPage } from '../features/settings/SettingsPage';
+import { CalendarPage } from '../features/training/CalendarPage';
+import { HistoryPage } from '../features/training/HistoryPage';
 import { AppShell } from './AppShell';
 import { NotFoundPage } from './NotFoundPage';
 
@@ -37,6 +39,8 @@ export const router = createBrowserRouter([
         element: <AppShell />,
         children: [
           { index: true, element: <OverviewPage /> },
+          { path: 'calendar', element: <CalendarPage /> },
+          { path: 'history', element: <HistoryPage /> },
           { path: 'profile', element: <ProfilePage /> },
           { path: 'settings', element: <SettingsPage /> },
           { path: '*', element: <NotFoundPage /> },

@@ -16,6 +16,9 @@ Local tooling found: Node.js 26, npm, git, GitHub CLI, Homebrew and MySQL Workbe
 | Streak                        | Consecutive weeks reaching the training-day goal; a week below the goal resets it |
 | Motivation, rating, intensity | Scale 1–5                                                                         |
 | Discoverability               | On by default; only username, first name and profile picture are shown            |
+| Training dates                | Logged up to today in the user's timezone; no planned (future) sessions           |
+| Weeks                         | Monday to Sunday (ISO 8601)                                                       |
+| Custom sports                 | Private to their owner; colour from a fixed palette; deletable once unused        |
 
 ## 2. Repository structure
 

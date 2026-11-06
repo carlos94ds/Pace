@@ -23,7 +23,7 @@ Each phase ends with working, tested functionality and a commit/push. The next p
 
 **Done when:** a new user can register, log in, edit their profile and picture, change language/theme, reset their password and delete their account, with no data left in database or bucket.
 
-## Phase 3 – Training
+## Phase 3 – Training ✓
 
 - Month/week calendar, coloured by sport.
 - Add, edit and delete sessions (all 8 fields); custom sports and gyms.

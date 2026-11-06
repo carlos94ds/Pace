@@ -4,6 +4,8 @@ PACE helps athletes train with more discipline and consistency. It combines a tr
 
 ## Status
 
+**Phase 3 – Training: done.** Month and week calendar coloured by sport, adding/editing/deleting sessions with all fields, custom sports and gyms, history with filters, and totals (training days, hours, hours per sport).
+
 **Phase 2 – Accounts and profiles: done.** Registration, login, password reset, profile with photo, privacy and notification settings, account deletion including files.
 
 **Phase 1 – Foundation: done.** Monorepo, design system, 7 languages, Express API with health check, full database schema migrated on Railway MySQL.

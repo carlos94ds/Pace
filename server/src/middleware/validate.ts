@@ -15,3 +15,8 @@ export function parseBody<T extends z.ZodType>(schema: T, req: Request): z.infer
   }
   return result.data;
 }
+
+/** Same as parseBody, for query strings (`?from=…&to=…`). */
+export function parseQuery<T extends z.ZodType>(schema: T, req: Request): z.infer<T> {
+  return parseBody(schema, { body: req.query } as Request);
+}

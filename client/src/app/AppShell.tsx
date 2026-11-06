@@ -1,4 +1,12 @@
-import { Activity, LogOut, Settings, UserRound, type LucideIcon } from 'lucide-react';
+import {
+  Activity,
+  CalendarDays,
+  History,
+  LogOut,
+  Settings,
+  UserRound,
+  type LucideIcon,
+} from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Link, NavLink, Outlet, useNavigate } from 'react-router';
 import { Avatar } from '../components/Avatar';
@@ -14,6 +22,8 @@ interface NavItem {
 // Only pages that actually exist are listed; each phase adds its own entries.
 const NAV: NavItem[] = [
   { to: '/', labelKey: 'nav.overview', icon: Activity },
+  { to: '/calendar', labelKey: 'nav.calendar', icon: CalendarDays },
+  { to: '/history', labelKey: 'nav.history', icon: History },
   { to: '/profile', labelKey: 'nav.profile', icon: UserRound },
   { to: '/settings', labelKey: 'nav.settings', icon: Settings },
 ];
@@ -87,7 +97,7 @@ export function AppShell() {
       </main>
 
       <nav
-        className="fixed inset-x-0 bottom-0 z-10 grid grid-cols-3 border-t border-border bg-surface/95 pb-[env(safe-area-inset-bottom)] backdrop-blur md:hidden"
+        className="fixed inset-x-0 bottom-0 z-10 grid grid-cols-5 border-t border-border bg-surface/95 pb-[env(safe-area-inset-bottom)] backdrop-blur md:hidden"
         aria-label={t('nav.main')}
       >
         {NAV.map(({ to, labelKey, icon: Icon }) => (

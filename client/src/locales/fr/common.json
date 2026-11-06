@@ -10,11 +10,13 @@
     "overview": "Aperçu",
     "profile": "Profil",
     "settings": "Paramètres",
-    "logout": "Se déconnecter"
+    "logout": "Se déconnecter",
+    "calendar": "Calendrier",
+    "history": "Historique"
   },
   "status": {
     "greeting": "Bienvenue, {{name}}",
-    "subtitle": "Ton compte est prêt. Le calendrier d'entraînement et le tableau de bord arrivent dans les prochaines phases.",
+    "subtitle": "Enregistre tes entraînements dans le calendrier. Le tableau de bord et les rapports hebdomadaires arrivent dans la prochaine phase.",
     "systemTitle": "État du système",
     "refresh": "Vérifier à nouveau",
     "api": "API",
@@ -158,7 +160,8 @@
       "appearance": "Apparence",
       "language": "Langue",
       "about": "À propos",
-      "delete": "Supprimer le compte"
+      "delete": "Supprimer le compte",
+      "sports": "Mes sports"
     },
     "account": {
       "title": "Compte",
@@ -276,6 +279,23 @@
       },
       "timezone": {
         "custom": "Choisis un fuseau horaire valide."
+      },
+      "date": {
+        "custom": "Saisis une date valide.",
+        "in_future": "Tu peux seulement enregistrer des entraînements jusqu'à aujourd'hui."
+      },
+      "durationMinutes": {
+        "too_small": "Saisis au moins 1 minute.",
+        "too_big": "Un entraînement dure au maximum 24 heures (1440 minutes).",
+        "invalid_type": "Saisis la durée en minutes."
+      },
+      "sportId": {
+        "invalid_format": "Choisis un sport.",
+        "not_found": "Ce sport n'existe pas (ou plus)."
+      },
+      "sportName": {
+        "too_small": "Utilise au moins 2 caractères.",
+        "taken": "Tu as déjà un sport avec ce nom."
       }
     },
     "api": {
@@ -290,12 +310,112 @@
       "conflict": "Déjà utilisé.",
       "wrong_password": "Mot de passe incorrect.",
       "unauthenticated": "Ta session a expiré. Reconnecte-toi.",
-      "validation_error": "Vérifie les champs signalés."
+      "validation_error": "Vérifie les champs signalés.",
+      "sport_in_use": "Ce sport est encore utilisé par des entraînements.",
+      "limit_reached": "Tu as atteint le nombre maximum de sports personnels.",
+      "not_found": "Cet élément n'existe plus."
     }
   },
   "notFound": {
     "title": "Page introuvable",
     "text": "Cette page n'existe pas ou a été déplacée.",
     "back": "Retour à l'aperçu"
+  },
+  "training": {
+    "add": "Ajouter un entraînement",
+    "sharedWithFriends": "Détails partagés avec les amis",
+    "privateDetails": "Détails privés",
+    "fields": {
+      "date": "Date",
+      "sport": "Sport",
+      "duration": "Durée (minutes)",
+      "gym": "Salle ou lieu",
+      "punctuality": "Ponctualité",
+      "motivation": "Motivation avant",
+      "rating": "Comment ça s'est passé",
+      "intensity": "Intensité",
+      "reflection": "Réflexion",
+      "shareDetails": "Partager les détails avec les amis"
+    },
+    "scales": {
+      "motivation": "1 = aucune envie · 5 = très motivé",
+      "rating": "1 = mal · 5 = super",
+      "intensity": "1 = très léger · 5 = maximal"
+    },
+    "short": {
+      "motivation": "Motivation",
+      "rating": "Note",
+      "intensity": "Intensité"
+    },
+    "punctuality": {
+      "on_time": "À l'heure",
+      "late": "En retard"
+    },
+    "form": {
+      "newTitle": "Ajouter un entraînement",
+      "editTitle": "Modifier l'entraînement",
+      "create": "Enregistrer",
+      "delete": "Supprimer",
+      "deleteConfirm": "Supprimer cet entraînement ?",
+      "chooseSport": "Choisis un sport",
+      "chooseScore": "Choisis de 1 à 5.",
+      "durationHint": "Par exemple 90 pour une heure et demie.",
+      "reflectionPlaceholder": "Pourquoi ça s'est bien ou mal passé ? Que feras-tu autrement ?",
+      "reflectionHint": "Toi seul le vois, sauf si tu partages les détails de cet entraînement.",
+      "shareDetailsHelp": "Les amis qui peuvent voir ton activité verront aussi la motivation, la note et la réflexion de cet entraînement. Désactivé par défaut."
+    },
+    "sports": {
+      "title": "Mes sports",
+      "description": "Les sports que tu as ajoutés toi-même. Toi seul les vois.",
+      "name": "Nom",
+      "color": "Couleur dans le calendrier",
+      "add": "Ajouter un sport",
+      "addOption": "+ Ajouter ton propre sport…",
+      "newTitle": "Nouveau sport",
+      "edit": "Modifier",
+      "delete": "Supprimer",
+      "none": "Tu n'as pas encore ajouté de sport.",
+      "inUse": "Ce sport est encore utilisé par des entraînements. Modifie ou supprime-les d'abord."
+    },
+    "calendar": {
+      "title": "Calendrier",
+      "subtitle": "Tous tes entraînements en un coup d'œil. Choisis un jour pour voir ou ajouter des entraînements.",
+      "previous": "Précédent",
+      "next": "Suivant",
+      "today": "Aujourd'hui",
+      "view": "Vue",
+      "month": "Mois",
+      "week": "Semaine",
+      "more": "+{{count}} de plus",
+      "restDay": "Pas d'entraînement : jour de repos.",
+      "futureDay": "Ce jour n'est pas encore arrivé."
+    },
+    "stats": {
+      "thisMonth": "Ce mois-ci",
+      "thisWeek": "Cette semaine",
+      "trainingDays": "Jours d'entraînement",
+      "hours": "Heures",
+      "sessions": "Entraînements",
+      "perSport": "Heures par sport",
+      "hoursShort": "{{value}} h",
+      "sessionCount_one": "{{count}} entraînement",
+      "sessionCount_other": "{{count}} entraînements",
+      "empty": "Pas encore d'entraînement sur cette période."
+    },
+    "history": {
+      "title": "Historique",
+      "subtitle": "Tous tes entraînements enregistrés, du plus récent au plus ancien.",
+      "filters": "Filtres",
+      "allSports": "Tous les sports",
+      "any": "Tous",
+      "from": "Du",
+      "to": "Au",
+      "clear": "Effacer les filtres",
+      "empty": "Pas encore d'entraînement",
+      "emptyHint": "Ajoute ton premier entraînement pour construire ton historique.",
+      "noResults": "Aucun entraînement ne correspond à ces filtres",
+      "noResultsHint": "Essaie d'autres filtres ou efface-les.",
+      "loadMore": "Charger plus"
+    }
   }
 }

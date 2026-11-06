@@ -11,6 +11,7 @@ import { LANGUAGE_NAMES } from '../../i18n';
 import { fetchHealth } from '../../lib/api';
 import { setTextSize, setTheme } from '../../lib/preferences';
 import { useCurrentUser } from '../auth/session';
+import { CustomSportsSection } from '../training/CustomSportsSection';
 import { DeleteAccountDialog } from './DeleteAccountDialog';
 import {
   AccountSection,
@@ -22,6 +23,7 @@ import {
 
 const SECTIONS = [
   'account',
+  'sports',
   'privacy',
   'notifications',
   'appearance',
@@ -55,6 +57,9 @@ export function SettingsPage() {
       <div className="grid max-w-3xl gap-6 [&>*]:scroll-mt-20">
         <div id="account">
           <AccountSection />
+        </div>
+        <div id="sports">
+          <CustomSportsSection />
         </div>
         <div id="privacy">
           <PrivacySection />

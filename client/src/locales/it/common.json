@@ -10,11 +10,13 @@
     "overview": "Panoramica",
     "profile": "Profilo",
     "settings": "Impostazioni",
-    "logout": "Esci"
+    "logout": "Esci",
+    "calendar": "Calendario",
+    "history": "Cronologia"
   },
   "status": {
     "greeting": "Benvenuto, {{name}}",
-    "subtitle": "Il tuo account è pronto. Il calendario allenamenti e la dashboard arriveranno nelle prossime fasi.",
+    "subtitle": "Registra i tuoi allenamenti nel calendario. La dashboard e i report settimanali arrivano nella prossima fase.",
     "systemTitle": "Stato del sistema",
     "refresh": "Controlla di nuovo",
     "api": "API",
@@ -158,7 +160,8 @@
       "appearance": "Aspetto",
       "language": "Lingua",
       "about": "Info",
-      "delete": "Elimina account"
+      "delete": "Elimina account",
+      "sports": "I miei sport"
     },
     "account": {
       "title": "Account",
@@ -276,6 +279,23 @@
       },
       "timezone": {
         "custom": "Scegli un fuso orario valido."
+      },
+      "date": {
+        "custom": "Inserisci una data valida.",
+        "in_future": "Puoi registrare allenamenti solo fino a oggi."
+      },
+      "durationMinutes": {
+        "too_small": "Inserisci almeno 1 minuto.",
+        "too_big": "Un allenamento dura al massimo 24 ore (1440 minuti).",
+        "invalid_type": "Inserisci la durata in minuti."
+      },
+      "sportId": {
+        "invalid_format": "Scegli uno sport.",
+        "not_found": "Questo sport non esiste (più)."
+      },
+      "sportName": {
+        "too_small": "Usa almeno 2 caratteri.",
+        "taken": "Hai già uno sport con questo nome."
       }
     },
     "api": {
@@ -290,12 +310,112 @@
       "conflict": "È già in uso.",
       "wrong_password": "Password errata.",
       "unauthenticated": "La sessione è scaduta. Accedi di nuovo.",
-      "validation_error": "Controlla i campi evidenziati."
+      "validation_error": "Controlla i campi evidenziati.",
+      "sport_in_use": "Questo sport è ancora usato in alcuni allenamenti.",
+      "limit_reached": "Hai raggiunto il numero massimo di sport personali.",
+      "not_found": "Questo elemento non esiste più."
     }
   },
   "notFound": {
     "title": "Pagina non trovata",
     "text": "Questa pagina non esiste o è stata spostata.",
     "back": "Torna alla panoramica"
+  },
+  "training": {
+    "add": "Aggiungi allenamento",
+    "sharedWithFriends": "Dettagli condivisi con gli amici",
+    "privateDetails": "Dettagli privati",
+    "fields": {
+      "date": "Data",
+      "sport": "Sport",
+      "duration": "Durata (minuti)",
+      "gym": "Palestra o luogo",
+      "punctuality": "Puntualità",
+      "motivation": "Motivazione prima",
+      "rating": "Com'è andata",
+      "intensity": "Intensità",
+      "reflection": "Riflessione",
+      "shareDetails": "Condividi i dettagli con gli amici"
+    },
+    "scales": {
+      "motivation": "1 = nessuna voglia · 5 = motivatissimo",
+      "rating": "1 = male · 5 = benissimo",
+      "intensity": "1 = molto leggera · 5 = massima"
+    },
+    "short": {
+      "motivation": "Motivazione",
+      "rating": "Valutazione",
+      "intensity": "Intensità"
+    },
+    "punctuality": {
+      "on_time": "Puntuale",
+      "late": "In ritardo"
+    },
+    "form": {
+      "newTitle": "Aggiungi allenamento",
+      "editTitle": "Modifica allenamento",
+      "create": "Salva allenamento",
+      "delete": "Elimina",
+      "deleteConfirm": "Eliminare questo allenamento?",
+      "chooseSport": "Scegli uno sport",
+      "chooseScore": "Scegli da 1 a 5.",
+      "durationHint": "Ad esempio 90 per un'ora e mezza.",
+      "reflectionPlaceholder": "Perché è andata bene o male? Cosa farai diversamente?",
+      "reflectionHint": "Lo vedi solo tu, a meno che tu non condivida i dettagli di questo allenamento.",
+      "shareDetailsHelp": "Gli amici che possono vedere la tua attività vedranno anche motivazione, valutazione e riflessione di questo allenamento. Disattivato per impostazione predefinita."
+    },
+    "sports": {
+      "title": "I miei sport",
+      "description": "Sport che hai aggiunto tu. Solo tu li vedi.",
+      "name": "Nome",
+      "color": "Colore nel calendario",
+      "add": "Aggiungi sport",
+      "addOption": "+ Aggiungi il tuo sport…",
+      "newTitle": "Nuovo sport",
+      "edit": "Modifica",
+      "delete": "Elimina",
+      "none": "Non hai ancora aggiunto sport tuoi.",
+      "inUse": "Questo sport è ancora usato in alcuni allenamenti. Modifica o elimina prima quegli allenamenti."
+    },
+    "calendar": {
+      "title": "Calendario",
+      "subtitle": "Tutti i tuoi allenamenti a colpo d'occhio. Scegli un giorno per vedere o aggiungere allenamenti.",
+      "previous": "Precedente",
+      "next": "Successivo",
+      "today": "Oggi",
+      "view": "Vista",
+      "month": "Mese",
+      "week": "Settimana",
+      "more": "+{{count}} altri",
+      "restDay": "Nessun allenamento: giorno di riposo.",
+      "futureDay": "Questo giorno non è ancora arrivato."
+    },
+    "stats": {
+      "thisMonth": "Questo mese",
+      "thisWeek": "Questa settimana",
+      "trainingDays": "Giorni di allenamento",
+      "hours": "Ore",
+      "sessions": "Allenamenti",
+      "perSport": "Ore per sport",
+      "hoursShort": "{{value}} h",
+      "sessionCount_one": "{{count}} allenamento",
+      "sessionCount_other": "{{count}} allenamenti",
+      "empty": "Ancora nessun allenamento in questo periodo."
+    },
+    "history": {
+      "title": "Cronologia",
+      "subtitle": "Tutti gli allenamenti registrati, dal più recente.",
+      "filters": "Filtri",
+      "allSports": "Tutti gli sport",
+      "any": "Tutti",
+      "from": "Dal",
+      "to": "Al",
+      "clear": "Cancella filtri",
+      "empty": "Ancora nessun allenamento",
+      "emptyHint": "Aggiungi il tuo primo allenamento per iniziare la cronologia.",
+      "noResults": "Nessun allenamento corrisponde a questi filtri",
+      "noResultsHint": "Prova altri filtri o cancellali.",
+      "loadMore": "Carica altri"
+    }
   }
 }

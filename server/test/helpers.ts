@@ -66,5 +66,7 @@ export async function registeredAgent(app: Parameters<typeof request.agent>[0], 
 }
 
 export async function cleanupTestUsers() {
-  await prisma.user.deleteMany({ where: { email: { endsWith: TEST_EMAIL_DOMAIN } } });
+  const where = { email: { endsWith: TEST_EMAIL_DOMAIN } };
+  await prisma.trainingSession.deleteMany({ where: { user: where } });
+  await prisma.user.deleteMany({ where });
 }

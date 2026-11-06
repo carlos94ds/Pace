@@ -5,10 +5,12 @@ interface DialogProps {
   title: string;
   onClose: () => void;
   children: ReactNode;
+  /** `lg` for long forms; the dialog scrolls when it's taller than the screen. */
+  size?: 'md' | 'lg';
 }
 
 /** Native <dialog>: focus trapping, Escape to close and the backdrop come for free. */
-export function Dialog({ open, title, onClose, children }: DialogProps) {
+export function Dialog({ open, title, onClose, children, size = 'md' }: DialogProps) {
   const ref = useRef<HTMLDialogElement>(null);
   useEffect(() => {
     const dialog = ref.current;
@@ -22,7 +24,9 @@ export function Dialog({ open, title, onClose, children }: DialogProps) {
       ref={ref}
       onClose={onClose}
       aria-label={title}
-      className="m-auto w-[min(28rem,calc(100vw-2rem))] rounded-2xl border border-border bg-surface p-6 text-text backdrop:bg-black/50"
+      className={`m-auto max-h-[calc(100dvh-2rem)] overflow-y-auto overscroll-contain ${
+        size === 'lg' ? 'w-[min(36rem,calc(100vw-2rem))]' : 'w-[min(28rem,calc(100vw-2rem))]'
+      } rounded-2xl border border-border bg-surface p-6 text-text backdrop:bg-black/50`}
     >
       <h2 className="mb-4 text-lg font-semibold">{title}</h2>
       {children}

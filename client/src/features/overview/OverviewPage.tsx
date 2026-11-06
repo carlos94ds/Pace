@@ -1,4 +1,4 @@
-import type { HealthResponse } from '@pace/shared';
+import { addDays, startOfWeek, todayIn, type HealthResponse } from '@pace/shared';
 import { useQuery } from '@tanstack/react-query';
 import { Check, Circle, RefreshCw } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
@@ -8,9 +8,10 @@ import { Card } from '../../components/Card';
 import { StatusDot } from '../../components/StatusDot';
 import { fetchHealth } from '../../lib/api';
 import { useCurrentUser } from '../auth/session';
+import { StatsSummary } from '../training/StatsSummary';
 
 const PHASES = [1, 2, 3, 4, 5, 6, 7] as const;
-const CURRENT_PHASE = 2;
+const CURRENT_PHASE = 3;
 
 export function OverviewPage() {
   const { t, i18n } = useTranslation();
@@ -20,6 +21,8 @@ export function OverviewPage() {
     queryFn: () => fetchHealth<HealthResponse>(),
     refetchInterval: 30_000,
   });
+
+  const weekStart = startOfWeek(todayIn(me.profile.timezone));
 
   const apiUp = health.isSuccess;
   const dbUp = health.data?.database === 'up';
@@ -51,6 +54,14 @@ export function OverviewPage() {
         title={t('status.greeting', { name: me.profile.firstName })}
         subtitle={t('status.subtitle')}
       />
+
+      <div className="mb-6">
+        <StatsSummary
+          from={weekStart}
+          to={addDays(weekStart, 6)}
+          title={t('training.stats.thisWeek')}
+        />
+      </div>
 
       <div className="grid gap-6 lg:grid-cols-[1fr_1.2fr]">
         <Card

@@ -13,6 +13,7 @@ import { authRouter } from './modules/auth/auth.routes';
 import { catalogRouter } from './modules/catalog/catalog.routes';
 import { healthRouter } from './modules/health/health.routes';
 import { meRouter } from './modules/me/me.routes';
+import { trainingRouter } from './modules/training/training.routes';
 import { usersRouter } from './modules/users/users.routes';
 
 export interface AppOptions {
@@ -68,6 +69,7 @@ export function createApp(
   api.use('/me', meRouter(ctx));
   api.use('/users', usersRouter(ctx));
   api.use(catalogRouter(ctx));
+  api.use(trainingRouter(ctx));
   app.use('/api/v1', api);
   app.use('/api', notFound);
 

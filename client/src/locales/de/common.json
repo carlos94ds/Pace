@@ -10,11 +10,13 @@
     "overview": "Übersicht",
     "profile": "Profil",
     "settings": "Einstellungen",
-    "logout": "Abmelden"
+    "logout": "Abmelden",
+    "calendar": "Kalender",
+    "history": "Verlauf"
   },
   "status": {
     "greeting": "Willkommen, {{name}}",
-    "subtitle": "Dein Konto ist bereit. Trainingskalender und Dashboard folgen in den nächsten Phasen.",
+    "subtitle": "Trage dein Training im Kalender ein. Dashboard und Wochenberichte folgen in der nächsten Phase.",
     "systemTitle": "Systemstatus",
     "refresh": "Erneut prüfen",
     "api": "API",
@@ -158,7 +160,8 @@
       "appearance": "Darstellung",
       "language": "Sprache",
       "about": "Über PACE",
-      "delete": "Konto löschen"
+      "delete": "Konto löschen",
+      "sports": "Meine Sportarten"
     },
     "account": {
       "title": "Konto",
@@ -276,6 +279,23 @@
       },
       "timezone": {
         "custom": "Wähle eine gültige Zeitzone."
+      },
+      "date": {
+        "custom": "Gib ein gültiges Datum ein.",
+        "in_future": "Du kannst Trainings nur bis heute eintragen."
+      },
+      "durationMinutes": {
+        "too_small": "Gib mindestens 1 Minute ein.",
+        "too_big": "Ein Training dauert höchstens 24 Stunden (1440 Minuten).",
+        "invalid_type": "Gib die Dauer in Minuten ein."
+      },
+      "sportId": {
+        "invalid_format": "Wähle eine Sportart.",
+        "not_found": "Diese Sportart existiert nicht (mehr)."
+      },
+      "sportName": {
+        "too_small": "Verwende mindestens 2 Zeichen.",
+        "taken": "Du hast bereits eine Sportart mit diesem Namen."
       }
     },
     "api": {
@@ -290,12 +310,112 @@
       "conflict": "Das wird bereits verwendet.",
       "wrong_password": "Falsches Passwort.",
       "unauthenticated": "Deine Sitzung ist abgelaufen. Bitte melde dich erneut an.",
-      "validation_error": "Prüfe die markierten Felder."
+      "validation_error": "Prüfe die markierten Felder.",
+      "sport_in_use": "Diese Sportart wird noch in Trainings verwendet.",
+      "limit_reached": "Du hast die maximale Anzahl eigener Sportarten erreicht.",
+      "not_found": "Dieser Eintrag existiert nicht mehr."
     }
   },
   "notFound": {
     "title": "Seite nicht gefunden",
     "text": "Diese Seite existiert nicht oder wurde verschoben.",
     "back": "Zurück zur Übersicht"
+  },
+  "training": {
+    "add": "Training hinzufügen",
+    "sharedWithFriends": "Details mit Freunden geteilt",
+    "privateDetails": "Details privat",
+    "fields": {
+      "date": "Datum",
+      "sport": "Sportart",
+      "duration": "Dauer (Minuten)",
+      "gym": "Gym oder Ort",
+      "punctuality": "Pünktlichkeit",
+      "motivation": "Motivation vorher",
+      "rating": "Wie es lief",
+      "intensity": "Intensität",
+      "reflection": "Reflexion",
+      "shareDetails": "Details mit Freunden teilen"
+    },
+    "scales": {
+      "motivation": "1 = keine Lust · 5 = voll motiviert",
+      "rating": "1 = schlecht · 5 = super",
+      "intensity": "1 = sehr leicht · 5 = maximal"
+    },
+    "short": {
+      "motivation": "Motivation",
+      "rating": "Bewertung",
+      "intensity": "Intensität"
+    },
+    "punctuality": {
+      "on_time": "Pünktlich",
+      "late": "Zu spät"
+    },
+    "form": {
+      "newTitle": "Training hinzufügen",
+      "editTitle": "Training bearbeiten",
+      "create": "Training speichern",
+      "delete": "Löschen",
+      "deleteConfirm": "Dieses Training löschen?",
+      "chooseSport": "Wähle eine Sportart",
+      "chooseScore": "Wähle 1 bis 5.",
+      "durationHint": "Zum Beispiel 90 für anderthalb Stunden.",
+      "reflectionPlaceholder": "Warum lief es gut oder schlecht? Was machst du nächstes Mal anders?",
+      "reflectionHint": "Nur du siehst das, außer du teilst die Details dieses Trainings.",
+      "shareDetailsHelp": "Freunde, die deine Aktivität sehen dürfen, sehen dann auch Motivation, Bewertung und Reflexion dieses Trainings. Standardmäßig aus."
+    },
+    "sports": {
+      "title": "Meine Sportarten",
+      "description": "Sportarten, die du selbst hinzugefügt hast. Nur du siehst sie.",
+      "name": "Name",
+      "color": "Farbe im Kalender",
+      "add": "Sportart hinzufügen",
+      "addOption": "+ Eigene Sportart hinzufügen…",
+      "newTitle": "Neue Sportart",
+      "edit": "Bearbeiten",
+      "delete": "Löschen",
+      "none": "Du hast noch keine eigenen Sportarten hinzugefügt.",
+      "inUse": "Diese Sportart wird noch in Trainings verwendet. Ändere oder lösche diese Trainings zuerst."
+    },
+    "calendar": {
+      "title": "Kalender",
+      "subtitle": "Alle Trainings auf einen Blick. Wähle einen Tag, um Trainings zu sehen oder hinzuzufügen.",
+      "previous": "Zurück",
+      "next": "Weiter",
+      "today": "Heute",
+      "view": "Ansicht",
+      "month": "Monat",
+      "week": "Woche",
+      "more": "+{{count}} weitere",
+      "restDay": "Kein Training: Ruhetag.",
+      "futureDay": "Dieser Tag liegt noch in der Zukunft."
+    },
+    "stats": {
+      "thisMonth": "Dieser Monat",
+      "thisWeek": "Diese Woche",
+      "trainingDays": "Trainingstage",
+      "hours": "Stunden",
+      "sessions": "Trainings",
+      "perSport": "Stunden pro Sportart",
+      "hoursShort": "{{value}} Std.",
+      "sessionCount_one": "{{count}} Training",
+      "sessionCount_other": "{{count}} Trainings",
+      "empty": "Noch keine Trainings in diesem Zeitraum."
+    },
+    "history": {
+      "title": "Verlauf",
+      "subtitle": "Alle eingetragenen Trainings, neueste zuerst.",
+      "filters": "Filter",
+      "allSports": "Alle Sportarten",
+      "any": "Alle",
+      "from": "Von",
+      "to": "Bis",
+      "clear": "Filter zurücksetzen",
+      "empty": "Noch keine Trainings",
+      "emptyHint": "Füge dein erstes Training hinzu, um deinen Verlauf aufzubauen.",
+      "noResults": "Keine Trainings für diese Filter",
+      "noResultsHint": "Versuche andere Filter oder setze sie zurück.",
+      "loadMore": "Mehr laden"
+    }
   }
 }

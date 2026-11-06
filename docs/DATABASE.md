@@ -200,8 +200,10 @@ model TrainingSession {
   @@index([userId, date])     // calendar, stats, streaks, reports
   @@index([sportId])
 }
-// Deleting a custom sport that still has sessions is blocked (Restrict);
-// the UI offers to merge it into another sport first.
+// Deleting a custom sport that still has sessions is blocked (Restrict, and a 409
+// `sport_in_use` from the API); the user moves or deletes those sessions first.
+// Because of this Restrict, account deletion removes the user's sessions explicitly
+// before the user row: MySQL doesn't guarantee which of the two cascades runs first.
 
 // ---------- Goals & reports ----------
 
@@ -336,7 +338,7 @@ Enums: `TrainingLevel` (BEGINNER, INTERMEDIATE, ADVANCED, COMPETITIVE, PROFESSIO
 
 ## Housekeeping
 
-`PendingFileDeletion (id, key, attempts, lastError, createdAt)`: storage keys to delete. Rows are written in the same transaction as the database change that orphans a file (replacing an avatar, deleting an account), then processed immediately; failures are retried every 15 minutes by the scheduler.
+`PendingFileDeletion (id, key, attempts, lastError, createdAt)`: storage keys to delete. Rows are written in the same transaction as the database change that orphans a file (replacing an avatar, deleting an account), then processed immediately (only that request's own keys); failures are retried every 15 minutes by the scheduler. Processing is idempotent, so concurrent runs over the same rows are harmless.
 
 ## Notes
 
