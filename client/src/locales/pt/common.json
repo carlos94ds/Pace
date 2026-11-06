@@ -15,7 +15,9 @@
     "history": "Histórico",
     "dashboard": "Painel",
     "reports": "Relatórios",
-    "friends": "Amigos"
+    "friends": "Amigos",
+    "weight": "Peso",
+    "notifications": "Notificações"
   },
   "fields": {
     "email": "E-mail",
@@ -279,6 +281,18 @@
       },
       "goalSport": {
         "required": "Escolhe um desporto."
+      },
+      "weightKg": {
+        "too_small": "Introduz um peso entre 20 e 400 kg.",
+        "too_big": "Introduz um peso entre 20 e 400 kg.",
+        "invalid_type": "Introduz o teu peso em kg, por ex. 78,4."
+      },
+      "measuredOn": {
+        "in_future": "A data não pode estar no futuro.",
+        "invalid_date": "Introduz uma data válida."
+      },
+      "evidence": {
+        "required": "Adiciona uma foto da tua balança com este peso."
       }
     },
     "api": {
@@ -603,7 +617,8 @@
       "weekOf": "Semana de {{date}}",
       "recent": "Treinos recentes",
       "lastReport": "Último relatório semanal",
-      "noStreakGoal": "{{name}} não definiu um objetivo de dias de treino, por isso ainda não há sequência."
+      "noStreakGoal": "{{name}} não definiu um objetivo de dias de treino, por isso ainda não há sequência.",
+      "weightShared": "{{name}} partilha valores de peso com amigos. Fotos e notas continuam privadas."
     }
   },
   "achievements": {
@@ -645,6 +660,56 @@
         "title": "Objetivos semanais atingidos",
         "description": "Atingiste todos os objetivos da semana."
       }
+    }
+  },
+  "weight": {
+    "title": "Peso",
+    "subtitle": "O teu histórico de peso, cada medição confirmada com uma foto da balança.",
+    "add": "Adicionar medição",
+    "privacyPrivate": "Só tu vês o teu peso e as tuas fotos.",
+    "privacyShared": "Os amigos veem os teus valores de peso. Fotos e notas continuam privadas.",
+    "privacyLink": "Alterar nas definições de privacidade",
+    "current": "Peso atual",
+    "change": "Variação",
+    "since": "desde {{date}}",
+    "setHeight": "Define-a no teu perfil",
+    "entries": "Medições",
+    "history": "Peso ao longo do tempo",
+    "measurements": "Medições",
+    "empty": "Ainda sem medições. Adiciona a primeira com uma foto da tua balança.",
+    "evidence": "Foto da balança",
+    "evidenceAlt": "Balança a mostrar {{weight}}",
+    "viewPhoto": "Foto",
+    "delete": "Eliminar medição",
+    "deleteConfirm": "Eliminar com foto",
+    "weightKg": "Peso (kg)",
+    "evidenceHelp": "Obrigatório. Tira uma foto em que o visor da balança seja legível. Os dados de localização são removidos.",
+    "previewAlt": "Foto escolhida",
+    "choosePhoto": "Tirar ou escolher foto",
+    "changePhoto": "Escolher outra foto",
+    "note": "Nota (opcional)",
+    "noteHint": "Só tu vês isto.",
+    "save": "Guardar medição",
+    "profileLink": "Histórico de peso com prova fotográfica. Privado por defeito."
+  },
+  "notifications": {
+    "title": "Notificações",
+    "subtitle": "Pedidos de amizade, reações, marcos e os teus relatórios semanais.",
+    "markAllRead": "Marcar tudo como lido",
+    "settings": "Definições de notificações",
+    "empty": "Sem notificações",
+    "emptyHint": "Aqui encontras pedidos de amizade, reações e relatórios semanais.",
+    "unread": "não lida",
+    "text": {
+      "friendRequest": "{{firstName}} enviou-te um pedido de amizade.",
+      "friendAccepted": "{{firstName}} aceitou o teu pedido de amizade.",
+      "friendAchievement": "{{firstName}} alcançou uma conquista: {{achievement}}.",
+      "reaction_session": "{{firstName}} reagiu “{{reaction}}” ao teu treino.",
+      "reaction_achievement": "{{firstName}} reagiu “{{reaction}}” à tua conquista.",
+      "weeklyReport": "O teu relatório da semana de {{week}} está pronto.",
+      "goalsAchieved": "Atingiste {{achieved}} de {{total}} objetivos na semana de {{week}}.",
+      "streakMilestone": "Marco de sequência: {{weeks}} semanas seguidas a atingir o objetivo de dias de treino.",
+      "unknown": "Nova notificação."
     }
   }
 }

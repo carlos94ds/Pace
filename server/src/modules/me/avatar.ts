@@ -17,9 +17,14 @@ export async function processAvatar(input: Buffer): Promise<Buffer> {
   }
   if (!format || !ACCEPTED_FORMATS.has(format)) throw new HttpError(415, 'unsupported_image');
 
-  return sharp(input, { limitInputPixels: 40_000_000 })
-    .rotate() // apply EXIF orientation before the metadata is dropped
-    .resize(512, 512, { fit: 'cover' })
-    .webp({ quality: 85 })
-    .toBuffer();
+  try {
+    return await sharp(input, { limitInputPixels: 40_000_000 })
+      .rotate() // apply EXIF orientation before the metadata is dropped
+      .resize(512, 512, { fit: 'cover' })
+      .webp({ quality: 85 })
+      .toBuffer();
+  } catch {
+    // Recognised as an image but can't be decoded: a damaged or disguised file.
+    throw new HttpError(415, 'unsupported_image');
+  }
 }

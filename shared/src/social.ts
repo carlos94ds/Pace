@@ -124,6 +124,8 @@ export interface UserProfileView {
   } | null;
   streaks: { current: number | null; longest: number | null } | null;
   achievements: EarnedAchievement[] | null;
+  /** Weight values (no photos or notes), only when the owner shares weight with friends. */
+  weight: { measuredOn: string; weightKg: number }[] | null;
   /** The latest weekly report's numbers, without reflections or analysis text. */
   report: {
     weekStart: string;

@@ -57,13 +57,18 @@ export function HistoryPage() {
 
   return (
     <>
-      <div className="flex flex-wrap items-start justify-between gap-4">
-        <PageHeader title={t('training.history.title')} subtitle={t('training.history.subtitle')} />
-        <Button onClick={() => setDialog({})}>
-          <Plus className="size-4" aria-hidden="true" />
-          {t('training.add')}
-        </Button>
-      </div>
+      <PageHeader
+        title={t('training.history.title')}
+        subtitle={t('training.history.subtitle')}
+        actions={
+          <>
+            <Button onClick={() => setDialog({})}>
+              <Plus className="size-4" aria-hidden="true" />
+              {t('training.add')}
+            </Button>
+          </>
+        }
+      />
 
       <section
         aria-label={t('training.history.filters')}

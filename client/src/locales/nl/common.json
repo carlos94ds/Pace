@@ -15,7 +15,9 @@
     "history": "Geschiedenis",
     "dashboard": "Dashboard",
     "reports": "Rapporten",
-    "friends": "Vrienden"
+    "friends": "Vrienden",
+    "weight": "Gewicht",
+    "notifications": "Meldingen"
   },
   "fields": {
     "email": "E-mail",
@@ -279,6 +281,18 @@
       },
       "goalSport": {
         "required": "Kies een sport."
+      },
+      "weightKg": {
+        "too_small": "Vul een gewicht in tussen 20 en 400 kg.",
+        "too_big": "Vul een gewicht in tussen 20 en 400 kg.",
+        "invalid_type": "Vul je gewicht in kg in, bijv. 78,4."
+      },
+      "measuredOn": {
+        "in_future": "De datum kan niet in de toekomst liggen.",
+        "invalid_date": "Vul een geldige datum in."
+      },
+      "evidence": {
+        "required": "Voeg een foto toe van je weegschaal met dit gewicht."
       }
     },
     "api": {
@@ -603,7 +617,8 @@
       "weekOf": "Week van {{date}}",
       "recent": "Recente trainingen",
       "lastReport": "Laatste weekrapport",
-      "noStreakGoal": "{{name}} heeft geen doel voor trainingsdagen ingesteld, dus er is nog geen streak."
+      "noStreakGoal": "{{name}} heeft geen doel voor trainingsdagen ingesteld, dus er is nog geen streak.",
+      "weightShared": "{{name}} deelt gewichtswaarden met vrienden. Foto's en notities blijven privé."
     }
   },
   "achievements": {
@@ -645,6 +660,56 @@
         "title": "Weekdoelen gehaald",
         "description": "Al je weekdoelen gehaald."
       }
+    }
+  },
+  "weight": {
+    "title": "Gewicht",
+    "subtitle": "Je gewichtsverloop, elke meting bevestigd met een foto van de weegschaal.",
+    "add": "Meting toevoegen",
+    "privacyPrivate": "Alleen jij ziet je gewicht en foto's.",
+    "privacyShared": "Vrienden zien je gewichtswaarden. Foto's en notities blijven privé.",
+    "privacyLink": "Wijzigen in privacy-instellingen",
+    "current": "Huidig gewicht",
+    "change": "Verschil",
+    "since": "sinds {{date}}",
+    "setHeight": "Vul dit in bij je profiel",
+    "entries": "Metingen",
+    "history": "Gewicht door de tijd",
+    "measurements": "Metingen",
+    "empty": "Nog geen metingen. Voeg je eerste toe met een foto van je weegschaal.",
+    "evidence": "Foto van de weegschaal",
+    "evidenceAlt": "Weegschaal met {{weight}}",
+    "viewPhoto": "Foto",
+    "delete": "Meting verwijderen",
+    "deleteConfirm": "Verwijderen met foto",
+    "weightKg": "Gewicht (kg)",
+    "evidenceHelp": "Verplicht. Maak een foto waarop het display van de weegschaal leesbaar is. Locatiegegevens worden verwijderd.",
+    "previewAlt": "Gekozen foto",
+    "choosePhoto": "Foto maken of kiezen",
+    "changePhoto": "Andere foto kiezen",
+    "note": "Notitie (optioneel)",
+    "noteHint": "Alleen jij ziet dit.",
+    "save": "Meting opslaan",
+    "profileLink": "Gewichtsverloop met fotobewijs. Standaard privé."
+  },
+  "notifications": {
+    "title": "Meldingen",
+    "subtitle": "Vriendschapsverzoeken, reacties, mijlpalen en je weekrapporten.",
+    "markAllRead": "Alles als gelezen markeren",
+    "settings": "Meldingsinstellingen",
+    "empty": "Geen meldingen",
+    "emptyHint": "Hier vind je vriendschapsverzoeken, reacties en weekrapporten.",
+    "unread": "ongelezen",
+    "text": {
+      "friendRequest": "{{firstName}} heeft je een vriendschapsverzoek gestuurd.",
+      "friendAccepted": "{{firstName}} heeft je vriendschapsverzoek geaccepteerd.",
+      "friendAchievement": "{{firstName}} heeft een prestatie behaald: {{achievement}}.",
+      "reaction_session": "{{firstName}} reageerde “{{reaction}}” op je training.",
+      "reaction_achievement": "{{firstName}} reageerde “{{reaction}}” op je prestatie.",
+      "weeklyReport": "Je weekrapport voor de week van {{week}} staat klaar.",
+      "goalsAchieved": "Je hebt {{achieved}} van de {{total}} doelen gehaald in de week van {{week}}.",
+      "streakMilestone": "Streak-mijlpaal: {{weeks}} weken op rij je doel voor trainingsdagen gehaald.",
+      "unknown": "Nieuwe melding."
     }
   }
 }

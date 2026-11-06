@@ -15,7 +15,9 @@
     "history": "Cronologia",
     "dashboard": "Dashboard",
     "reports": "Report",
-    "friends": "Amici"
+    "friends": "Amici",
+    "weight": "Peso",
+    "notifications": "Notifiche"
   },
   "fields": {
     "email": "Email",
@@ -279,6 +281,18 @@
       },
       "goalSport": {
         "required": "Scegli uno sport."
+      },
+      "weightKg": {
+        "too_small": "Inserisci un peso tra 20 e 400 kg.",
+        "too_big": "Inserisci un peso tra 20 e 400 kg.",
+        "invalid_type": "Inserisci il tuo peso in kg, ad es. 78,4."
+      },
+      "measuredOn": {
+        "in_future": "La data non può essere nel futuro.",
+        "invalid_date": "Inserisci una data valida."
+      },
+      "evidence": {
+        "required": "Aggiungi una foto della bilancia con questo peso."
       }
     },
     "api": {
@@ -603,7 +617,8 @@
       "weekOf": "Settimana del {{date}}",
       "recent": "Allenamenti recenti",
       "lastReport": "Ultimo report settimanale",
-      "noStreakGoal": "{{name}} non ha impostato un obiettivo di giorni di allenamento, quindi non c'è ancora una serie."
+      "noStreakGoal": "{{name}} non ha impostato un obiettivo di giorni di allenamento, quindi non c'è ancora una serie.",
+      "weightShared": "{{name}} condivide i valori del peso con gli amici. Foto e note restano private."
     }
   },
   "achievements": {
@@ -645,6 +660,56 @@
         "title": "Obiettivi settimanali raggiunti",
         "description": "Hai raggiunto tutti gli obiettivi della settimana."
       }
+    }
+  },
+  "weight": {
+    "title": "Peso",
+    "subtitle": "Lo storico del tuo peso, ogni misurazione verificata con una foto della bilancia.",
+    "add": "Aggiungi misurazione",
+    "privacyPrivate": "Solo tu vedi il tuo peso e le tue foto.",
+    "privacyShared": "Gli amici vedono i valori del tuo peso. Foto e note restano private.",
+    "privacyLink": "Modifica nelle impostazioni di privacy",
+    "current": "Peso attuale",
+    "change": "Variazione",
+    "since": "dal {{date}}",
+    "setHeight": "Impostala nel tuo profilo",
+    "entries": "Misurazioni",
+    "history": "Peso nel tempo",
+    "measurements": "Misurazioni",
+    "empty": "Ancora nessuna misurazione. Aggiungi la prima con una foto della bilancia.",
+    "evidence": "Foto della bilancia",
+    "evidenceAlt": "Bilancia che mostra {{weight}}",
+    "viewPhoto": "Foto",
+    "delete": "Elimina misurazione",
+    "deleteConfirm": "Elimina con foto",
+    "weightKg": "Peso (kg)",
+    "evidenceHelp": "Obbligatoria. Scatta una foto in cui il display della bilancia sia leggibile. I dati di posizione vengono rimossi.",
+    "previewAlt": "Foto scelta",
+    "choosePhoto": "Scatta o scegli una foto",
+    "changePhoto": "Scegli un'altra foto",
+    "note": "Nota (facoltativa)",
+    "noteHint": "La vedi solo tu.",
+    "save": "Salva misurazione",
+    "profileLink": "Storico del peso con prova fotografica. Privato per impostazione predefinita."
+  },
+  "notifications": {
+    "title": "Notifiche",
+    "subtitle": "Richieste di amicizia, reazioni, traguardi e i tuoi report settimanali.",
+    "markAllRead": "Segna tutte come lette",
+    "settings": "Impostazioni notifiche",
+    "empty": "Nessuna notifica",
+    "emptyHint": "Qui trovi richieste di amicizia, reazioni e report settimanali.",
+    "unread": "non letta",
+    "text": {
+      "friendRequest": "{{firstName}} ti ha inviato una richiesta di amicizia.",
+      "friendAccepted": "{{firstName}} ha accettato la tua richiesta di amicizia.",
+      "friendAchievement": "{{firstName}} ha ottenuto un traguardo: {{achievement}}.",
+      "reaction_session": "{{firstName}} ha reagito “{{reaction}}” al tuo allenamento.",
+      "reaction_achievement": "{{firstName}} ha reagito “{{reaction}}” al tuo traguardo.",
+      "weeklyReport": "Il tuo report della settimana del {{week}} è pronto.",
+      "goalsAchieved": "Hai raggiunto {{achieved}} obiettivi su {{total}} nella settimana del {{week}}.",
+      "streakMilestone": "Traguardo serie: {{weeks}} settimane di fila con l'obiettivo di giorni raggiunto.",
+      "unknown": "Nuova notifica."
     }
   }
 }

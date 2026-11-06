@@ -1,5 +1,6 @@
 import type { AppContext } from '../context';
 import { processFileDeletions } from '../lib/file-deletions';
+import { pruneNotifications } from '../modules/notifications/notifications.routes';
 import { generateDueReports } from '../modules/reports/generate';
 
 const EVERY_15_MINUTES = 15 * 60 * 1000;
@@ -22,6 +23,7 @@ export function startScheduler(ctx: AppContext): () => void {
   const run = async () => {
     await job('Weekly reports generated', () => generateDueReports(ctx));
     await job('Retried file deletions', () => processFileDeletions(ctx));
+    await job('Old read notifications removed', () => pruneNotifications(ctx.prisma));
   };
   void run();
   const timer = setInterval(run, EVERY_15_MINUTES);

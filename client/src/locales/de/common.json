@@ -15,7 +15,9 @@
     "history": "Verlauf",
     "dashboard": "Dashboard",
     "reports": "Berichte",
-    "friends": "Freunde"
+    "friends": "Freunde",
+    "weight": "Gewicht",
+    "notifications": "Benachrichtigungen"
   },
   "fields": {
     "email": "E-Mail",
@@ -279,6 +281,18 @@
       },
       "goalSport": {
         "required": "Wähle eine Sportart."
+      },
+      "weightKg": {
+        "too_small": "Gib ein Gewicht zwischen 20 und 400 kg ein.",
+        "too_big": "Gib ein Gewicht zwischen 20 und 400 kg ein.",
+        "invalid_type": "Gib dein Gewicht in kg ein, z. B. 78,4."
+      },
+      "measuredOn": {
+        "in_future": "Das Datum darf nicht in der Zukunft liegen.",
+        "invalid_date": "Gib ein gültiges Datum ein."
+      },
+      "evidence": {
+        "required": "Füge ein Foto deiner Waage mit diesem Gewicht hinzu."
       }
     },
     "api": {
@@ -603,7 +617,8 @@
       "weekOf": "Woche vom {{date}}",
       "recent": "Letzte Trainings",
       "lastReport": "Letzter Wochenbericht",
-      "noStreakGoal": "{{name}} hat kein Ziel für Trainingstage festgelegt, daher gibt es noch keine Serie."
+      "noStreakGoal": "{{name}} hat kein Ziel für Trainingstage festgelegt, daher gibt es noch keine Serie.",
+      "weightShared": "{{name}} teilt Gewichtswerte mit Freunden. Fotos und Notizen bleiben privat."
     }
   },
   "achievements": {
@@ -645,6 +660,56 @@
         "title": "Wochenziele erreicht",
         "description": "Alle Wochenziele erreicht."
       }
+    }
+  },
+  "weight": {
+    "title": "Gewicht",
+    "subtitle": "Dein Gewichtsverlauf, jede Messung mit einem Foto der Waage belegt.",
+    "add": "Messung hinzufügen",
+    "privacyPrivate": "Nur du siehst dein Gewicht und deine Fotos.",
+    "privacyShared": "Freunde sehen deine Gewichtswerte. Fotos und Notizen bleiben privat.",
+    "privacyLink": "In den Privatsphäre-Einstellungen ändern",
+    "current": "Aktuelles Gewicht",
+    "change": "Veränderung",
+    "since": "seit {{date}}",
+    "setHeight": "In deinem Profil eintragen",
+    "entries": "Messungen",
+    "history": "Gewicht im Zeitverlauf",
+    "measurements": "Messungen",
+    "empty": "Noch keine Messungen. Füge deine erste mit einem Foto deiner Waage hinzu.",
+    "evidence": "Foto der Waage",
+    "evidenceAlt": "Waage mit {{weight}}",
+    "viewPhoto": "Foto",
+    "delete": "Messung löschen",
+    "deleteConfirm": "Mit Foto löschen",
+    "weightKg": "Gewicht (kg)",
+    "evidenceHelp": "Pflicht. Mach ein Foto, auf dem die Anzeige der Waage lesbar ist. Standortdaten werden entfernt.",
+    "previewAlt": "Ausgewähltes Foto",
+    "choosePhoto": "Foto aufnehmen oder auswählen",
+    "changePhoto": "Anderes Foto wählen",
+    "note": "Notiz (optional)",
+    "noteHint": "Nur du siehst das.",
+    "save": "Messung speichern",
+    "profileLink": "Gewichtsverlauf mit Fotobeleg. Standardmäßig privat."
+  },
+  "notifications": {
+    "title": "Benachrichtigungen",
+    "subtitle": "Freundschaftsanfragen, Reaktionen, Meilensteine und deine Wochenberichte.",
+    "markAllRead": "Alle als gelesen markieren",
+    "settings": "Benachrichtigungseinstellungen",
+    "empty": "Keine Benachrichtigungen",
+    "emptyHint": "Hier findest du Freundschaftsanfragen, Reaktionen und Wochenberichte.",
+    "unread": "ungelesen",
+    "text": {
+      "friendRequest": "{{firstName}} hat dir eine Freundschaftsanfrage geschickt.",
+      "friendAccepted": "{{firstName}} hat deine Freundschaftsanfrage angenommen.",
+      "friendAchievement": "{{firstName}} hat einen Erfolg erreicht: {{achievement}}.",
+      "reaction_session": "{{firstName}} hat mit „{{reaction}}“ auf dein Training reagiert.",
+      "reaction_achievement": "{{firstName}} hat mit „{{reaction}}“ auf deinen Erfolg reagiert.",
+      "weeklyReport": "Dein Wochenbericht für die Woche vom {{week}} ist fertig.",
+      "goalsAchieved": "Du hast in der Woche vom {{week}} {{achieved}} von {{total}} Zielen erreicht.",
+      "streakMilestone": "Serien-Meilenstein: {{weeks}} Wochen in Folge dein Ziel für Trainingstage erreicht.",
+      "unknown": "Neue Benachrichtigung."
     }
   }
 }

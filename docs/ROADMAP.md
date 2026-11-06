@@ -49,7 +49,7 @@ Each phase ends with working, tested functionality and a commit/push. The next p
 
 **Done when:** the privacy test suite passes: no private field reachable for strangers, pending friends or friends without permission.
 
-## Phase 6 – Additional features
+## Phase 6 – Additional features ✓
 
 - Weight tracking with mandatory photo evidence, history chart, deletion of entry + photo.
 - Notification centre (in-app, unread count) with per-type preferences.

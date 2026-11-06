@@ -14,11 +14,13 @@ import { catalogRouter } from './modules/catalog/catalog.routes';
 import { healthRouter } from './modules/health/health.routes';
 import { meRouter } from './modules/me/me.routes';
 import { goalsRouter } from './modules/goals/goals.routes';
+import { notificationsRouter } from './modules/notifications/notifications.routes';
 import { reportsRouter } from './modules/reports/reports.routes';
 import { feedRouter } from './modules/social/feed.routes';
 import { friendsRouter } from './modules/social/friends.routes';
 import { statsRouter } from './modules/stats/stats.routes';
 import { trainingRouter } from './modules/training/training.routes';
+import { weightsRouter } from './modules/weights/weights.routes';
 import { usersRouter } from './modules/users/users.routes';
 
 export interface AppOptions {
@@ -97,6 +99,8 @@ export function createApp(
   api.use(reportsRouter(ctx));
   api.use(friendsRouter(ctx));
   api.use(feedRouter(ctx));
+  api.use(weightsRouter(ctx));
+  api.use(notificationsRouter(ctx));
   app.use('/api/v1', api);
   app.use('/api', notFound);
 

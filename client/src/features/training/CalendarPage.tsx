@@ -80,16 +80,18 @@ export function CalendarPage() {
 
   return (
     <>
-      <div className="flex items-start justify-between gap-4">
-        <PageHeader
-          title={t('training.calendar.title')}
-          subtitle={t('training.calendar.subtitle')}
-        />
-        {/* On phones the bottom bar has no room for History; it's one tap away here. */}
-        <Link to="/history" className="mt-1 shrink-0 text-sm font-medium text-accent md:hidden">
-          {t('nav.history')}
-        </Link>
-      </div>
+      <PageHeader
+        title={t('training.calendar.title')}
+        subtitle={t('training.calendar.subtitle')}
+        actions={
+          <>
+            {/* On phones the bottom bar has no room for History; it's one tap away here. */}
+            <Link to="/history" className="mt-1 shrink-0 text-sm font-medium text-accent md:hidden">
+              {t('nav.history')}
+            </Link>
+          </>
+        }
+      />
 
       <div className="mb-4 flex flex-wrap items-center gap-3">
         <div className="flex items-center gap-1">

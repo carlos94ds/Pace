@@ -15,7 +15,9 @@
     "history": "Historial",
     "dashboard": "Panel",
     "reports": "Informes",
-    "friends": "Amigos"
+    "friends": "Amigos",
+    "weight": "Peso",
+    "notifications": "Notificaciones"
   },
   "fields": {
     "email": "Correo electrónico",
@@ -279,6 +281,18 @@
       },
       "goalSport": {
         "required": "Elige un deporte."
+      },
+      "weightKg": {
+        "too_small": "Introduce un peso entre 20 y 400 kg.",
+        "too_big": "Introduce un peso entre 20 y 400 kg.",
+        "invalid_type": "Introduce tu peso en kg, p. ej. 78,4."
+      },
+      "measuredOn": {
+        "in_future": "La fecha no puede ser futura.",
+        "invalid_date": "Introduce una fecha válida."
+      },
+      "evidence": {
+        "required": "Añade una foto de tu báscula con este peso."
       }
     },
     "api": {
@@ -603,7 +617,8 @@
       "weekOf": "Semana del {{date}}",
       "recent": "Entrenamientos recientes",
       "lastReport": "Último informe semanal",
-      "noStreakGoal": "{{name}} no ha fijado un objetivo de días de entrenamiento, así que aún no hay racha."
+      "noStreakGoal": "{{name}} no ha fijado un objetivo de días de entrenamiento, así que aún no hay racha.",
+      "weightShared": "{{name}} comparte sus valores de peso con amigos. Las fotos y notas siguen siendo privadas."
     }
   },
   "achievements": {
@@ -645,6 +660,56 @@
         "title": "Objetivos semanales conseguidos",
         "description": "Conseguiste todos tus objetivos de la semana."
       }
+    }
+  },
+  "weight": {
+    "title": "Peso",
+    "subtitle": "Tu historial de peso, cada medición verificada con una foto de la báscula.",
+    "add": "Añadir medición",
+    "privacyPrivate": "Solo tú ves tu peso y tus fotos.",
+    "privacyShared": "Tus amigos ven tus valores de peso. Las fotos y notas siguen siendo privadas.",
+    "privacyLink": "Cambiar en la configuración de privacidad",
+    "current": "Peso actual",
+    "change": "Cambio",
+    "since": "desde el {{date}}",
+    "setHeight": "Indícala en tu perfil",
+    "entries": "Mediciones",
+    "history": "Peso a lo largo del tiempo",
+    "measurements": "Mediciones",
+    "empty": "Aún no hay mediciones. Añade la primera con una foto de tu báscula.",
+    "evidence": "Foto de la báscula",
+    "evidenceAlt": "Báscula que muestra {{weight}}",
+    "viewPhoto": "Foto",
+    "delete": "Eliminar medición",
+    "deleteConfirm": "Eliminar con foto",
+    "weightKg": "Peso (kg)",
+    "evidenceHelp": "Obligatoria. Haz una foto en la que la pantalla de la báscula se lea bien. Se eliminan los datos de ubicación.",
+    "previewAlt": "Foto elegida",
+    "choosePhoto": "Hacer o elegir una foto",
+    "changePhoto": "Elegir otra foto",
+    "note": "Nota (opcional)",
+    "noteHint": "Solo tú la ves.",
+    "save": "Guardar medición",
+    "profileLink": "Historial de peso con prueba fotográfica. Privado por defecto."
+  },
+  "notifications": {
+    "title": "Notificaciones",
+    "subtitle": "Solicitudes de amistad, reacciones, hitos y tus informes semanales.",
+    "markAllRead": "Marcar todo como leído",
+    "settings": "Configuración de notificaciones",
+    "empty": "No hay notificaciones",
+    "emptyHint": "Aquí encontrarás solicitudes de amistad, reacciones e informes semanales.",
+    "unread": "sin leer",
+    "text": {
+      "friendRequest": "{{firstName}} te ha enviado una solicitud de amistad.",
+      "friendAccepted": "{{firstName}} ha aceptado tu solicitud de amistad.",
+      "friendAchievement": "{{firstName}} ha conseguido un logro: {{achievement}}.",
+      "reaction_session": "{{firstName}} reaccionó «{{reaction}}» a tu entrenamiento.",
+      "reaction_achievement": "{{firstName}} reaccionó «{{reaction}}» a tu logro.",
+      "weeklyReport": "Tu informe de la semana del {{week}} está listo.",
+      "goalsAchieved": "Conseguiste {{achieved}} de {{total}} objetivos en la semana del {{week}}.",
+      "streakMilestone": "Hito de racha: {{weeks}} semanas seguidas alcanzando tu objetivo de días de entrenamiento.",
+      "unknown": "Nueva notificación."
     }
   }
 }

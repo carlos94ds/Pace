@@ -8,23 +8,25 @@ Local tooling found: Node.js 26, npm, git, GitHub CLI, Homebrew and MySQL Workbe
 
 ## Decisions taken
 
-| Topic                         | Decision                                                                               |
-| ----------------------------- | -------------------------------------------------------------------------------------- |
-| Database (dev + prod)         | Railway MySQL, inspected with MySQL Workbench                                          |
-| File storage                  | Railway Storage Bucket (private)                                                       |
-| Email                         | Gmail SMTP with an app password, behind a replaceable adapter                          |
-| Streak                        | Consecutive weeks reaching the training-day goal; a week below the goal resets it      |
-| Motivation, rating, intensity | Scale 1–5                                                                              |
-| Discoverability               | On by default; only username, first name and profile picture are shown                 |
-| Training dates                | Logged up to today in the user's timezone; no planned (future) sessions                |
-| Weeks                         | Monday to Sunday (ISO 8601)                                                            |
-| Custom sports                 | Private to their owner; colour from a fixed palette; deletable once unused             |
-| Goals history                 | Editing or deleting a goal archives it; each week is measured against its own goals    |
-| Missed reports                | After downtime only the most recent due week is caught up, never older weeks           |
-| Declined friend requests      | Look pending to the sender; nobody learns they were declined                           |
-| Friend suggestions            | Ranked by mutual friends, gym and sports; only "mutual friends" is shown as reason     |
-| Achievements                  | Awarded from own data after saving a session or goal and at report time; never revoked |
-| Charts                        | Small own components (no chart library), each with a tooltip and a table view          |
+| Topic                         | Decision                                                                                  |
+| ----------------------------- | ----------------------------------------------------------------------------------------- |
+| Database (dev + prod)         | Railway MySQL, inspected with MySQL Workbench                                             |
+| File storage                  | Railway Storage Bucket (private)                                                          |
+| Email                         | Gmail SMTP with an app password, behind a replaceable adapter                             |
+| Streak                        | Consecutive weeks reaching the training-day goal; a week below the goal resets it         |
+| Motivation, rating, intensity | Scale 1–5                                                                                 |
+| Discoverability               | On by default; only username, first name and profile picture are shown                    |
+| Training dates                | Logged up to today in the user's timezone; no planned (future) sessions                   |
+| Weeks                         | Monday to Sunday (ISO 8601)                                                               |
+| Custom sports                 | Private to their owner; colour from a fixed palette; deletable once unused                |
+| Goals history                 | Editing or deleting a goal archives it; each week is measured against its own goals       |
+| Missed reports                | After downtime only the most recent due week is caught up, never older weeks              |
+| Declined friend requests      | Look pending to the sender; nobody learns they were declined                              |
+| Friend suggestions            | Ranked by mutual friends, gym and sports; only "mutual friends" is shown as reason        |
+| Achievements                  | Awarded from own data after saving a session or goal and at report time; never revoked    |
+| Weight sharing                | Private by default; when shared, friends see values and dates only, never photos or notes |
+| Notifications                 | In-app, per-type settings; read ones are removed after 90 days                            |
+| Charts                        | Small own components (no chart library), each with a tooltip and a table view             |
 
 ## 2. Repository structure
 
@@ -118,10 +120,12 @@ Implementation: `server/src/policies/relationship.ts` is the only place that dec
 ## 6. File uploads (profile pictures, weighing-scale evidence)
 
 1. Upload via `multipart/form-data` to Express (multer, in memory, max 8 MB).
-2. Check the real file type from the file's bytes (JPEG/PNG/WebP/HEIC), not the file name.
+2. Check the real file type from the file's bytes (JPEG, PNG or WebP), not the file name. iPhones convert HEIC photos to JPEG when uploading them in the browser.
 3. **Re-encode with `sharp`.** This removes EXIF metadata, including GPS location, which is often in phone photos taken at home.
 4. Store in a **private** bucket under a random key (`evidence/<userId>/<uuid>.webp`).
-5. To view, the client calls `/api/v1/weights/:id/evidence`; the server checks ownership and responds with a presigned URL that expires after 60 seconds.
+5. To view, the client calls `/api/v1/weights/:id/evidence`; the server checks ownership and streams the photo itself with `Cache-Control: private, no-store`. (Decided during phase 6 instead of presigned URLs: the bucket never hands out any URL, and the browser never caches the photo.)
+6. A file that looks like an image but can't be decoded is refused with 415, the same as any other non-image.
+7. A weight entry can't be edited: value and photo belong together. A wrong entry is deleted (with its photo) and added again.
 
 A weight entry and its evidence are created in one request: no photo means no weight entry. If the database write fails, the uploaded object is deleted again.
 

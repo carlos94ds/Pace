@@ -10,10 +10,12 @@ import { ProfilePage } from '../features/profile/ProfilePage';
 import { ReportPage } from '../features/reports/ReportPage';
 import { ReportsPage } from '../features/reports/ReportsPage';
 import { SettingsPage } from '../features/settings/SettingsPage';
+import { NotificationsPage } from '../features/notifications/NotificationsPage';
 import { FriendsPage } from '../features/social/FriendsPage';
 import { UserProfilePage } from '../features/social/UserProfilePage';
 import { CalendarPage } from '../features/training/CalendarPage';
 import { HistoryPage } from '../features/training/HistoryPage';
+import { WeightPage } from '../features/weight/WeightPage';
 import { AppShell } from './AppShell';
 import { NotFoundPage } from './NotFoundPage';
 
@@ -49,6 +51,8 @@ export const router = createBrowserRouter([
           { path: 'reports/:weekStart', element: <ReportPage /> },
           { path: 'friends', element: <FriendsPage /> },
           { path: 'u/:username', element: <UserProfilePage /> },
+          { path: 'weight', element: <WeightPage /> },
+          { path: 'notifications', element: <NotificationsPage /> },
           { path: 'profile', element: <ProfilePage /> },
           { path: 'settings', element: <SettingsPage /> },
           { path: '*', element: <NotFoundPage /> },

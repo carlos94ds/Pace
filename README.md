@@ -4,6 +4,8 @@ PACE helps athletes train with more discipline and consistency. It combines a tr
 
 ## Status
 
+**Phase 6 – Weight, notifications and polish: done.** Weight history with a mandatory photo of the scale (stored privately, location data removed, deleted together with the entry), notification centre with unread count, and every page checked in dark mode, large text and another language.
+
 **Phase 5 – Social: done.** User search, friend requests (send, accept, decline, cancel), removing friends, suggestions, friend profiles and an activity feed that follow each user's privacy settings, reactions on trainings and achievements, achievements with notifications for streak milestones and friends' milestones.
 
 **Phase 4 – Dashboard and weekly reports: done.** Dashboard with all metrics (hours, days, sessions, average duration, punctuality, consistency, current and longest streak, hours per sport, goal progress), filters for week, month, year and custom range, charts. Weekly goals. Automatic weekly reports every Sunday at 18:00 local time with goal results, analysis, week-on-week comparison and a rule-based conclusion; report archive.

@@ -81,16 +81,18 @@ export function DashboardPage() {
 
   return (
     <>
-      <div className="flex flex-wrap items-start justify-between gap-4">
-        <PageHeader
-          title={t('dashboard.greeting', { name: me.profile.firstName })}
-          subtitle={t('dashboard.subtitle')}
-        />
-        <Button onClick={() => setAdding(true)}>
-          <Plus className="size-4" aria-hidden="true" />
-          {t('training.add')}
-        </Button>
-      </div>
+      <PageHeader
+        title={t('dashboard.greeting', { name: me.profile.firstName })}
+        subtitle={t('dashboard.subtitle')}
+        actions={
+          <>
+            <Button onClick={() => setAdding(true)}>
+              <Plus className="size-4" aria-hidden="true" />
+              {t('training.add')}
+            </Button>
+          </>
+        }
+      />
 
       {latest && !latest.viewedAt && (
         <Link

@@ -1,9 +1,11 @@
 import {
+  Bell,
   CalendarDays,
   FileText,
   History,
   LayoutDashboard,
   LogOut,
+  Scale,
   Settings,
   UserRound,
   Users,
@@ -14,6 +16,7 @@ import { Link, NavLink, Outlet, useNavigate } from 'react-router';
 import { Avatar } from '../components/Avatar';
 import { Logo } from '../components/Logo';
 import { useCurrentUser, useLogout } from '../features/auth/session';
+import { useUnreadCount } from '../features/notifications/queries';
 
 interface NavItem {
   to: string;
@@ -21,6 +24,8 @@ interface NavItem {
   icon: LucideIcon;
   /** Left out of the phone's bottom bar (reachable from the header or another page there). */
   desktopOnly?: boolean;
+  /** Shows the number of unread notifications. */
+  unreadBadge?: boolean;
 }
 
 // Only pages that actually exist are listed; each phase adds its own entries.
@@ -30,6 +35,14 @@ const NAV: NavItem[] = [
   { to: '/history', labelKey: 'nav.history', icon: History, desktopOnly: true },
   { to: '/reports', labelKey: 'nav.reports', icon: FileText },
   { to: '/friends', labelKey: 'nav.friends', icon: Users },
+  { to: '/weight', labelKey: 'nav.weight', icon: Scale, desktopOnly: true },
+  {
+    to: '/notifications',
+    labelKey: 'nav.notifications',
+    icon: Bell,
+    desktopOnly: true,
+    unreadBadge: true,
+  },
   { to: '/profile', labelKey: 'nav.profile', icon: UserRound },
   { to: '/settings', labelKey: 'nav.settings', icon: Settings, desktopOnly: true },
 ];
@@ -39,6 +52,8 @@ export function AppShell() {
   const me = useCurrentUser();
   const navigate = useNavigate();
   const logout = useLogout();
+  const unread = useUnreadCount().data ?? 0;
+  const badge = unread > 99 ? '99+' : String(unread);
 
   const signOut = () =>
     logout.mutate(undefined, { onSuccess: () => navigate('/login', { replace: true }) });
@@ -48,7 +63,7 @@ export function AppShell() {
       <aside className="hidden border-r border-border bg-surface md:sticky md:top-0 md:flex md:h-dvh md:flex-col md:gap-8 md:px-4 md:py-6">
         <Logo className="px-2" />
         <nav className="flex flex-col gap-1" aria-label={t('nav.main')}>
-          {NAV.map(({ to, labelKey, icon: Icon }) => (
+          {NAV.map(({ to, labelKey, icon: Icon, unreadBadge }) => (
             <NavLink
               key={to}
               to={to}
@@ -63,6 +78,12 @@ export function AppShell() {
             >
               <Icon className="size-4" aria-hidden="true" />
               {t(labelKey)}
+              {unreadBadge && unread > 0 && (
+                <span className="tabular ml-auto rounded-full bg-accent px-1.5 text-[11px] font-semibold text-on-accent">
+                  {badge}
+                  <span className="sr-only"> {t('notifications.unread')}</span>
+                </span>
+              )}
             </NavLink>
           ))}
         </nav>
@@ -89,6 +110,27 @@ export function AppShell() {
       <header className="sticky top-0 z-10 flex h-14 items-center justify-between border-b border-border bg-surface/90 px-4 backdrop-blur md:hidden">
         <Logo />
         <div className="flex items-center gap-1">
+          <NavLink
+            to="/notifications"
+            className={({ isActive }) =>
+              `relative rounded-lg p-2 ${isActive ? 'text-accent' : 'text-muted hover:text-text'}`
+            }
+            aria-label={
+              unread
+                ? `${t('nav.notifications')}: ${badge} ${t('notifications.unread')}`
+                : t('nav.notifications')
+            }
+          >
+            <Bell className="size-5" aria-hidden="true" />
+            {unread > 0 && (
+              <span
+                className="tabular absolute top-1 right-1 min-w-4 rounded-full bg-accent px-1 text-center text-[10px] leading-4 font-semibold text-on-accent"
+                aria-hidden="true"
+              >
+                {badge}
+              </span>
+            )}
+          </NavLink>
           <NavLink
             to="/settings"
             className={({ isActive }) =>

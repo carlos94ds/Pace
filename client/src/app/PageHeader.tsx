@@ -1,8 +1,22 @@
-export function PageHeader({ title, subtitle }: { title: string; subtitle?: string }) {
+import type { ReactNode } from 'react';
+
+/** Page title with an optional subtitle and actions; actions wrap below the title on phones. */
+export function PageHeader({
+  title,
+  subtitle,
+  actions,
+}: {
+  title: string;
+  subtitle?: string;
+  actions?: ReactNode;
+}) {
   return (
-    <div className="mb-8">
-      <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">{title}</h1>
-      {subtitle && <p className="mt-2 max-w-2xl text-muted">{subtitle}</p>}
+    <div className="mb-8 flex flex-wrap items-start justify-between gap-x-4 gap-y-4">
+      <div className="min-w-0">
+        <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">{title}</h1>
+        {subtitle && <p className="mt-2 max-w-2xl text-muted">{subtitle}</p>}
+      </div>
+      {actions && <div className="flex shrink-0 flex-wrap items-center gap-2">{actions}</div>}
     </div>
   );
 }

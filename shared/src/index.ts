@@ -8,3 +8,5 @@ export * from './goals';
 export * from './reports';
 export * from './stats';
 export * from './social';
+export * from './notifications';
+export * from './weights';

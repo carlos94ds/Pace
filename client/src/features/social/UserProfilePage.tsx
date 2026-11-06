@@ -8,6 +8,7 @@ import { Avatar } from '../../components/Avatar';
 import { Button } from '../../components/Button';
 import { Card } from '../../components/Card';
 import { BarChart } from '../../components/charts/BarChart';
+import { LineChart } from '../../components/charts/LineChart';
 import { formMessage } from '../../lib/forms';
 import { useCurrentUser } from '../auth/session';
 import { goalLabel, goalValue } from '../dashboard/goalText';
@@ -19,7 +20,7 @@ import { useFriendAction, useUserProfile } from './queries';
 import { Reactions } from './Reactions';
 
 export function UserProfilePage() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { username = '' } = useParams();
   const me = useCurrentUser();
   const profile = useUserProfile(username);
@@ -43,7 +44,8 @@ export function UserProfilePage() {
     !view.activity &&
     !view.streaks &&
     !view.achievements &&
-    !view.report;
+    !view.report &&
+    !view.weight;
 
   return (
     <div className="flex flex-col gap-6">
@@ -63,6 +65,41 @@ export function UserProfilePage() {
         <div className="flex min-w-0 flex-col gap-6">
           {view.activity && <Activity view={view} />}
           {view.report && <ReportSummary report={view.report} />}
+          {view.weight && view.weight.length > 0 && (
+            <Card
+              title={t('weight.title')}
+              description={t('social.profile.weightShared', { name: view.user.firstName })}
+            >
+              {view.weight.length > 1 ? (
+                <LineChart
+                  title={t('weight.history')}
+                  points={[...view.weight].reverse().map((w) => ({
+                    label: formatDay(w.measuredOn, i18n.language, {
+                      day: 'numeric',
+                      month: 'short',
+                    }),
+                    fullLabel: formatDay(w.measuredOn, i18n.language, {
+                      day: 'numeric',
+                      month: 'long',
+                      year: 'numeric',
+                    }),
+                    value: w.weightKg,
+                  }))}
+                  format={(v) =>
+                    `${v.toLocaleString(i18n.language, { maximumFractionDigits: 1 })} kg`
+                  }
+                  height={160}
+                />
+              ) : (
+                <p className="tabular text-2xl font-semibold">
+                  {view.weight[0]!.weightKg.toLocaleString(i18n.language, {
+                    maximumFractionDigits: 1,
+                  })}{' '}
+                  kg
+                </p>
+              )}
+            </Card>
+          )}
         </div>
         <div className="flex min-w-0 flex-col gap-6">
           {view.streaks && (

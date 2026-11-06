@@ -15,7 +15,9 @@
     "history": "History",
     "dashboard": "Dashboard",
     "reports": "Reports",
-    "friends": "Friends"
+    "friends": "Friends",
+    "weight": "Weight",
+    "notifications": "Notifications"
   },
   "fields": {
     "email": "Email",
@@ -279,6 +281,18 @@
       },
       "goalSport": {
         "required": "Choose a sport."
+      },
+      "weightKg": {
+        "too_small": "Enter a weight between 20 and 400 kg.",
+        "too_big": "Enter a weight between 20 and 400 kg.",
+        "invalid_type": "Enter your weight in kg, e.g. 78.4."
+      },
+      "measuredOn": {
+        "in_future": "The date can't be in the future.",
+        "invalid_date": "Enter a valid date."
+      },
+      "evidence": {
+        "required": "Add a photo of your scale showing this weight."
       }
     },
     "api": {
@@ -603,7 +617,8 @@
       "weekOf": "Week of {{date}}",
       "recent": "Recent trainings",
       "lastReport": "Latest weekly report",
-      "noStreakGoal": "{{name}} hasn't set a training-day goal, so there's no streak yet."
+      "noStreakGoal": "{{name}} hasn't set a training-day goal, so there's no streak yet.",
+      "weightShared": "{{name}} shares weight values with friends. Photos and notes stay private."
     }
   },
   "achievements": {
@@ -645,6 +660,56 @@
         "title": "Weekly goals reached",
         "description": "Reached all your weekly goals."
       }
+    }
+  },
+  "weight": {
+    "title": "Weight",
+    "subtitle": "Your weight history, each entry verified with a photo of the scale.",
+    "add": "Add measurement",
+    "privacyPrivate": "Only you can see your weight and photos.",
+    "privacyShared": "Friends can see your weight values. Photos and notes stay private.",
+    "privacyLink": "Change in privacy settings",
+    "current": "Current weight",
+    "change": "Change",
+    "since": "since {{date}}",
+    "setHeight": "Set it in your profile",
+    "entries": "Measurements",
+    "history": "Weight over time",
+    "measurements": "Measurements",
+    "empty": "No measurements yet. Add your first one with a photo of your scale.",
+    "evidence": "Photo of the scale",
+    "evidenceAlt": "Scale showing {{weight}}",
+    "viewPhoto": "Photo",
+    "delete": "Delete measurement",
+    "deleteConfirm": "Delete with photo",
+    "weightKg": "Weight (kg)",
+    "evidenceHelp": "Required. Take a photo where the scale's display is readable. Location data is removed.",
+    "previewAlt": "Selected photo",
+    "choosePhoto": "Take or choose a photo",
+    "changePhoto": "Choose another photo",
+    "note": "Note (optional)",
+    "noteHint": "Only you can see this.",
+    "save": "Save measurement",
+    "profileLink": "Weight history with photo evidence. Private by default."
+  },
+  "notifications": {
+    "title": "Notifications",
+    "subtitle": "Friend requests, reactions, milestones and your weekly reports.",
+    "markAllRead": "Mark all as read",
+    "settings": "Notification settings",
+    "empty": "No notifications",
+    "emptyHint": "You'll find friend requests, reactions and weekly reports here.",
+    "unread": "unread",
+    "text": {
+      "friendRequest": "{{firstName}} sent you a friend request.",
+      "friendAccepted": "{{firstName}} accepted your friend request.",
+      "friendAchievement": "{{firstName}} reached an achievement: {{achievement}}.",
+      "reaction_session": "{{firstName}} reacted “{{reaction}}” to your training.",
+      "reaction_achievement": "{{firstName}} reacted “{{reaction}}” to your achievement.",
+      "weeklyReport": "Your weekly report for the week of {{week}} is ready.",
+      "goalsAchieved": "You reached {{achieved}} of {{total}} goals in the week of {{week}}.",
+      "streakMilestone": "Streak milestone: {{weeks}} weeks in a row reaching your training-day goal.",
+      "unknown": "New notification."
     }
   }
 }

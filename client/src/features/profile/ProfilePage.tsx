@@ -7,8 +7,10 @@ import {
 } from '@pace/shared';
 import { useMemo, useState, type FormEvent } from 'react';
 import { useTranslation } from 'react-i18next';
-import { MyAchievementsCard } from '../social/Achievements';
+import { ChevronRight, Scale } from 'lucide-react';
+import { Link } from 'react-router';
 import { PageHeader } from '../../app/PageHeader';
+import { MyAchievementsCard } from '../social/Achievements';
 import { Alert } from '../../components/Alert';
 import { Button } from '../../components/Button';
 import { Card } from '../../components/Card';
@@ -177,7 +179,19 @@ export function ProfilePage() {
         </div>
       </form>
 
-      <div id="achievements" className="mt-10 max-w-3xl scroll-mt-20">
+      <Link
+        to="/weight"
+        className="mt-10 flex max-w-3xl items-center gap-3 rounded-2xl border border-border bg-surface p-4 transition-colors duration-150 hover:bg-surface-2"
+      >
+        <Scale className="size-5 text-accent" aria-hidden="true" />
+        <span className="flex-1">
+          <span className="block text-sm font-medium">{t('weight.title')}</span>
+          <span className="block text-xs text-muted">{t('weight.profileLink')}</span>
+        </span>
+        <ChevronRight className="size-4 text-muted" aria-hidden="true" />
+      </Link>
+
+      <div id="achievements" className="mt-6 max-w-3xl scroll-mt-20">
         <MyAchievementsCard />
       </div>
     </>

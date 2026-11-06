@@ -110,6 +110,7 @@ export function usersRouter(ctx: AppContext): Router {
       activity: null,
       streaks: null,
       achievements: null,
+      weight: null,
       report: null,
     };
 
@@ -190,6 +191,20 @@ export function usersRouter(ctx: AppContext): Router {
         rows.map((r) => r.id),
       );
       view.achievements = rows.map((r) => toEarned(r, reactions(r.id)));
+    }
+
+    if (share.weight) {
+      // Values and dates only. Notes and scale photos are never shown to anyone else.
+      const rows = await prisma.weightMeasurement.findMany({
+        where: { userId: ownerId },
+        select: { measuredAt: true, weightKg: true },
+        orderBy: { measuredAt: 'desc' },
+        take: 52,
+      });
+      view.weight = rows.map((w) => ({
+        measuredOn: fromUtcDate(w.measuredAt),
+        weightKg: Number(w.weightKg.toString()),
+      }));
     }
 
     if (share.dashboard) {
