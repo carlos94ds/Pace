@@ -3,40 +3,18 @@
     "retry": "Opnieuw proberen",
     "cancel": "Annuleren",
     "save": "Wijzigingen opslaan",
-    "saved": "Opgeslagen"
+    "saved": "Opgeslagen",
+    "close": "Sluiten"
   },
   "nav": {
     "main": "Hoofdnavigatie",
-    "overview": "Overzicht",
     "profile": "Profiel",
     "settings": "Instellingen",
     "logout": "Uitloggen",
     "calendar": "Kalender",
-    "history": "Geschiedenis"
-  },
-  "status": {
-    "greeting": "Welkom, {{name}}",
-    "subtitle": "Registreer je trainingen in de kalender. Het dashboard en de weekrapporten volgen in de volgende fase.",
-    "systemTitle": "Systeemstatus",
-    "refresh": "Opnieuw controleren",
-    "api": "API",
-    "database": "Database",
-    "checking": "Controleren…",
-    "online": "Online",
-    "offline": "Offline",
-    "lastChecked": "Laatst gecontroleerd",
-    "roadmapTitle": "Roadmap",
-    "phase": "Fase {{number}}",
-    "inProgress": "Bezig",
-    "phases": {
-      "1": "Fundament",
-      "2": "Accounts en profielen",
-      "3": "Trainingskalender",
-      "4": "Dashboard en weekrapporten",
-      "5": "Vrienden en prestaties",
-      "6": "Gewicht, doelen en meldingen",
-      "7": "Testen en lancering"
-    }
+    "history": "Geschiedenis",
+    "dashboard": "Dashboard",
+    "reports": "Rapporten"
   },
   "fields": {
     "email": "E-mail",
@@ -281,13 +259,14 @@
         "custom": "Kies een geldige tijdzone."
       },
       "date": {
-        "custom": "Vul een geldige datum in.",
-        "in_future": "Je kunt alleen trainingen tot en met vandaag registreren."
+        "in_future": "Je kunt alleen trainingen tot en met vandaag registreren.",
+        "invalid_date": "Vul een geldige datum in.",
+        "too_early": "Datums vóór 2000 worden niet ondersteund."
       },
       "durationMinutes": {
         "too_small": "Vul minimaal 1 minuut in.",
         "too_big": "Een training duurt maximaal 24 uur (1440 minuten).",
-        "invalid_type": "Vul de duur in minuten in."
+        "invalid_type": "Vul in hoe lang de training duurde."
       },
       "sportId": {
         "invalid_format": "Kies een sport.",
@@ -296,6 +275,9 @@
       "sportName": {
         "too_small": "Gebruik minimaal 2 tekens.",
         "taken": "Je hebt al een sport met deze naam."
+      },
+      "goalSport": {
+        "required": "Kies een sport."
       }
     },
     "api": {
@@ -328,7 +310,7 @@
     "fields": {
       "date": "Datum",
       "sport": "Sport",
-      "duration": "Duur (minuten)",
+      "duration": "Duur",
       "gym": "Gym of locatie",
       "punctuality": "Op tijd",
       "motivation": "Motivatie vooraf",
@@ -359,10 +341,12 @@
       "deleteConfirm": "Deze training verwijderen?",
       "chooseSport": "Kies een sport",
       "chooseScore": "Kies 1 tot 5.",
-      "durationHint": "Bijvoorbeeld 90 voor anderhalf uur.",
+      "durationHint": "Bijvoorbeeld 1 uur en 30 minuten.",
       "reflectionPlaceholder": "Waarom ging het goed of slecht? Wat doe je de volgende keer anders?",
       "reflectionHint": "Alleen jij ziet dit, tenzij je de details van deze training deelt.",
-      "shareDetailsHelp": "Vrienden die je activiteit mogen zien, zien dan ook motivatie, beoordeling en reflectie van deze training. Standaard uit."
+      "shareDetailsHelp": "Vrienden die je activiteit mogen zien, zien dan ook motivatie, beoordeling en reflectie van deze training. Standaard uit.",
+      "hours": "Uren",
+      "minutes": "Minuten"
     },
     "sports": {
       "title": "Mijn sporten",
@@ -416,6 +400,146 @@
       "noResults": "Geen trainingen gevonden met deze filters",
       "noResultsHint": "Probeer andere filters of wis ze.",
       "loadMore": "Meer laden"
+    }
+  },
+  "charts": {
+    "showTable": "Toon als tabel",
+    "period": "Periode"
+  },
+  "dashboard": {
+    "greeting": "Welkom terug, {{name}}",
+    "subtitle": "Je trainingsprestaties in één oogopslag.",
+    "period": "Periode",
+    "periods": {
+      "week": "Week",
+      "month": "Maand",
+      "year": "Jaar",
+      "custom": "Aangepast"
+    },
+    "hoursOverTime": "Trainingsuren door de tijd",
+    "weeks_one": "{{count}} week",
+    "weeks_other": "{{count}} weken",
+    "kpi": {
+      "hours": "Trainingsuren",
+      "averageDuration": "Gemiddelde duur",
+      "punctuality": "Op tijd",
+      "punctualityDetail": "{{onTime}} van {{sessions}} op tijd",
+      "consistency": "Consistentie",
+      "consistencyWeeks": "Dagdoel gehaald in {{achieved}} van {{total}} weken",
+      "consistencyDays": "Getraind op {{achieved}} van {{total}} dagen",
+      "currentStreak": "Huidige streak",
+      "longestStreak": "Langste streak",
+      "streakNeedsGoal": "Stel een doel voor trainingsdagen in om een streak op te bouwen.",
+      "streakGoal_one": "Doel: {{count}} dag per week",
+      "streakGoal_other": "Doel: {{count}} dagen per week"
+    }
+  },
+  "goals": {
+    "title": "Weekdoelen",
+    "thisWeek": "Voortgang deze week",
+    "manage": "Doelen beheren",
+    "add": "Doel toevoegen",
+    "empty": "Nog geen doelen. Met doelen worden je weekrapport en streak pas echt zinvol.",
+    "achieved": "Gehaald",
+    "notYet": "Nog niet gehaald",
+    "notAchieved": "Niet gehaald",
+    "manageTitle": "Weekdoelen",
+    "manageHelp": "Wijzigingen gelden vanaf deze week; eerdere weken houden de doelen die ze hadden.",
+    "edit": "Bewerken",
+    "delete": "Verwijderen",
+    "describe": {
+      "total_minutes": "{{hours}} uur per week trainen",
+      "training_days_one": "Minstens {{count}} dag per week trainen",
+      "training_days_other": "Minstens {{count}} dagen per week trainen",
+      "punctuality_pct": "Bij {{count}}% van de trainingen op tijd",
+      "sport_sessions": "{{count}}× {{sport}} per week"
+    },
+    "types": {
+      "total_minutes": "Trainingsuren",
+      "training_days": "Trainingsdagen",
+      "punctuality_pct": "Op tijd komen",
+      "sport_sessions": "Trainingen van één sport"
+    },
+    "form": {
+      "type": "Soort doel",
+      "taken": "Je hebt dit doel al. Bewerk het bestaande doel.",
+      "range": "Tussen {{min}} en {{max}}.",
+      "rangeHours": "Tussen {{min}} en {{max}} uur.",
+      "target": {
+        "total_minutes": "Uren per week",
+        "training_days": "Dagen per week",
+        "punctuality_pct": "Percentage op tijd",
+        "sport_sessions": "Trainingen per week"
+      }
+    }
+  },
+  "reports": {
+    "title": "Weekrapporten",
+    "subtitle": "Elke zondag om 18:00 (jouw tijd) analyseert PACE je week.",
+    "empty": "Nog geen rapporten",
+    "emptyHint": "Je eerste rapport verschijnt zondag om 18:00.",
+    "new": "Nieuw",
+    "daysCount_one": "{{count}} trainingsdag",
+    "daysCount_other": "{{count}} trainingsdagen",
+    "goalsCount": "{{achieved}}/{{total}} doelen",
+    "noGoals": "geen doelen",
+    "readyTitle": "Je weekrapport staat klaar.",
+    "readyText": "Bekijk hoe je week van {{range}} ging.",
+    "notFound": "Dit rapport bestaat niet.",
+    "back": "Alle rapporten",
+    "reportTitle": "Weekrapport",
+    "sections": {
+      "conclusion": "Samenvatting",
+      "stats": "Weekstatistieken",
+      "goals": "Doelen",
+      "wentWell": "Wat ging goed",
+      "improve": "Wat kan beter",
+      "comparison": "Vergeleken met vorige week"
+    },
+    "noGoalsSet": "Je had deze week geen doelen.",
+    "nothingToSay": "Te weinig gegevens om hier iets over te zeggen.",
+    "bestSessions": "Beste trainingen",
+    "worstSessions": "Trainingen die slecht gingen",
+    "noReasonGiven": "Geen reden opgegeven.",
+    "punctualityDetail": "{{onTime}} op tijd · {{late}} te laat",
+    "sportsPractised": "Beoefende sporten",
+    "noPreviousWeek": "Vorige week had je geen trainingen, dus er valt nog niets te vergelijken.",
+    "metric": "Onderdeel",
+    "thisWeek": "Deze week",
+    "lastWeek": "Vorige week",
+    "goalsReached": "Doelen gehaald",
+    "perDay": "Uren per dag",
+    "change": {
+      "title": "Verschil",
+      "up": "omhoog",
+      "down": "omlaag",
+      "same": "gelijk",
+      "points": "{{value}} pt"
+    },
+    "lines": {
+      "noTraining": "Je hebt deze week geen trainingen geregistreerd.",
+      "noTrainingAfterActive": "Je hebt deze week geen trainingen geregistreerd, na een actieve week ervoor.",
+      "overview": "Trainingen: {{sessions}} · trainingsdagen: {{days}} · uren: {{hours, number}}.",
+      "noComparison": "Vorige week waren er geen trainingen, dus er is nog geen vergelijking.",
+      "hoursUp": "Je trainde {{now, number}} uur, {{pct}}% meer dan vorige week ({{before, number}} u).",
+      "hoursDown": "Je trainde {{now, number}} uur, {{pct}}% minder dan vorige week ({{before, number}} u).",
+      "hoursSame": "Je trainde evenveel uren als vorige week ({{now, number}} u).",
+      "daysUp": "Meer trainingsdagen: {{now}} in plaats van {{before}}.",
+      "daysDown": "Minder trainingsdagen: {{now}} in plaats van {{before}}.",
+      "punctualityUp": "Je was vaker op tijd: van {{before}}% naar {{now}}%.",
+      "punctualityDown": "Je was minder vaak op tijd: van {{before}}% naar {{now}}%.",
+      "setGoals": "Stel weekdoelen in, dan kan het rapport laten zien of je ze haalt.",
+      "allGoals": "Je hebt al je doelen gehaald ({{total}}).",
+      "someGoals": "Je hebt {{achieved}} van de {{total}} doelen gehaald.",
+      "goalsMissed": "{{missed}} van de {{total}} doelen zijn niet gehaald.",
+      "alwaysOnTime": "Je was bij elke training op tijd.",
+      "lateSessions": "Je was bij {{late}} van de {{sessions}} trainingen te laat.",
+      "goodRatings": "Je trainingen gingen goed: gemiddeld {{avg, number}} van 5.",
+      "lowRatings": "Je trainingen gingen moeizaam: gemiddeld {{avg, number}} van 5.",
+      "lowMotivation": "Je motivatie vooraf was laag (gemiddeld {{avg, number}} van 5).",
+      "noReasons_one": "Bij {{count}} training die slecht ging heb je niet opgeschreven waarom. Een korte reflectie helpt je patronen te zien.",
+      "noReasons_other": "Bij {{count}} trainingen die slecht gingen heb je niet opgeschreven waarom. Een korte reflectie helpt je patronen te zien.",
+      "streak": "Je streak staat nu op {{weeks}} weken."
     }
   }
 }

@@ -206,6 +206,9 @@ model TrainingSession {
 // before the user row: MySQL doesn't guarantee which of the two cascades runs first.
 
 // ---------- Goals & reports ----------
+// Goals are versioned: changing or deleting one sets archivedAt (and active = false)
+// and, on a change, creates a new row. A week is measured against the goals that
+// existed at its end, so old reports and streaks don't change afterwards.
 
 model WeeklyGoal {
   id          String    @id @default(uuid()) @db.Char(36)

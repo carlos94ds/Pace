@@ -14,6 +14,7 @@ import type { Prisma } from '../../generated/prisma/client';
 import { hashPassword, verifyPassword } from '../../lib/crypto';
 import { toDb } from '../../lib/enums';
 import { queueFileDeletions, tryProcessFileDeletions } from '../../lib/file-deletions';
+import { withDeadlockRetry } from '../../lib/transactions';
 import { HttpError } from '../../middleware/errors';
 import { clearSessionCookie, currentUserId, requireAuth } from '../../middleware/session';
 import { parseBody } from '../../middleware/validate';
@@ -202,24 +203,26 @@ export function meRouter(ctx: AppContext): Router {
     const { password } = parseBody(deleteAccountSchema, req);
     await requirePassword(userId, password);
 
-    const keys = await prisma.$transaction(async (tx) => {
-      const [profile, evidence] = await Promise.all([
-        tx.userProfile.findUnique({ where: { userId }, select: { avatarKey: true } }),
-        tx.weightEvidence.findMany({
-          where: { measurement: { userId } },
-          select: { storageKey: true },
-        }),
-      ]);
-      const keys = [profile?.avatarKey, ...evidence.map((e) => e.storageKey)].filter(
-        (k): k is string => Boolean(k),
-      );
-      await queueFileDeletions(tx, keys);
-      // Sessions first: a custom sport can't be removed while sessions still use it
-      // (Restrict), and MySQL doesn't order the two cascades from User for us.
-      await tx.trainingSession.deleteMany({ where: { userId } });
-      await tx.user.delete({ where: { id: userId } });
-      return keys;
-    });
+    const keys = await withDeadlockRetry(() =>
+      prisma.$transaction(async (tx) => {
+        const [profile, evidence] = await Promise.all([
+          tx.userProfile.findUnique({ where: { userId }, select: { avatarKey: true } }),
+          tx.weightEvidence.findMany({
+            where: { measurement: { userId } },
+            select: { storageKey: true },
+          }),
+        ]);
+        const keys = [profile?.avatarKey, ...evidence.map((e) => e.storageKey)].filter(
+          (k): k is string => Boolean(k),
+        );
+        await queueFileDeletions(tx, keys);
+        // Sessions first: a custom sport can't be removed while sessions still use it
+        // (Restrict), and MySQL doesn't order the two cascades from User for us.
+        await tx.trainingSession.deleteMany({ where: { userId } });
+        await tx.user.delete({ where: { id: userId } });
+        return keys;
+      }),
+    );
     await tryProcessFileDeletions(ctx, keys);
 
     clearSessionCookie(ctx, res);

@@ -56,3 +56,24 @@ export function todayIn(timeZone: string, now = new Date()): IsoDate {
     day: '2-digit',
   }).format(now);
 }
+
+/** Local calendar date, weekday (Monday = 1 … Sunday = 7) and time in an IANA timezone. */
+export function localNow(timeZone: string, now = new Date()) {
+  const parts = Object.fromEntries(
+    new Intl.DateTimeFormat('en-GB', {
+      timeZone,
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+      hourCycle: 'h23',
+      weekday: 'short',
+    })
+      .formatToParts(now)
+      .map((p) => [p.type, p.value]),
+  );
+  const date: IsoDate = `${parts.year}-${parts.month}-${parts.day}`;
+  const weekday = ((toUtcDate(date).getUTCDay() + 6) % 7) + 1;
+  return { date, weekday, hour: Number(parts.hour), minute: Number(parts.minute) };
+}

@@ -8,17 +8,20 @@ Local tooling found: Node.js 26, npm, git, GitHub CLI, Homebrew and MySQL Workbe
 
 ## Decisions taken
 
-| Topic                         | Decision                                                                          |
-| ----------------------------- | --------------------------------------------------------------------------------- |
-| Database (dev + prod)         | Railway MySQL, inspected with MySQL Workbench                                     |
-| File storage                  | Railway Storage Bucket (private)                                                  |
-| Email                         | Gmail SMTP with an app password, behind a replaceable adapter                     |
-| Streak                        | Consecutive weeks reaching the training-day goal; a week below the goal resets it |
-| Motivation, rating, intensity | Scale 1–5                                                                         |
-| Discoverability               | On by default; only username, first name and profile picture are shown            |
-| Training dates                | Logged up to today in the user's timezone; no planned (future) sessions           |
-| Weeks                         | Monday to Sunday (ISO 8601)                                                       |
-| Custom sports                 | Private to their owner; colour from a fixed palette; deletable once unused        |
+| Topic                         | Decision                                                                            |
+| ----------------------------- | ----------------------------------------------------------------------------------- |
+| Database (dev + prod)         | Railway MySQL, inspected with MySQL Workbench                                       |
+| File storage                  | Railway Storage Bucket (private)                                                    |
+| Email                         | Gmail SMTP with an app password, behind a replaceable adapter                       |
+| Streak                        | Consecutive weeks reaching the training-day goal; a week below the goal resets it   |
+| Motivation, rating, intensity | Scale 1–5                                                                           |
+| Discoverability               | On by default; only username, first name and profile picture are shown              |
+| Training dates                | Logged up to today in the user's timezone; no planned (future) sessions             |
+| Weeks                         | Monday to Sunday (ISO 8601)                                                         |
+| Custom sports                 | Private to their owner; colour from a fixed palette; deletable once unused          |
+| Goals history                 | Editing or deleting a goal archives it; each week is measured against its own goals |
+| Missed reports                | After downtime only the most recent due week is caught up, never older weeks        |
+| Charts                        | Small own components (no chart library), each with a tooltip and a table view       |
 
 ## 2. Repository structure
 
@@ -125,6 +128,10 @@ A weight entry and its evidence are created in one request: no photo means no we
 - `UNIQUE(userId, weekStart)` makes generation idempotent: a double run or a restart can't create duplicates. If the server was down on Sunday evening, the next run catches up.
 - The report stores a **snapshot** (stats, goal results, comparison) so old reports don't change when sessions or goals are edited later.
 - Conclusions are **rule-based**, not AI-generated: e.g. "punctuality rose from 60% to 90%" only when there's data for both weeks; reasons are quoted only from what the user wrote. With too little data the report says so.
+- Implementation: `server/src/modules/stats/metrics.ts` (pure statistics: totals, goals, streaks, consistency, series), `reports/build.ts` (report content and conclusion rules), `reports/generate.ts` (due-week logic per timezone and idempotent creation). The scheduler runs it every 15 minutes, so a report appears between 18:00 and 18:15.
+- When a report is created, a `WEEKLY_REPORT` notification is stored (and `GOAL_ACHIEVED` when goals were reached), respecting the user's notification settings. The notification centre itself follows in phase 6; until then the dashboard shows a banner for an unread report.
+- `npm run report:generate -w server -- <email> [weekStart]` creates a report immediately (development and support).
+- Transactions that can collide (account deletion, report creation) are retried after a MySQL deadlock.
 
 ## 8. Internationalisation
 

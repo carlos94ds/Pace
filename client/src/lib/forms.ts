@@ -12,7 +12,12 @@ export function validate<T extends z.ZodType>(
   const result = schema.safeParse(values);
   if (result.success) return { data: result.data, errors: null };
   const errors: FieldErrors = {};
-  for (const issue of result.error.issues) errors[issue.path.join('.') || '_'] ??= issue.code;
+  for (const issue of result.error.issues) {
+    // Custom checks carry their own code as message (e.g. 'too_early'), like on the server.
+    const code =
+      issue.code === 'custom' && /^[a-z_]+$/.test(issue.message) ? issue.message : issue.code;
+    errors[issue.path.join('.') || '_'] ??= code;
+  }
   return { data: null, errors };
 }
 

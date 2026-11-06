@@ -74,3 +74,13 @@ describe('same-origin check', () => {
     expect(res.status).toBe(400);
   });
 });
+
+describe('rate limiting', () => {
+  it('answers with the usual JSON error format', async () => {
+    const app = makeApp({ apiRateLimit: 2 });
+    await request(app).get('/api/v1/me').expect(401);
+    await request(app).get('/api/v1/me').expect(401);
+    const res = await request(app).get('/api/v1/me').expect(429);
+    expect(res.body).toEqual({ error: { code: 'too_many_requests' } });
+  });
+});

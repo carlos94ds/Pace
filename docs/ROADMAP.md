@@ -32,7 +32,7 @@ Each phase ends with working, tested functionality and a commit/push. The next p
 
 **Done when:** sessions can be fully managed from the calendar on desktop and mobile, and totals match the database.
 
-## Phase 4 – Dashboard and weekly reports
+## Phase 4 – Dashboard and weekly reports ✓
 
 - Dashboard: all metrics from section C of the brief, filters (week, month, year, custom range), charts.
 - Weekly goals (needed for goal achievement in reports; moved forward from phase 6).

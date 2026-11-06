@@ -35,7 +35,8 @@ const NEW_SPORT = '__new__';
 
 /** Form fields whose API field has a different name. */
 const ERROR_KEYS: Partial<Record<keyof FormValues, string>> = {
-  duration: 'durationMinutes',
+  hours: 'durationMinutes',
+  minutes: 'durationMinutes',
   gym: 'gymId',
 };
 
@@ -69,7 +70,8 @@ interface FormValues {
   date: string;
   sportId: string;
   gym: Gym | null;
-  duration: string;
+  hours: string;
+  minutes: string;
   punctuality: Punctuality;
   motivation: number | null;
   rating: number | null;
@@ -100,7 +102,8 @@ function SessionForm({
     date: session?.date ?? (date && date <= today ? date : today),
     sportId: session?.sport.id ?? me.profile.sports[0]?.id ?? '',
     gym: session ? session.gym : me.profile.gym,
-    duration: session ? String(session.durationMinutes) : '',
+    hours: session ? String(Math.floor(session.durationMinutes / 60)) : '',
+    minutes: session ? String(session.durationMinutes % 60) : '',
     punctuality: session?.punctuality ?? 'on_time',
     motivation: session?.motivation ?? null,
     rating: session?.rating ?? null,
@@ -118,7 +121,9 @@ function SessionForm({
   const sportOptions = (sports.data ?? [])
     .map((s) => ({ id: s.id, label: sportName(t, s), own: !s.slug }))
     .sort((a, b) => a.label.localeCompare(b.label));
-  const minutes = Number(values.duration);
+  // Hours and minutes are entered separately and stored as minutes.
+  const noDuration = values.hours === '' && values.minutes === '';
+  const totalMinutes = Number(values.hours || 0) * 60 + Number(values.minutes || 0);
 
   function submit(e: React.FormEvent) {
     e.preventDefault();
@@ -126,7 +131,7 @@ function SessionForm({
       date: values.date,
       sportId: values.sportId,
       gymId: values.gym?.id ?? null,
-      durationMinutes: values.duration === '' ? undefined : minutes,
+      durationMinutes: noDuration ? undefined : totalMinutes,
       punctuality: values.punctuality,
       motivation: values.motivation ?? undefined,
       rating: values.rating ?? undefined,
@@ -160,21 +165,39 @@ function SessionForm({
           onChange={(e) => set('date', e.target.value)}
           error={msg('date')}
         />
-        <TextField
-          type="number"
-          inputMode="numeric"
-          label={t('training.fields.duration')}
-          value={values.duration}
-          min={1}
-          max={MAX_SESSION_MINUTES}
-          onChange={(e) => set('duration', e.target.value)}
-          error={fieldMessage(t, 'durationMinutes', errors.durationMinutes)}
-          hint={
-            minutes >= 60 && minutes <= MAX_SESSION_MINUTES
-              ? formatDuration(minutes)
-              : t('training.form.durationHint')
-          }
-        />
+        <fieldset>
+          <legend className="mb-1.5 text-sm font-medium">{t('training.fields.duration')}</legend>
+          <div className="grid grid-cols-2 gap-2">
+            <TextField
+              type="number"
+              inputMode="numeric"
+              label={t('training.form.hours')}
+              value={values.hours}
+              min={0}
+              max={24}
+              onChange={(e) => set('hours', e.target.value)}
+              aria-invalid={Boolean(errors.durationMinutes)}
+            />
+            <TextField
+              type="number"
+              inputMode="numeric"
+              label={t('training.form.minutes')}
+              value={values.minutes}
+              min={0}
+              max={59}
+              step={5}
+              onChange={(e) => set('minutes', e.target.value)}
+              aria-invalid={Boolean(errors.durationMinutes)}
+            />
+          </div>
+          <p className={`mt-1.5 text-xs ${errors.durationMinutes ? 'text-danger' : 'text-muted'}`}>
+            {errors.durationMinutes
+              ? fieldMessage(t, 'durationMinutes', errors.durationMinutes)
+              : !noDuration && totalMinutes > 0 && totalMinutes <= MAX_SESSION_MINUTES
+                ? formatDuration(totalMinutes)
+                : t('training.form.durationHint')}
+          </p>
+        </fieldset>
       </div>
 
       {addingSport ? (

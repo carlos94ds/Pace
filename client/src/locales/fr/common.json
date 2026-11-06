@@ -3,40 +3,18 @@
     "retry": "Réessayer",
     "cancel": "Annuler",
     "save": "Enregistrer",
-    "saved": "Enregistré"
+    "saved": "Enregistré",
+    "close": "Fermer"
   },
   "nav": {
     "main": "Navigation principale",
-    "overview": "Aperçu",
     "profile": "Profil",
     "settings": "Paramètres",
     "logout": "Se déconnecter",
     "calendar": "Calendrier",
-    "history": "Historique"
-  },
-  "status": {
-    "greeting": "Bienvenue, {{name}}",
-    "subtitle": "Enregistre tes entraînements dans le calendrier. Le tableau de bord et les rapports hebdomadaires arrivent dans la prochaine phase.",
-    "systemTitle": "État du système",
-    "refresh": "Vérifier à nouveau",
-    "api": "API",
-    "database": "Base de données",
-    "checking": "Vérification…",
-    "online": "En ligne",
-    "offline": "Hors ligne",
-    "lastChecked": "Dernière vérification",
-    "roadmapTitle": "Feuille de route",
-    "phase": "Phase {{number}}",
-    "inProgress": "En cours",
-    "phases": {
-      "1": "Fondations",
-      "2": "Comptes et profils",
-      "3": "Calendrier d'entraînement",
-      "4": "Tableau de bord et rapports hebdomadaires",
-      "5": "Amis et succès",
-      "6": "Poids, objectifs et notifications",
-      "7": "Tests et lancement"
-    }
+    "history": "Historique",
+    "dashboard": "Tableau de bord",
+    "reports": "Rapports"
   },
   "fields": {
     "email": "E-mail",
@@ -281,13 +259,14 @@
         "custom": "Choisis un fuseau horaire valide."
       },
       "date": {
-        "custom": "Saisis une date valide.",
-        "in_future": "Tu peux seulement enregistrer des entraînements jusqu'à aujourd'hui."
+        "in_future": "Tu peux seulement enregistrer des entraînements jusqu'à aujourd'hui.",
+        "invalid_date": "Saisis une date valide.",
+        "too_early": "Les dates avant 2000 ne sont pas prises en charge."
       },
       "durationMinutes": {
         "too_small": "Saisis au moins 1 minute.",
         "too_big": "Un entraînement dure au maximum 24 heures (1440 minutes).",
-        "invalid_type": "Saisis la durée en minutes."
+        "invalid_type": "Indique la durée de l'entraînement."
       },
       "sportId": {
         "invalid_format": "Choisis un sport.",
@@ -296,6 +275,9 @@
       "sportName": {
         "too_small": "Utilise au moins 2 caractères.",
         "taken": "Tu as déjà un sport avec ce nom."
+      },
+      "goalSport": {
+        "required": "Choisis un sport."
       }
     },
     "api": {
@@ -328,7 +310,7 @@
     "fields": {
       "date": "Date",
       "sport": "Sport",
-      "duration": "Durée (minutes)",
+      "duration": "Durée",
       "gym": "Salle ou lieu",
       "punctuality": "Ponctualité",
       "motivation": "Motivation avant",
@@ -359,10 +341,12 @@
       "deleteConfirm": "Supprimer cet entraînement ?",
       "chooseSport": "Choisis un sport",
       "chooseScore": "Choisis de 1 à 5.",
-      "durationHint": "Par exemple 90 pour une heure et demie.",
+      "durationHint": "Par exemple 1 heure et 30 minutes.",
       "reflectionPlaceholder": "Pourquoi ça s'est bien ou mal passé ? Que feras-tu autrement ?",
       "reflectionHint": "Toi seul le vois, sauf si tu partages les détails de cet entraînement.",
-      "shareDetailsHelp": "Les amis qui peuvent voir ton activité verront aussi la motivation, la note et la réflexion de cet entraînement. Désactivé par défaut."
+      "shareDetailsHelp": "Les amis qui peuvent voir ton activité verront aussi la motivation, la note et la réflexion de cet entraînement. Désactivé par défaut.",
+      "hours": "Heures",
+      "minutes": "Minutes"
     },
     "sports": {
       "title": "Mes sports",
@@ -416,6 +400,146 @@
       "noResults": "Aucun entraînement ne correspond à ces filtres",
       "noResultsHint": "Essaie d'autres filtres ou efface-les.",
       "loadMore": "Charger plus"
+    }
+  },
+  "charts": {
+    "showTable": "Afficher en tableau",
+    "period": "Période"
+  },
+  "dashboard": {
+    "greeting": "Bon retour, {{name}}",
+    "subtitle": "Tes performances d'entraînement en un coup d'œil.",
+    "period": "Période",
+    "periods": {
+      "week": "Semaine",
+      "month": "Mois",
+      "year": "Année",
+      "custom": "Personnalisée"
+    },
+    "hoursOverTime": "Heures d'entraînement dans le temps",
+    "weeks_one": "{{count}} semaine",
+    "weeks_other": "{{count}} semaines",
+    "kpi": {
+      "hours": "Heures d'entraînement",
+      "averageDuration": "Durée moyenne",
+      "punctuality": "Ponctualité",
+      "punctualityDetail": "{{onTime}} sur {{sessions}} à l'heure",
+      "consistency": "Régularité",
+      "consistencyWeeks": "Objectif de jours atteint {{achieved}} semaines sur {{total}}",
+      "consistencyDays": "Entraîné {{achieved}} jours sur {{total}}",
+      "currentStreak": "Série actuelle",
+      "longestStreak": "Plus longue série",
+      "streakNeedsGoal": "Fixe un objectif de jours d'entraînement pour construire une série.",
+      "streakGoal_one": "Objectif : {{count}} jour par semaine",
+      "streakGoal_other": "Objectif : {{count}} jours par semaine"
+    }
+  },
+  "goals": {
+    "title": "Objectifs hebdomadaires",
+    "thisWeek": "Progression cette semaine",
+    "manage": "Gérer les objectifs",
+    "add": "Ajouter un objectif",
+    "empty": "Pas encore d'objectif. Les objectifs donnent tout son sens à ton rapport et à ta série.",
+    "achieved": "Atteint",
+    "notYet": "Pas encore atteint",
+    "notAchieved": "Non atteint",
+    "manageTitle": "Objectifs hebdomadaires",
+    "manageHelp": "Les modifications s'appliquent à partir de cette semaine ; les semaines passées gardent leurs objectifs.",
+    "edit": "Modifier",
+    "delete": "Supprimer",
+    "describe": {
+      "total_minutes": "S'entraîner {{hours}} heures par semaine",
+      "training_days_one": "S'entraîner au moins {{count}} jour par semaine",
+      "training_days_other": "S'entraîner au moins {{count}} jours par semaine",
+      "punctuality_pct": "À l'heure pour {{count}} % des entraînements",
+      "sport_sessions": "{{count}}× {{sport}} par semaine"
+    },
+    "types": {
+      "total_minutes": "Heures d'entraînement",
+      "training_days": "Jours d'entraînement",
+      "punctuality_pct": "Ponctualité",
+      "sport_sessions": "Entraînements d'un sport"
+    },
+    "form": {
+      "type": "Type d'objectif",
+      "taken": "Tu as déjà cet objectif. Modifie-le plutôt.",
+      "range": "Entre {{min}} et {{max}}.",
+      "rangeHours": "Entre {{min}} et {{max}} heures.",
+      "target": {
+        "total_minutes": "Heures par semaine",
+        "training_days": "Jours par semaine",
+        "punctuality_pct": "Pourcentage à l'heure",
+        "sport_sessions": "Entraînements par semaine"
+      }
+    }
+  },
+  "reports": {
+    "title": "Rapports hebdomadaires",
+    "subtitle": "Chaque dimanche à 18 h (ton heure), PACE analyse ta semaine.",
+    "empty": "Pas encore de rapport",
+    "emptyHint": "Ton premier rapport arrive dimanche à 18 h.",
+    "new": "Nouveau",
+    "daysCount_one": "{{count}} jour d'entraînement",
+    "daysCount_other": "{{count}} jours d'entraînement",
+    "goalsCount": "{{achieved}}/{{total}} objectifs",
+    "noGoals": "aucun objectif",
+    "readyTitle": "Ton rapport hebdomadaire est prêt.",
+    "readyText": "Découvre comment s'est passée ta semaine du {{range}}.",
+    "notFound": "Ce rapport n'existe pas.",
+    "back": "Tous les rapports",
+    "reportTitle": "Rapport hebdomadaire",
+    "sections": {
+      "conclusion": "Résumé",
+      "stats": "Statistiques de la semaine",
+      "goals": "Objectifs",
+      "wentWell": "Ce qui a bien marché",
+      "improve": "Ce qui peut s'améliorer",
+      "comparison": "Par rapport à la semaine dernière"
+    },
+    "noGoalsSet": "Tu n'avais pas d'objectifs cette semaine.",
+    "nothingToSay": "Pas assez de données pour en dire quelque chose.",
+    "bestSessions": "Meilleurs entraînements",
+    "worstSessions": "Entraînements difficiles",
+    "noReasonGiven": "Aucune raison indiquée.",
+    "punctualityDetail": "{{onTime}} à l'heure · {{late}} en retard",
+    "sportsPractised": "Sports pratiqués",
+    "noPreviousWeek": "Aucun entraînement la semaine dernière, donc rien à comparer pour l'instant.",
+    "metric": "Indicateur",
+    "thisWeek": "Cette semaine",
+    "lastWeek": "Semaine dernière",
+    "goalsReached": "Objectifs atteints",
+    "perDay": "Heures par jour",
+    "change": {
+      "title": "Évolution",
+      "up": "en hausse",
+      "down": "en baisse",
+      "same": "stable",
+      "points": "{{value}} pt"
+    },
+    "lines": {
+      "noTraining": "Tu n'as enregistré aucun entraînement cette semaine.",
+      "noTrainingAfterActive": "Tu n'as enregistré aucun entraînement cette semaine, après une semaine active.",
+      "overview": "Entraînements : {{sessions}} · jours d'entraînement : {{days}} · heures : {{hours, number}}.",
+      "noComparison": "Aucun entraînement la semaine dernière, donc pas encore de comparaison.",
+      "hoursUp": "Tu t'es entraîné {{now, number}} heures, {{pct}} % de plus que la semaine dernière ({{before, number}} h).",
+      "hoursDown": "Tu t'es entraîné {{now, number}} heures, {{pct}} % de moins que la semaine dernière ({{before, number}} h).",
+      "hoursSame": "Tu t'es entraîné autant d'heures que la semaine dernière ({{now, number}} h).",
+      "daysUp": "Plus de jours d'entraînement : {{now}} au lieu de {{before}}.",
+      "daysDown": "Moins de jours d'entraînement : {{now}} au lieu de {{before}}.",
+      "punctualityUp": "Ta ponctualité est passée de {{before}} % à {{now}} %.",
+      "punctualityDown": "Ta ponctualité a baissé de {{before}} % à {{now}} %.",
+      "setGoals": "Fixe des objectifs hebdomadaires pour que le rapport indique si tu les atteins.",
+      "allGoals": "Tu as atteint tous tes objectifs ({{total}}).",
+      "someGoals": "Tu as atteint {{achieved}} objectifs sur {{total}}.",
+      "goalsMissed": "{{missed}} objectifs sur {{total}} n'ont pas été atteints.",
+      "alwaysOnTime": "Tu étais à l'heure à chaque entraînement.",
+      "lateSessions": "Tu étais en retard à {{late}} entraînements sur {{sessions}}.",
+      "goodRatings": "Tes entraînements se sont bien passés : moyenne de {{avg, number}} sur 5.",
+      "lowRatings": "Tes entraînements ont été difficiles : moyenne de {{avg, number}} sur 5.",
+      "lowMotivation": "Ta motivation avant l'entraînement était faible (moyenne de {{avg, number}} sur 5).",
+      "noReasons_one": "Pour {{count}} entraînement difficile, tu n'as pas noté pourquoi. Une courte réflexion aide à repérer des tendances.",
+      "noReasons_other": "Pour {{count}} entraînements difficiles, tu n'as pas noté pourquoi. Une courte réflexion aide à repérer des tendances.",
+      "streak": "Ta série est maintenant de {{weeks}} semaines."
     }
   }
 }

@@ -13,6 +13,9 @@ import { authRouter } from './modules/auth/auth.routes';
 import { catalogRouter } from './modules/catalog/catalog.routes';
 import { healthRouter } from './modules/health/health.routes';
 import { meRouter } from './modules/me/me.routes';
+import { goalsRouter } from './modules/goals/goals.routes';
+import { reportsRouter } from './modules/reports/reports.routes';
+import { statsRouter } from './modules/stats/stats.routes';
 import { trainingRouter } from './modules/training/training.routes';
 import { usersRouter } from './modules/users/users.routes';
 
@@ -21,6 +24,8 @@ export interface AppOptions {
   version: string;
   /** Requests per 15 minutes per IP on login, registration and password reset. */
   authRateLimit?: number;
+  /** API requests per minute per IP. */
+  apiRateLimit?: number;
   /** Built React app to serve; skipped when the folder doesn't exist (e.g. in development). */
   clientDist?: string;
 }
@@ -29,7 +34,13 @@ const defaultClientDist = fileURLToPath(new URL('../../client/dist', import.meta
 
 export function createApp(
   ctx: AppContext,
-  { checkDatabase, version, authRateLimit = 20, clientDist = defaultClientDist }: AppOptions,
+  {
+    checkDatabase,
+    version,
+    authRateLimit = 20,
+    apiRateLimit = 300,
+    clientDist = defaultClientDist,
+  }: AppOptions,
 ): Express {
   const app = express();
 
@@ -59,7 +70,16 @@ export function createApp(
 
   const api = express.Router();
   api.use(
-    rateLimit({ windowMs: 60_000, limit: 300, standardHeaders: 'draft-8', legacyHeaders: false }),
+    rateLimit({
+      windowMs: 60_000,
+      limit: apiRateLimit,
+      standardHeaders: 'draft-8',
+      legacyHeaders: false,
+      // Same error format as every other API error, so the client can show a message.
+      handler: (_req, res) => {
+        res.status(429).json({ error: { code: 'too_many_requests' } });
+      },
+    }),
   );
   api.use(requireSameOrigin(ctx.config.appUrl));
   api.use(express.json({ limit: '100kb' }));
@@ -70,6 +90,9 @@ export function createApp(
   api.use('/users', usersRouter(ctx));
   api.use(catalogRouter(ctx));
   api.use(trainingRouter(ctx));
+  api.use(statsRouter(ctx));
+  api.use(goalsRouter(ctx));
+  api.use(reportsRouter(ctx));
   app.use('/api/v1', api);
   app.use('/api', notFound);
 

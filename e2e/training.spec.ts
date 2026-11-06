@@ -37,10 +37,11 @@ test('training calendar', async ({ page }, testInfo) => {
   const dialog = page.getByRole('dialog');
   await dialog.getByRole('button', { name: 'Save training' }).click();
   await expect(dialog.getByText('Choose a sport.')).toBeVisible();
-  await expect(dialog.getByText('Enter the duration in minutes.')).toBeVisible();
+  await expect(dialog.getByText('Enter how long the training took.')).toBeVisible();
   await expect(dialog.getByText('Choose 1 to 5.')).toHaveCount(3);
 
-  await dialog.getByLabel('Duration (minutes)').fill('90');
+  await dialog.getByLabel('Hours').fill('1');
+  await dialog.getByLabel('Minutes').fill('30');
   await dialog.getByLabel('Sport').selectOption({ label: 'MMA' });
   await pickScores(page, [4, 3, 5]);
   await dialog.getByLabel('Reflection').fill('Good sparring, slow start.');
@@ -59,8 +60,9 @@ test('training calendar', async ({ page }, testInfo) => {
     .getByRole('button', { name: /MMA.*1:30 h/ })
     .last()
     .click();
-  await expect(dialog.getByLabel('Duration (minutes)')).toHaveValue('90');
-  await dialog.getByLabel('Duration (minutes)').fill('60');
+  await expect(dialog.getByLabel('Hours')).toHaveValue('1');
+  await expect(dialog.getByLabel('Minutes')).toHaveValue('30');
+  await dialog.getByLabel('Minutes').fill('0');
   await dialog.getByRole('button', { name: 'Save changes' }).click();
   await expect(dialog).toBeHidden();
   await expect(page.getByText('1:00 h').filter({ visible: true }).first()).toBeVisible();
@@ -71,7 +73,7 @@ test('training calendar', async ({ page }, testInfo) => {
   await dialog.getByLabel('Name').fill('Sambo');
   await dialog.getByRole('button', { name: 'Add sport' }).click();
   await expect(dialog.getByLabel('Sport')).toHaveValue(/[0-9a-f-]{36}/);
-  await dialog.getByLabel('Duration (minutes)').fill('45');
+  await dialog.getByLabel('Minutes').fill('45');
   await dialog.getByText('Late', { exact: true }).click();
   await pickScores(page, [2, 2, 3]);
   await dialog.getByRole('button', { name: 'Save training' }).click();

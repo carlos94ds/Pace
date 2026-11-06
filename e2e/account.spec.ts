@@ -57,7 +57,7 @@ test('account lifecycle', async ({ page }, testInfo) => {
   await page.getByLabel('E-mail').fill(email);
   await page.getByLabel('Wachtwoord').fill(password);
   await page.getByRole('button', { name: 'Inloggen' }).click();
-  await expect(page.getByRole('heading', { name: 'Welkom, Carlos' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Welkom terug, Carlos' })).toBeVisible();
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
   await shot('overview');
 

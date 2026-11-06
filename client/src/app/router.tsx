@@ -5,8 +5,10 @@ import { PublicOnly, RequireAuth } from '../features/auth/guards';
 import { LoginPage } from '../features/auth/LoginPage';
 import { RegisterPage } from '../features/auth/RegisterPage';
 import { ResetPasswordPage } from '../features/auth/ResetPasswordPage';
-import { OverviewPage } from '../features/overview/OverviewPage';
+import { DashboardPage } from '../features/dashboard/DashboardPage';
 import { ProfilePage } from '../features/profile/ProfilePage';
+import { ReportPage } from '../features/reports/ReportPage';
+import { ReportsPage } from '../features/reports/ReportsPage';
 import { SettingsPage } from '../features/settings/SettingsPage';
 import { CalendarPage } from '../features/training/CalendarPage';
 import { HistoryPage } from '../features/training/HistoryPage';
@@ -38,9 +40,11 @@ export const router = createBrowserRouter([
       {
         element: <AppShell />,
         children: [
-          { index: true, element: <OverviewPage /> },
+          { index: true, element: <DashboardPage /> },
           { path: 'calendar', element: <CalendarPage /> },
           { path: 'history', element: <HistoryPage /> },
+          { path: 'reports', element: <ReportsPage /> },
+          { path: 'reports/:weekStart', element: <ReportPage /> },
           { path: 'profile', element: <ProfilePage /> },
           { path: 'settings', element: <SettingsPage /> },
           { path: '*', element: <NotFoundPage /> },

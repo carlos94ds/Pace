@@ -38,8 +38,9 @@ const ctx: AppContext = {
 const app = createApp(ctx, {
   checkDatabase: isDatabaseUp,
   version: process.env.RAILWAY_GIT_COMMIT_SHA?.slice(0, 7) ?? 'dev',
-  // Strict in production; locally, repeated end-to-end runs register and log in many times.
+  // Strict in production; locally, parallel end-to-end runs all come from one IP.
   authRateLimit: ctx.config.production ? 20 : 1000,
+  apiRateLimit: ctx.config.production ? 300 : 10_000,
 });
 
 const stopScheduler = startScheduler(ctx);

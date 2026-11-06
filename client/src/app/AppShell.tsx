@@ -1,7 +1,8 @@
 import {
-  Activity,
   CalendarDays,
+  FileText,
   History,
+  LayoutDashboard,
   LogOut,
   Settings,
   UserRound,
@@ -17,15 +18,18 @@ interface NavItem {
   to: string;
   labelKey: string;
   icon: LucideIcon;
+  /** Left out of the phone's bottom bar (it's in the header there). */
+  desktopOnly?: boolean;
 }
 
 // Only pages that actually exist are listed; each phase adds its own entries.
 const NAV: NavItem[] = [
-  { to: '/', labelKey: 'nav.overview', icon: Activity },
+  { to: '/', labelKey: 'nav.dashboard', icon: LayoutDashboard },
   { to: '/calendar', labelKey: 'nav.calendar', icon: CalendarDays },
   { to: '/history', labelKey: 'nav.history', icon: History },
+  { to: '/reports', labelKey: 'nav.reports', icon: FileText },
   { to: '/profile', labelKey: 'nav.profile', icon: UserRound },
-  { to: '/settings', labelKey: 'nav.settings', icon: Settings },
+  { to: '/settings', labelKey: 'nav.settings', icon: Settings, desktopOnly: true },
 ];
 
 export function AppShell() {
@@ -82,14 +86,25 @@ export function AppShell() {
 
       <header className="sticky top-0 z-10 flex h-14 items-center justify-between border-b border-border bg-surface/90 px-4 backdrop-blur md:hidden">
         <Logo />
-        <button
-          onClick={signOut}
-          disabled={logout.isPending}
-          className="rounded-lg p-2 text-muted hover:text-text"
-          aria-label={t('nav.logout')}
-        >
-          <LogOut className="size-5" aria-hidden="true" />
-        </button>
+        <div className="flex items-center gap-1">
+          <NavLink
+            to="/settings"
+            className={({ isActive }) =>
+              `rounded-lg p-2 ${isActive ? 'text-accent' : 'text-muted hover:text-text'}`
+            }
+            aria-label={t('nav.settings')}
+          >
+            <Settings className="size-5" aria-hidden="true" />
+          </NavLink>
+          <button
+            onClick={signOut}
+            disabled={logout.isPending}
+            className="rounded-lg p-2 text-muted hover:text-text"
+            aria-label={t('nav.logout')}
+          >
+            <LogOut className="size-5" aria-hidden="true" />
+          </button>
+        </div>
       </header>
 
       <main className="mx-auto w-full max-w-6xl px-4 pt-6 pb-24 sm:px-6 md:px-10 md:py-10">
@@ -100,17 +115,17 @@ export function AppShell() {
         className="fixed inset-x-0 bottom-0 z-10 grid grid-cols-5 border-t border-border bg-surface/95 pb-[env(safe-area-inset-bottom)] backdrop-blur md:hidden"
         aria-label={t('nav.main')}
       >
-        {NAV.map(({ to, labelKey, icon: Icon }) => (
+        {NAV.filter((item) => !item.desktopOnly).map(({ to, labelKey, icon: Icon }) => (
           <NavLink
             key={to}
             to={to}
             end={to === '/'}
             className={({ isActive }) =>
-              `flex flex-col items-center gap-1 py-2.5 text-xs font-medium ${isActive ? 'text-accent' : 'text-muted'}`
+              `flex min-w-0 flex-col items-center gap-1 px-0.5 py-2.5 text-[11px] font-medium ${isActive ? 'text-accent' : 'text-muted'}`
             }
           >
             <Icon className="size-5" aria-hidden="true" />
-            {t(labelKey)}
+            <span className="max-w-full truncate">{t(labelKey)}</span>
           </NavLink>
         ))}
       </nav>

@@ -4,3 +4,6 @@ export * from './preferences';
 export * from './profile';
 export * from './dates';
 export * from './training';
+export * from './goals';
+export * from './reports';
+export * from './stats';

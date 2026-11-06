@@ -4,6 +4,8 @@ PACE helps athletes train with more discipline and consistency. It combines a tr
 
 ## Status
 
+**Phase 4 – Dashboard and weekly reports: done.** Dashboard with all metrics (hours, days, sessions, average duration, punctuality, consistency, current and longest streak, hours per sport, goal progress), filters for week, month, year and custom range, charts. Weekly goals. Automatic weekly reports every Sunday at 18:00 local time with goal results, analysis, week-on-week comparison and a rule-based conclusion; report archive.
+
 **Phase 3 – Training: done.** Month and week calendar coloured by sport, adding/editing/deleting sessions with all fields, custom sports and gyms, history with filters, and totals (training days, hours, hours per sport).
 
 **Phase 2 – Accounts and profiles: done.** Registration, login, password reset, profile with photo, privacy and notification settings, account deletion including files.
@@ -22,14 +24,15 @@ npm run db:seed                      # built-in sports and achievements
 npm run dev                          # client on http://localhost:5173, API on :3000
 ```
 
-| Command                              | What it does                                                                                 |
-| ------------------------------------ | -------------------------------------------------------------------------------------------- |
-| `npm run dev`                        | Client and API with hot reload                                                               |
-| `npm test`                           | Unit and API tests (API tests use the `pace_test` database)                                  |
-| `npm run test:e2e`                   | Browser tests (desktop + mobile) via Playwright; first run `npx playwright install chromium` |
-| `npm run lint` / `npm run typecheck` | Code checks                                                                                  |
-| `npm run build` && `npm start`       | Production build, served by Express on one port                                              |
-| `npm run db:studio`                  | Browse the database (or use MySQL Workbench)                                                 |
+| Command                                                    | What it does                                                                                 |
+| ---------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| `npm run dev`                                              | Client and API with hot reload                                                               |
+| `npm test`                                                 | Unit and API tests (API tests use the `pace_test` database)                                  |
+| `npm run test:e2e`                                         | Browser tests (desktop + mobile) via Playwright; first run `npx playwright install chromium` |
+| `npm run lint` / `npm run typecheck`                       | Code checks                                                                                  |
+| `npm run build` && `npm start`                             | Production build, served by Express on one port                                              |
+| `npm run db:studio`                                        | Browse the database (or use MySQL Workbench)                                                 |
+| `npm run report:generate -w server -- <email> [weekStart]` | Create a weekly report now instead of on Sunday 18:00                                        |
 
 Deployment: every push to `main` deploys to Railway (https://pace-app-production.up.railway.app), with `prisma migrate deploy` before each release and a health check on `/api/health`. Details in [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md#10-deployment-on-railway).
 

@@ -17,6 +17,8 @@
   --success: #1f9d6b;
   --warning: #b97c12;
   --danger: #d14343;
+  /* Second chart series (e.g. previous week); validated against the accent for colour blindness. */
+  --chart-2: #d07a1f;
   color-scheme: light;
 }
 
@@ -34,6 +36,7 @@
   --success: #34c38f;
   --warning: #e0a63a;
   --danger: #ef6363;
+  --chart-2: #c97a2c;
   color-scheme: dark;
 }
 
@@ -63,6 +66,7 @@
   --color-success: var(--success);
   --color-warning: var(--warning);
   --color-danger: var(--danger);
+  --color-chart-2: var(--chart-2);
 }
 
 @layer base {

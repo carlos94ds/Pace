@@ -3,40 +3,18 @@
     "retry": "Erneut versuchen",
     "cancel": "Abbrechen",
     "save": "Änderungen speichern",
-    "saved": "Gespeichert"
+    "saved": "Gespeichert",
+    "close": "Schließen"
   },
   "nav": {
     "main": "Hauptnavigation",
-    "overview": "Übersicht",
     "profile": "Profil",
     "settings": "Einstellungen",
     "logout": "Abmelden",
     "calendar": "Kalender",
-    "history": "Verlauf"
-  },
-  "status": {
-    "greeting": "Willkommen, {{name}}",
-    "subtitle": "Trage dein Training im Kalender ein. Dashboard und Wochenberichte folgen in der nächsten Phase.",
-    "systemTitle": "Systemstatus",
-    "refresh": "Erneut prüfen",
-    "api": "API",
-    "database": "Datenbank",
-    "checking": "Wird geprüft…",
-    "online": "Online",
-    "offline": "Offline",
-    "lastChecked": "Zuletzt geprüft",
-    "roadmapTitle": "Roadmap",
-    "phase": "Phase {{number}}",
-    "inProgress": "In Arbeit",
-    "phases": {
-      "1": "Fundament",
-      "2": "Konten und Profile",
-      "3": "Trainingskalender",
-      "4": "Dashboard und Wochenberichte",
-      "5": "Freunde und Erfolge",
-      "6": "Gewicht, Ziele und Benachrichtigungen",
-      "7": "Tests und Launch"
-    }
+    "history": "Verlauf",
+    "dashboard": "Dashboard",
+    "reports": "Berichte"
   },
   "fields": {
     "email": "E-Mail",
@@ -281,13 +259,14 @@
         "custom": "Wähle eine gültige Zeitzone."
       },
       "date": {
-        "custom": "Gib ein gültiges Datum ein.",
-        "in_future": "Du kannst Trainings nur bis heute eintragen."
+        "in_future": "Du kannst Trainings nur bis heute eintragen.",
+        "invalid_date": "Gib ein gültiges Datum ein.",
+        "too_early": "Daten vor 2000 werden nicht unterstützt."
       },
       "durationMinutes": {
         "too_small": "Gib mindestens 1 Minute ein.",
         "too_big": "Ein Training dauert höchstens 24 Stunden (1440 Minuten).",
-        "invalid_type": "Gib die Dauer in Minuten ein."
+        "invalid_type": "Gib an, wie lange das Training gedauert hat."
       },
       "sportId": {
         "invalid_format": "Wähle eine Sportart.",
@@ -296,6 +275,9 @@
       "sportName": {
         "too_small": "Verwende mindestens 2 Zeichen.",
         "taken": "Du hast bereits eine Sportart mit diesem Namen."
+      },
+      "goalSport": {
+        "required": "Wähle eine Sportart."
       }
     },
     "api": {
@@ -328,7 +310,7 @@
     "fields": {
       "date": "Datum",
       "sport": "Sportart",
-      "duration": "Dauer (Minuten)",
+      "duration": "Dauer",
       "gym": "Gym oder Ort",
       "punctuality": "Pünktlichkeit",
       "motivation": "Motivation vorher",
@@ -359,10 +341,12 @@
       "deleteConfirm": "Dieses Training löschen?",
       "chooseSport": "Wähle eine Sportart",
       "chooseScore": "Wähle 1 bis 5.",
-      "durationHint": "Zum Beispiel 90 für anderthalb Stunden.",
+      "durationHint": "Zum Beispiel 1 Stunde und 30 Minuten.",
       "reflectionPlaceholder": "Warum lief es gut oder schlecht? Was machst du nächstes Mal anders?",
       "reflectionHint": "Nur du siehst das, außer du teilst die Details dieses Trainings.",
-      "shareDetailsHelp": "Freunde, die deine Aktivität sehen dürfen, sehen dann auch Motivation, Bewertung und Reflexion dieses Trainings. Standardmäßig aus."
+      "shareDetailsHelp": "Freunde, die deine Aktivität sehen dürfen, sehen dann auch Motivation, Bewertung und Reflexion dieses Trainings. Standardmäßig aus.",
+      "hours": "Stunden",
+      "minutes": "Minuten"
     },
     "sports": {
       "title": "Meine Sportarten",
@@ -416,6 +400,146 @@
       "noResults": "Keine Trainings für diese Filter",
       "noResultsHint": "Versuche andere Filter oder setze sie zurück.",
       "loadMore": "Mehr laden"
+    }
+  },
+  "charts": {
+    "showTable": "Als Tabelle anzeigen",
+    "period": "Zeitraum"
+  },
+  "dashboard": {
+    "greeting": "Willkommen zurück, {{name}}",
+    "subtitle": "Deine Trainingsleistung auf einen Blick.",
+    "period": "Zeitraum",
+    "periods": {
+      "week": "Woche",
+      "month": "Monat",
+      "year": "Jahr",
+      "custom": "Benutzerdefiniert"
+    },
+    "hoursOverTime": "Trainingsstunden im Zeitverlauf",
+    "weeks_one": "{{count}} Woche",
+    "weeks_other": "{{count}} Wochen",
+    "kpi": {
+      "hours": "Trainingsstunden",
+      "averageDuration": "Durchschnittliche Dauer",
+      "punctuality": "Pünktlichkeit",
+      "punctualityDetail": "{{onTime}} von {{sessions}} pünktlich",
+      "consistency": "Beständigkeit",
+      "consistencyWeeks": "Tagesziel in {{achieved}} von {{total}} Wochen erreicht",
+      "consistencyDays": "An {{achieved}} von {{total}} Tagen trainiert",
+      "currentStreak": "Aktuelle Serie",
+      "longestStreak": "Längste Serie",
+      "streakNeedsGoal": "Lege ein Ziel für Trainingstage fest, um eine Serie aufzubauen.",
+      "streakGoal_one": "Ziel: {{count}} Tag pro Woche",
+      "streakGoal_other": "Ziel: {{count}} Tage pro Woche"
+    }
+  },
+  "goals": {
+    "title": "Wochenziele",
+    "thisWeek": "Fortschritt diese Woche",
+    "manage": "Ziele verwalten",
+    "add": "Ziel hinzufügen",
+    "empty": "Noch keine Ziele. Mit Zielen werden dein Wochenbericht und deine Serie erst aussagekräftig.",
+    "achieved": "Erreicht",
+    "notYet": "Noch nicht erreicht",
+    "notAchieved": "Nicht erreicht",
+    "manageTitle": "Wochenziele",
+    "manageHelp": "Änderungen gelten ab dieser Woche; frühere Wochen behalten ihre damaligen Ziele.",
+    "edit": "Bearbeiten",
+    "delete": "Löschen",
+    "describe": {
+      "total_minutes": "{{hours}} Stunden pro Woche trainieren",
+      "training_days_one": "Mindestens {{count}} Tag pro Woche trainieren",
+      "training_days_other": "Mindestens {{count}} Tage pro Woche trainieren",
+      "punctuality_pct": "Bei {{count}}% der Trainings pünktlich",
+      "sport_sessions": "{{count}}× {{sport}} pro Woche"
+    },
+    "types": {
+      "total_minutes": "Trainingsstunden",
+      "training_days": "Trainingstage",
+      "punctuality_pct": "Pünktlichkeit",
+      "sport_sessions": "Trainings einer Sportart"
+    },
+    "form": {
+      "type": "Art des Ziels",
+      "taken": "Dieses Ziel hast du bereits. Bearbeite das bestehende Ziel.",
+      "range": "Zwischen {{min}} und {{max}}.",
+      "rangeHours": "Zwischen {{min}} und {{max}} Stunden.",
+      "target": {
+        "total_minutes": "Stunden pro Woche",
+        "training_days": "Tage pro Woche",
+        "punctuality_pct": "Prozent pünktlich",
+        "sport_sessions": "Trainings pro Woche"
+      }
+    }
+  },
+  "reports": {
+    "title": "Wochenberichte",
+    "subtitle": "Jeden Sonntag um 18:00 (deine Zeit) analysiert PACE deine Woche.",
+    "empty": "Noch keine Berichte",
+    "emptyHint": "Dein erster Bericht erscheint am Sonntag um 18:00.",
+    "new": "Neu",
+    "daysCount_one": "{{count}} Trainingstag",
+    "daysCount_other": "{{count}} Trainingstage",
+    "goalsCount": "{{achieved}}/{{total}} Ziele",
+    "noGoals": "keine Ziele",
+    "readyTitle": "Dein Wochenbericht ist fertig.",
+    "readyText": "Sieh dir an, wie deine Woche vom {{range}} lief.",
+    "notFound": "Dieser Bericht existiert nicht.",
+    "back": "Alle Berichte",
+    "reportTitle": "Wochenbericht",
+    "sections": {
+      "conclusion": "Zusammenfassung",
+      "stats": "Wochenstatistik",
+      "goals": "Ziele",
+      "wentWell": "Was gut lief",
+      "improve": "Was besser geht",
+      "comparison": "Im Vergleich zur Vorwoche"
+    },
+    "noGoalsSet": "Du hattest diese Woche keine Ziele.",
+    "nothingToSay": "Zu wenige Daten, um hier etwas zu sagen.",
+    "bestSessions": "Beste Trainings",
+    "worstSessions": "Trainings, die schlecht liefen",
+    "noReasonGiven": "Kein Grund angegeben.",
+    "punctualityDetail": "{{onTime}} pünktlich · {{late}} zu spät",
+    "sportsPractised": "Ausgeübte Sportarten",
+    "noPreviousWeek": "Letzte Woche hattest du keine Trainings, daher gibt es noch nichts zu vergleichen.",
+    "metric": "Kennzahl",
+    "thisWeek": "Diese Woche",
+    "lastWeek": "Letzte Woche",
+    "goalsReached": "Erreichte Ziele",
+    "perDay": "Stunden pro Tag",
+    "change": {
+      "title": "Veränderung",
+      "up": "gestiegen",
+      "down": "gesunken",
+      "same": "unverändert",
+      "points": "{{value}} Pkt."
+    },
+    "lines": {
+      "noTraining": "Du hast diese Woche kein Training eingetragen.",
+      "noTrainingAfterActive": "Du hast diese Woche kein Training eingetragen, nach einer aktiven Vorwoche.",
+      "overview": "Trainings: {{sessions}} · Trainingstage: {{days}} · Stunden: {{hours, number}}.",
+      "noComparison": "Letzte Woche gab es keine Trainings, daher noch kein Vergleich.",
+      "hoursUp": "Du hast {{now, number}} Stunden trainiert, {{pct}}% mehr als letzte Woche ({{before, number}} Std.).",
+      "hoursDown": "Du hast {{now, number}} Stunden trainiert, {{pct}}% weniger als letzte Woche ({{before, number}} Std.).",
+      "hoursSame": "Du hast genauso viele Stunden trainiert wie letzte Woche ({{now, number}} Std.).",
+      "daysUp": "Mehr Trainingstage: {{now}} statt {{before}}.",
+      "daysDown": "Weniger Trainingstage: {{now}} statt {{before}}.",
+      "punctualityUp": "Pünktlichkeit verbessert von {{before}}% auf {{now}}%.",
+      "punctualityDown": "Pünktlichkeit gesunken von {{before}}% auf {{now}}%.",
+      "setGoals": "Lege Wochenziele fest, dann zeigt der Bericht, ob du sie erreichst.",
+      "allGoals": "Du hast alle Ziele erreicht ({{total}}).",
+      "someGoals": "Du hast {{achieved}} von {{total}} Zielen erreicht.",
+      "goalsMissed": "{{missed}} von {{total}} Zielen wurden nicht erreicht.",
+      "alwaysOnTime": "Du warst bei jedem Training pünktlich.",
+      "lateSessions": "Du warst bei {{late}} von {{sessions}} Trainings zu spät.",
+      "goodRatings": "Deine Trainings liefen gut: durchschnittlich {{avg, number}} von 5.",
+      "lowRatings": "Deine Trainings waren zäh: durchschnittlich {{avg, number}} von 5.",
+      "lowMotivation": "Deine Motivation vor dem Training war niedrig (durchschnittlich {{avg, number}} von 5).",
+      "noReasons_one": "Bei {{count}} Training, das schlecht lief, hast du nicht notiert, warum. Eine kurze Reflexion hilft, Muster zu erkennen.",
+      "noReasons_other": "Bei {{count}} Trainings, die schlecht liefen, hast du nicht notiert, warum. Eine kurze Reflexion hilft, Muster zu erkennen.",
+      "streak": "Deine Serie liegt jetzt bei {{weeks}} Wochen."
     }
   }
 }
