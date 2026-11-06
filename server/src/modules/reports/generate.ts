@@ -5,6 +5,7 @@ import { loadDaysPerWeek, loadGoals, loadSessions, mergeSports } from '../stats/
 import { streaks } from '../stats/metrics';
 import { withDeadlockRetry } from '../../lib/transactions';
 import { buildReport } from './build';
+import { awardAchievements } from '../achievements/award';
 
 /** Reports appear on Sunday from this hour, local time. */
 export const REPORT_HOUR = 18;
@@ -90,6 +91,8 @@ export async function generateReport(
         }
       }),
     );
+    // The final state of the week can complete a goal or streak achievement.
+    await awardAchievements(ctx, userId);
     return true;
   } catch (err) {
     // Another run created it first: UNIQUE(userId, weekStart).

@@ -7,6 +7,7 @@ import { toApi, toDb } from '../../lib/enums';
 import { HttpError } from '../../middleware/errors';
 import { currentUserId, requireAuth } from '../../middleware/session';
 import { parseBody } from '../../middleware/validate';
+import { tryAwardAchievements } from '../achievements/award';
 import { sportSelect } from '../training/training.mapper';
 
 const MAX_ACTIVE_GOALS = 10;
@@ -94,6 +95,7 @@ export function goalsRouter(ctx: AppContext): Router {
       data: { userId, type: dbType(input.type), target: input.target, sportId: input.sportId },
       select: goalSelect,
     });
+    await tryAwardAchievements(ctx, userId);
     res.status(201).json(toGoal(row));
   });
 
@@ -114,6 +116,7 @@ export function goalsRouter(ctx: AppContext): Router {
         select: goalSelect,
       });
     });
+    await tryAwardAchievements(ctx, userId);
     res.json(toGoal(row));
   });
 

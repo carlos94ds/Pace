@@ -8,20 +8,23 @@ Local tooling found: Node.js 26, npm, git, GitHub CLI, Homebrew and MySQL Workbe
 
 ## Decisions taken
 
-| Topic                         | Decision                                                                            |
-| ----------------------------- | ----------------------------------------------------------------------------------- |
-| Database (dev + prod)         | Railway MySQL, inspected with MySQL Workbench                                       |
-| File storage                  | Railway Storage Bucket (private)                                                    |
-| Email                         | Gmail SMTP with an app password, behind a replaceable adapter                       |
-| Streak                        | Consecutive weeks reaching the training-day goal; a week below the goal resets it   |
-| Motivation, rating, intensity | Scale 1–5                                                                           |
-| Discoverability               | On by default; only username, first name and profile picture are shown              |
-| Training dates                | Logged up to today in the user's timezone; no planned (future) sessions             |
-| Weeks                         | Monday to Sunday (ISO 8601)                                                         |
-| Custom sports                 | Private to their owner; colour from a fixed palette; deletable once unused          |
-| Goals history                 | Editing or deleting a goal archives it; each week is measured against its own goals |
-| Missed reports                | After downtime only the most recent due week is caught up, never older weeks        |
-| Charts                        | Small own components (no chart library), each with a tooltip and a table view       |
+| Topic                         | Decision                                                                               |
+| ----------------------------- | -------------------------------------------------------------------------------------- |
+| Database (dev + prod)         | Railway MySQL, inspected with MySQL Workbench                                          |
+| File storage                  | Railway Storage Bucket (private)                                                       |
+| Email                         | Gmail SMTP with an app password, behind a replaceable adapter                          |
+| Streak                        | Consecutive weeks reaching the training-day goal; a week below the goal resets it      |
+| Motivation, rating, intensity | Scale 1–5                                                                              |
+| Discoverability               | On by default; only username, first name and profile picture are shown                 |
+| Training dates                | Logged up to today in the user's timezone; no planned (future) sessions                |
+| Weeks                         | Monday to Sunday (ISO 8601)                                                            |
+| Custom sports                 | Private to their owner; colour from a fixed palette; deletable once unused             |
+| Goals history                 | Editing or deleting a goal archives it; each week is measured against its own goals    |
+| Missed reports                | After downtime only the most recent due week is caught up, never older weeks           |
+| Declined friend requests      | Look pending to the sender; nobody learns they were declined                           |
+| Friend suggestions            | Ranked by mutual friends, gym and sports; only "mutual friends" is shown as reason     |
+| Achievements                  | Awarded from own data after saving a session or goal and at report time; never revoked |
+| Charts                        | Small own components (no chart library), each with a tooltip and a table view          |
 
 ## 2. Repository structure
 
@@ -108,7 +111,9 @@ Two rules, enforced on the server:
 | Weight, height, evidence photos                      | ✓     | never by default                                                      | ✗                            |
 | Username, first name, avatar                         | ✓     | ✓                                                                     | only if "discoverable" is on |
 
-Automated tests try to reach each private resource as a stranger, as a friend and as a pending friend.
+Automated tests try to reach each private resource as a stranger, as a friend and as a pending friend (`server/src/modules/social/social.test.ts`). Every response to another user is also scanned for private values (email, height, personal goals, private reflections).
+
+Implementation: `server/src/policies/relationship.ts` is the only place that decides what a viewer may see (`getRelation`, `canSeeBasics`, `sharedSections`). Responses for other users are built from `social/mappers.ts`, which only selects public fields; private columns are never read for them. A friend's weekly report shows its numbers and goal results only, never the highlights (which contain reflections).
 
 ## 6. File uploads (profile pictures, weighing-scale evidence)
 

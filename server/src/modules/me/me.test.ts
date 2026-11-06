@@ -146,7 +146,7 @@ describe('password and email', () => {
 });
 
 describe('avatar', () => {
-  it('stores a re-encoded image without metadata, visible only to its owner', async () => {
+  it('stores a re-encoded image without metadata, hidden from strangers when not discoverable', async () => {
     const { agent, me } = await registeredAgent(app);
     const updated = (
       await agent
@@ -162,6 +162,8 @@ describe('avatar', () => {
     expect(meta).toMatchObject({ format: 'webp', width: 512, height: 512 });
     expect(meta.exif).toBeUndefined();
 
+    // Who else may see it is covered by the privacy tests in social.test.ts.
+    await agent.patch('/api/v1/me/privacy').send({ discoverable: false }).expect(200);
     const { agent: stranger } = await registeredAgent(app);
     await stranger.get(updated.profile.avatarUrl).expect(404);
   });

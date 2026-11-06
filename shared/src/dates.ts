@@ -77,3 +77,11 @@ export function localNow(timeZone: string, now = new Date()) {
   const weekday = ((toUtcDate(date).getUTCDay() + 6) % 7) + 1;
   return { date, weekday, hour: Number(parts.hour), minute: Number(parts.minute) };
 }
+
+/** ISO 8601 week key of a date, e.g. "2026-W45". The week's Thursday decides the year. */
+export function isoWeekKey(date: IsoDate): string {
+  const thursday = addDays(startOfWeek(date), 3);
+  const year = Number(thursday.slice(0, 4));
+  const week = Math.floor((daysInRange(`${year}-01-01`, thursday) - 1) / 7) + 1;
+  return `${year}-W${String(week).padStart(2, '0')}`;
+}

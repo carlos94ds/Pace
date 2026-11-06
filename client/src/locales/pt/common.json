@@ -14,7 +14,8 @@
     "calendar": "Calendário",
     "history": "Histórico",
     "dashboard": "Painel",
-    "reports": "Relatórios"
+    "reports": "Relatórios",
+    "friends": "Amigos"
   },
   "fields": {
     "email": "E-mail",
@@ -295,7 +296,8 @@
       "validation_error": "Verifica os campos assinalados.",
       "sport_in_use": "Este desporto ainda é usado em treinos.",
       "limit_reached": "Atingiste o número máximo de desportos próprios.",
-      "not_found": "Este item já não existe."
+      "not_found": "Este item já não existe.",
+      "already_friends": "Já são amigos."
     }
   },
   "notFound": {
@@ -540,6 +542,109 @@
       "noReasons_one": "Em {{count}} treino que correu mal não escreveste porquê. Uma reflexão curta ajuda-te a ver padrões.",
       "noReasons_other": "Em {{count}} treinos que correram mal não escreveste porquê. Uma reflexão curta ajuda-te a ver padrões.",
       "streak": "A tua sequência está agora em {{weeks}} semanas."
+    }
+  },
+  "social": {
+    "title": "Amigos",
+    "subtitle": "Treinem juntos e motivem-se uns aos outros. Os amigos só veem o que as tuas definições de privacidade permitem.",
+    "tabs": {
+      "activity": "Atividade",
+      "friends": "Amigos",
+      "requests": "Pedidos",
+      "find": "Encontrar pessoas"
+    },
+    "findFriends": "Encontrar amigos",
+    "feed": {
+      "trained": "treinou",
+      "achieved": "alcançou uma conquista",
+      "empty": "Ainda sem atividade",
+      "emptyHint": "Os treinos e conquistas dos teus amigos aparecem aqui."
+    },
+    "noFriends": "Ainda sem amigos",
+    "noFriendsHint": "Procura as pessoas com quem treinas ou vê as sugestões.",
+    "weekHours": "{{value}} h esta semana",
+    "noRequests": "Sem pedidos pendentes",
+    "noRequestsHint": "Os pedidos de amizade que recebes ou envias aparecem aqui.",
+    "incoming": "Recebidos",
+    "outgoing": "Enviados",
+    "search": "Pesquisar",
+    "searchPlaceholder": "Nome ou @utilizador",
+    "searchHint": "Só aparecem pessoas encontráveis. Só vês o nome, utilizador e foto.",
+    "results": "Resultados",
+    "noResults": "Ninguém encontrado.",
+    "suggestions": "Sugestões",
+    "suggestionsHelp": "Com base em amigos em comum, no teu ginásio e nos teus desportos.",
+    "noSuggestions": "Sem sugestões de momento.",
+    "mutualFriends_one": "{{count}} amigo em comum",
+    "mutualFriends_other": "{{count}} amigos em comum",
+    "actions": {
+      "add": "Adicionar amigo",
+      "accept": "Aceitar",
+      "decline": "Recusar",
+      "cancel": "Cancelar pedido",
+      "remove": "Remover amigo",
+      "removeConfirm": "Remover como amigo?"
+    },
+    "relation": {
+      "friends": "Amigos",
+      "outgoing": "Pedido enviado"
+    },
+    "reactions": {
+      "respect": "Respeito",
+      "well_done": "Muito bem",
+      "keep_going": "Continua"
+    },
+    "profile": {
+      "notFound": "Esta pessoa não foi encontrada.",
+      "onlyFriends": "Só os amigos de {{name}} veem a atividade de treino, conforme as definições de privacidade.",
+      "nothingShared": "{{name}} não partilha nada com amigos de momento.",
+      "noAchievements": "Ainda sem conquistas.",
+      "weeklyHours": "Horas de treino por semana",
+      "weekOf": "Semana de {{date}}",
+      "recent": "Treinos recentes",
+      "lastReport": "Último relatório semanal",
+      "noStreakGoal": "{{name}} não definiu um objetivo de dias de treino, por isso ainda não há sequência."
+    }
+  },
+  "achievements": {
+    "title": "Conquistas",
+    "description": "Marcos baseados nos teus próprios treinos.",
+    "week": "semana {{week}}",
+    "earnedOn": "Alcançado a {{date}}",
+    "notYet": "Ainda não alcançado",
+    "codes": {
+      "FIRST_SESSION": {
+        "title": "Primeiro treino",
+        "description": "Registaste o teu primeiro treino."
+      },
+      "STREAK_3W": {
+        "title": "Sequência de 3 semanas",
+        "description": "Objetivo de dias atingido 3 semanas seguidas."
+      },
+      "STREAK_7W": {
+        "title": "Sequência de 7 semanas",
+        "description": "Objetivo de dias atingido 7 semanas seguidas."
+      },
+      "STREAK_26W": {
+        "title": "Sequência de 26 semanas",
+        "description": "Meio ano a atingir o objetivo de dias todas as semanas."
+      },
+      "WEEK_20H": {
+        "title": "20 horas numa semana",
+        "description": "Treinaste 20 horas ou mais numa semana."
+      },
+      "TOTAL_100H": {
+        "title": "100 horas de treino",
+        "description": "100 horas de treino no total."
+      },
+      "TOTAL_500H": {
+        "title": "500 horas de treino",
+        "description": "500 horas de treino no total."
+      },
+      "WEEKLY_GOAL": {
+        "title": "Objetivos semanais atingidos",
+        "description": "Atingiste todos os objetivos da semana."
+      }
     }
   }
 }

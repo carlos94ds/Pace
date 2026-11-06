@@ -14,7 +14,8 @@
     "calendar": "Kalender",
     "history": "Geschiedenis",
     "dashboard": "Dashboard",
-    "reports": "Rapporten"
+    "reports": "Rapporten",
+    "friends": "Vrienden"
   },
   "fields": {
     "email": "E-mail",
@@ -295,7 +296,8 @@
       "validation_error": "Controleer de gemarkeerde velden.",
       "sport_in_use": "Deze sport wordt nog gebruikt in trainingen.",
       "limit_reached": "Je hebt het maximale aantal eigen sporten bereikt.",
-      "not_found": "Dit item bestaat niet meer."
+      "not_found": "Dit item bestaat niet meer.",
+      "already_friends": "Jullie zijn al vrienden."
     }
   },
   "notFound": {
@@ -540,6 +542,109 @@
       "noReasons_one": "Bij {{count}} training die slecht ging heb je niet opgeschreven waarom. Een korte reflectie helpt je patronen te zien.",
       "noReasons_other": "Bij {{count}} trainingen die slecht gingen heb je niet opgeschreven waarom. Een korte reflectie helpt je patronen te zien.",
       "streak": "Je streak staat nu op {{weeks}} weken."
+    }
+  },
+  "social": {
+    "title": "Vrienden",
+    "subtitle": "Train samen en motiveer elkaar. Vrienden zien alleen wat je privacy-instellingen toestaan.",
+    "tabs": {
+      "activity": "Activiteit",
+      "friends": "Vrienden",
+      "requests": "Verzoeken",
+      "find": "Mensen zoeken"
+    },
+    "findFriends": "Vrienden zoeken",
+    "feed": {
+      "trained": "heeft getraind",
+      "achieved": "heeft een prestatie behaald",
+      "empty": "Nog geen activiteit",
+      "emptyHint": "Trainingen en prestaties van je vrienden verschijnen hier."
+    },
+    "noFriends": "Nog geen vrienden",
+    "noFriendsHint": "Zoek mensen met wie je traint, of bekijk de suggesties.",
+    "weekHours": "{{value}} u deze week",
+    "noRequests": "Geen openstaande verzoeken",
+    "noRequestsHint": "Vriendschapsverzoeken die je ontvangt of verstuurt verschijnen hier.",
+    "incoming": "Ontvangen",
+    "outgoing": "Verstuurd",
+    "search": "Zoeken",
+    "searchPlaceholder": "Naam of @gebruikersnaam",
+    "searchHint": "Alleen vindbare mensen verschijnen. Je ziet alleen hun naam, gebruikersnaam en foto.",
+    "results": "Resultaten",
+    "noResults": "Niemand gevonden.",
+    "suggestions": "Suggesties",
+    "suggestionsHelp": "Op basis van gezamenlijke vrienden, je gym en je sporten.",
+    "noSuggestions": "Op dit moment geen suggesties.",
+    "mutualFriends_one": "{{count}} gezamenlijke vriend",
+    "mutualFriends_other": "{{count}} gezamenlijke vrienden",
+    "actions": {
+      "add": "Vriend toevoegen",
+      "accept": "Accepteren",
+      "decline": "Weigeren",
+      "cancel": "Verzoek intrekken",
+      "remove": "Vriend verwijderen",
+      "removeConfirm": "Als vriend verwijderen?"
+    },
+    "relation": {
+      "friends": "Vrienden",
+      "outgoing": "Verzoek verstuurd"
+    },
+    "reactions": {
+      "respect": "Respect",
+      "well_done": "Goed gedaan",
+      "keep_going": "Ga zo door"
+    },
+    "profile": {
+      "notFound": "Deze persoon is niet te vinden.",
+      "onlyFriends": "Alleen vrienden van {{name}} zien de trainingsactiviteit, afhankelijk van de privacy-instellingen.",
+      "nothingShared": "{{name}} deelt op dit moment niets met vrienden.",
+      "noAchievements": "Nog geen prestaties.",
+      "weeklyHours": "Trainingsuren per week",
+      "weekOf": "Week van {{date}}",
+      "recent": "Recente trainingen",
+      "lastReport": "Laatste weekrapport",
+      "noStreakGoal": "{{name}} heeft geen doel voor trainingsdagen ingesteld, dus er is nog geen streak."
+    }
+  },
+  "achievements": {
+    "title": "Prestaties",
+    "description": "Mijlpalen op basis van je eigen trainingen.",
+    "week": "week {{week}}",
+    "earnedOn": "Behaald op {{date}}",
+    "notYet": "Nog niet behaald",
+    "codes": {
+      "FIRST_SESSION": {
+        "title": "Eerste training",
+        "description": "Je eerste training geregistreerd."
+      },
+      "STREAK_3W": {
+        "title": "Streak van 3 weken",
+        "description": "3 weken op rij je doel voor trainingsdagen gehaald."
+      },
+      "STREAK_7W": {
+        "title": "Streak van 7 weken",
+        "description": "7 weken op rij je doel voor trainingsdagen gehaald."
+      },
+      "STREAK_26W": {
+        "title": "Streak van 26 weken",
+        "description": "Een half jaar lang elke week je doel voor trainingsdagen gehaald."
+      },
+      "WEEK_20H": {
+        "title": "20 uur in een week",
+        "description": "20 uur of meer getraind in één week."
+      },
+      "TOTAL_100H": {
+        "title": "100 trainingsuren",
+        "description": "In totaal 100 uur getraind."
+      },
+      "TOTAL_500H": {
+        "title": "500 trainingsuren",
+        "description": "In totaal 500 uur getraind."
+      },
+      "WEEKLY_GOAL": {
+        "title": "Weekdoelen gehaald",
+        "description": "Al je weekdoelen gehaald."
+      }
     }
   }
 }

@@ -14,7 +14,8 @@
     "calendar": "Calendar",
     "history": "History",
     "dashboard": "Dashboard",
-    "reports": "Reports"
+    "reports": "Reports",
+    "friends": "Friends"
   },
   "fields": {
     "email": "Email",
@@ -295,7 +296,8 @@
       "validation_error": "Check the highlighted fields.",
       "sport_in_use": "This sport is still used by trainings.",
       "limit_reached": "You've reached the maximum number of own sports.",
-      "not_found": "This item no longer exists."
+      "not_found": "This item no longer exists.",
+      "already_friends": "You are already friends."
     }
   },
   "notFound": {
@@ -540,6 +542,109 @@
       "noReasons_one": "For {{count}} training that went badly you didn't write down why. A short reflection helps you spot patterns.",
       "noReasons_other": "For {{count}} trainings that went badly you didn't write down why. A short reflection helps you spot patterns.",
       "streak": "Your streak is now {{weeks}} weeks."
+    }
+  },
+  "social": {
+    "title": "Friends",
+    "subtitle": "Train together and keep each other motivated. Friends only see what your privacy settings allow.",
+    "tabs": {
+      "activity": "Activity",
+      "friends": "Friends",
+      "requests": "Requests",
+      "find": "Find people"
+    },
+    "findFriends": "Find friends",
+    "feed": {
+      "trained": "trained",
+      "achieved": "reached an achievement",
+      "empty": "No activity yet",
+      "emptyHint": "Trainings and achievements of your friends appear here."
+    },
+    "noFriends": "No friends yet",
+    "noFriendsHint": "Search for people you train with, or look at the suggestions.",
+    "weekHours": "{{value}} h this week",
+    "noRequests": "No open requests",
+    "noRequestsHint": "Friend requests you receive or send appear here.",
+    "incoming": "Received",
+    "outgoing": "Sent",
+    "search": "Search",
+    "searchPlaceholder": "Name or @username",
+    "searchHint": "Only people who are findable appear. You only see their name, username and photo.",
+    "results": "Results",
+    "noResults": "Nobody found.",
+    "suggestions": "Suggestions",
+    "suggestionsHelp": "Based on mutual friends, your gym and your sports.",
+    "noSuggestions": "No suggestions right now.",
+    "mutualFriends_one": "{{count}} mutual friend",
+    "mutualFriends_other": "{{count}} mutual friends",
+    "actions": {
+      "add": "Add friend",
+      "accept": "Accept",
+      "decline": "Decline",
+      "cancel": "Cancel request",
+      "remove": "Remove friend",
+      "removeConfirm": "Remove as friend?"
+    },
+    "relation": {
+      "friends": "Friends",
+      "outgoing": "Request sent"
+    },
+    "reactions": {
+      "respect": "Respect",
+      "well_done": "Well done",
+      "keep_going": "Keep going"
+    },
+    "profile": {
+      "notFound": "This person can't be found.",
+      "onlyFriends": "Only friends of {{name}} can see their training activity, depending on their privacy settings.",
+      "nothingShared": "{{name}} doesn't share anything with friends right now.",
+      "noAchievements": "No achievements yet.",
+      "weeklyHours": "Training hours per week",
+      "weekOf": "Week of {{date}}",
+      "recent": "Recent trainings",
+      "lastReport": "Latest weekly report",
+      "noStreakGoal": "{{name}} hasn't set a training-day goal, so there's no streak yet."
+    }
+  },
+  "achievements": {
+    "title": "Achievements",
+    "description": "Milestones based on your own trainings.",
+    "week": "week {{week}}",
+    "earnedOn": "Earned on {{date}}",
+    "notYet": "Not earned yet",
+    "codes": {
+      "FIRST_SESSION": {
+        "title": "First training",
+        "description": "Logged your first training."
+      },
+      "STREAK_3W": {
+        "title": "3-week streak",
+        "description": "Reached your training-day goal 3 weeks in a row."
+      },
+      "STREAK_7W": {
+        "title": "7-week streak",
+        "description": "Reached your training-day goal 7 weeks in a row."
+      },
+      "STREAK_26W": {
+        "title": "26-week streak",
+        "description": "Half a year of reaching your training-day goal every week."
+      },
+      "WEEK_20H": {
+        "title": "20 hours in a week",
+        "description": "Trained 20 hours or more in one week."
+      },
+      "TOTAL_100H": {
+        "title": "100 training hours",
+        "description": "100 hours of training in total."
+      },
+      "TOTAL_500H": {
+        "title": "500 training hours",
+        "description": "500 hours of training in total."
+      },
+      "WEEKLY_GOAL": {
+        "title": "Weekly goals reached",
+        "description": "Reached all your weekly goals."
+      }
     }
   }
 }

@@ -10,6 +10,8 @@ import { ProfilePage } from '../features/profile/ProfilePage';
 import { ReportPage } from '../features/reports/ReportPage';
 import { ReportsPage } from '../features/reports/ReportsPage';
 import { SettingsPage } from '../features/settings/SettingsPage';
+import { FriendsPage } from '../features/social/FriendsPage';
+import { UserProfilePage } from '../features/social/UserProfilePage';
 import { CalendarPage } from '../features/training/CalendarPage';
 import { HistoryPage } from '../features/training/HistoryPage';
 import { AppShell } from './AppShell';
@@ -45,6 +47,8 @@ export const router = createBrowserRouter([
           { path: 'history', element: <HistoryPage /> },
           { path: 'reports', element: <ReportsPage /> },
           { path: 'reports/:weekStart', element: <ReportPage /> },
+          { path: 'friends', element: <FriendsPage /> },
+          { path: 'u/:username', element: <UserProfilePage /> },
           { path: 'profile', element: <ProfilePage /> },
           { path: 'settings', element: <SettingsPage /> },
           { path: '*', element: <NotFoundPage /> },

@@ -6,6 +6,7 @@ import {
   LogOut,
   Settings,
   UserRound,
+  Users,
   type LucideIcon,
 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
@@ -18,7 +19,7 @@ interface NavItem {
   to: string;
   labelKey: string;
   icon: LucideIcon;
-  /** Left out of the phone's bottom bar (it's in the header there). */
+  /** Left out of the phone's bottom bar (reachable from the header or another page there). */
   desktopOnly?: boolean;
 }
 
@@ -26,8 +27,9 @@ interface NavItem {
 const NAV: NavItem[] = [
   { to: '/', labelKey: 'nav.dashboard', icon: LayoutDashboard },
   { to: '/calendar', labelKey: 'nav.calendar', icon: CalendarDays },
-  { to: '/history', labelKey: 'nav.history', icon: History },
+  { to: '/history', labelKey: 'nav.history', icon: History, desktopOnly: true },
   { to: '/reports', labelKey: 'nav.reports', icon: FileText },
+  { to: '/friends', labelKey: 'nav.friends', icon: Users },
   { to: '/profile', labelKey: 'nav.profile', icon: UserRound },
   { to: '/settings', labelKey: 'nav.settings', icon: Settings, desktopOnly: true },
 ];

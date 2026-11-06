@@ -11,7 +11,7 @@ import {
 import { ChevronLeft, ChevronRight, Plus } from 'lucide-react';
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useSearchParams } from 'react-router';
+import { Link, useSearchParams } from 'react-router';
 import { PageHeader } from '../../app/PageHeader';
 import { Button } from '../../components/Button';
 import { Card } from '../../components/Card';
@@ -80,7 +80,16 @@ export function CalendarPage() {
 
   return (
     <>
-      <PageHeader title={t('training.calendar.title')} subtitle={t('training.calendar.subtitle')} />
+      <div className="flex items-start justify-between gap-4">
+        <PageHeader
+          title={t('training.calendar.title')}
+          subtitle={t('training.calendar.subtitle')}
+        />
+        {/* On phones the bottom bar has no room for History; it's one tap away here. */}
+        <Link to="/history" className="mt-1 shrink-0 text-sm font-medium text-accent md:hidden">
+          {t('nav.history')}
+        </Link>
+      </div>
 
       <div className="mb-4 flex flex-wrap items-center gap-3">
         <div className="flex items-center gap-1">

@@ -40,7 +40,7 @@ Each phase ends with working, tested functionality and a commit/push. The next p
 
 **Done when:** tests with fixed data produce the correct numbers, streaks and conclusions; a report appears automatically after Sunday 18:00 in the user's timezone.
 
-## Phase 5 – Social
+## Phase 5 – Social ✓
 
 - User search, friend requests (send, accept, decline, cancel), remove friend.
 - Friend profiles and activity feed with privacy rules applied.

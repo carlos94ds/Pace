@@ -14,6 +14,7 @@ import { z } from 'zod';
 import type { AppContext } from '../../context';
 import type { Prisma, PrismaClient } from '../../generated/prisma/client';
 import { toDb } from '../../lib/enums';
+import { tryAwardAchievements } from '../achievements/award';
 import { HttpError } from '../../middleware/errors';
 import { currentUserId, requireAuth } from '../../middleware/session';
 import { parseBody, parseQuery } from '../../middleware/validate';
@@ -130,6 +131,7 @@ export function trainingRouter(ctx: AppContext): Router {
       data: { ...toData(input), userId },
       select: sessionSelect,
     });
+    await tryAwardAchievements(ctx, userId);
     res.status(201).json(toOwnerSession(row));
   });
 
@@ -151,14 +153,18 @@ export function trainingRouter(ctx: AppContext): Router {
       where: { id, userId },
       select: sessionSelect,
     });
+    await tryAwardAchievements(ctx, userId);
     res.json(toOwnerSession(row));
   });
 
   router.delete('/sessions/:id', async (req, res) => {
+    const id = sessionId(req.params);
     const { count } = await prisma.trainingSession.deleteMany({
-      where: { id: sessionId(req.params), userId: currentUserId(req) },
+      where: { id, userId: currentUserId(req) },
     });
     if (!count) throw new HttpError(404, 'not_found');
+    // Reactions point at the session by id only, so they go with it explicitly.
+    await prisma.reaction.deleteMany({ where: { targetType: 'SESSION', targetId: id } });
     res.status(204).end();
   });
 

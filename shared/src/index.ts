@@ -7,3 +7,4 @@ export * from './training';
 export * from './goals';
 export * from './reports';
 export * from './stats';
+export * from './social';

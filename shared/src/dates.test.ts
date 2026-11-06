@@ -5,6 +5,7 @@ import {
   daysInRange,
   endOfMonth,
   isIsoDate,
+  isoWeekKey,
   startOfWeek,
   todayIn,
 } from './dates';
@@ -39,5 +40,14 @@ describe('dates', () => {
     const now = new Date('2026-11-06T23:30:00Z');
     expect(todayIn('Europe/Amsterdam', now)).toBe('2026-11-07');
     expect(todayIn('America/New_York', now)).toBe('2026-11-06');
+  });
+});
+
+describe('isoWeekKey', () => {
+  it('numbers weeks like ISO 8601', () => {
+    expect(isoWeekKey('2026-11-06')).toBe('2026-W45');
+    expect(isoWeekKey('2026-01-01')).toBe('2026-W01');
+    expect(isoWeekKey('2027-01-01')).toBe('2026-W53');
+    expect(isoWeekKey('2024-12-30')).toBe('2025-W01');
   });
 });

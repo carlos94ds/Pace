@@ -219,6 +219,8 @@ export function meRouter(ctx: AppContext): Router {
         // Sessions first: a custom sport can't be removed while sessions still use it
         // (Restrict), and MySQL doesn't order the two cascades from User for us.
         await tx.trainingSession.deleteMany({ where: { userId } });
+        // Notifications others received about this user (requests, reactions, milestones).
+        await tx.notification.deleteMany({ where: { actorId: userId } });
         await tx.user.delete({ where: { id: userId } });
         return keys;
       }),

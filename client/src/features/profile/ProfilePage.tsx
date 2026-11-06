@@ -7,6 +7,7 @@ import {
 } from '@pace/shared';
 import { useMemo, useState, type FormEvent } from 'react';
 import { useTranslation } from 'react-i18next';
+import { MyAchievementsCard } from '../social/Achievements';
 import { PageHeader } from '../../app/PageHeader';
 import { Alert } from '../../components/Alert';
 import { Button } from '../../components/Button';
@@ -175,6 +176,10 @@ export function ProfilePage() {
           {result && <Alert tone={result.ok ? 'success' : 'danger'}>{result.message}</Alert>}
         </div>
       </form>
+
+      <div id="achievements" className="mt-10 max-w-3xl scroll-mt-20">
+        <MyAchievementsCard />
+      </div>
     </>
   );
 }
