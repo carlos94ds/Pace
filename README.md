@@ -4,7 +4,9 @@ PACE helps athletes train with more discipline and consistency. It combines a tr
 
 ## Status
 
-**Phase 1 – Foundation: done.** Monorepo, design system, 7 languages, Express API with health check, full database schema migrated on Railway MySQL. Next: phase 2 (accounts and profiles).
+**Phase 2 – Accounts and profiles: done.** Registration, login, password reset, profile with photo, privacy and notification settings, account deletion including files.
+
+**Phase 1 – Foundation: done.** Monorepo, design system, 7 languages, Express API with health check, full database schema migrated on Railway MySQL.
 
 ## Getting started
 
@@ -18,13 +20,14 @@ npm run db:seed                      # built-in sports and achievements
 npm run dev                          # client on http://localhost:5173, API on :3000
 ```
 
-| Command                              | What it does                                    |
-| ------------------------------------ | ----------------------------------------------- |
-| `npm run dev`                        | Client and API with hot reload                  |
-| `npm test`                           | Unit and API tests                              |
-| `npm run lint` / `npm run typecheck` | Code checks                                     |
-| `npm run build` && `npm start`       | Production build, served by Express on one port |
-| `npm run db:studio`                  | Browse the database (or use MySQL Workbench)    |
+| Command                              | What it does                                                                                 |
+| ------------------------------------ | -------------------------------------------------------------------------------------------- |
+| `npm run dev`                        | Client and API with hot reload                                                               |
+| `npm test`                           | Unit and API tests (API tests use the `pace_test` database)                                  |
+| `npm run test:e2e`                   | Browser tests (desktop + mobile) via Playwright; first run `npx playwright install chromium` |
+| `npm run lint` / `npm run typecheck` | Code checks                                                                                  |
+| `npm run build` && `npm start`       | Production build, served by Express on one port                                              |
+| `npm run db:studio`                  | Browse the database (or use MySQL Workbench)                                                 |
 
 Deployment: every push to `main` deploys to Railway (https://pace-app-production.up.railway.app), with `prisma migrate deploy` before each release and a health check on `/api/health`. Details in [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md#10-deployment-on-railway).
 

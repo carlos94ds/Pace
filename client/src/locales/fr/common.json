@@ -1,12 +1,20 @@
 {
+  "common": {
+    "retry": "Réessayer",
+    "cancel": "Annuler",
+    "save": "Enregistrer",
+    "saved": "Enregistré"
+  },
   "nav": {
     "main": "Navigation principale",
     "overview": "Aperçu",
-    "settings": "Paramètres"
+    "profile": "Profil",
+    "settings": "Paramètres",
+    "logout": "Se déconnecter"
   },
   "status": {
-    "title": "Bienvenue sur PACE",
-    "subtitle": "Les fondations sont en place. L'entraînement, ton tableau de bord et tes amis arrivent dans les prochaines phases.",
+    "greeting": "Bienvenue, {{name}}",
+    "subtitle": "Ton compte est prêt. Le calendrier d'entraînement et le tableau de bord arrivent dans les prochaines phases.",
     "systemTitle": "État du système",
     "refresh": "Vérifier à nouveau",
     "api": "API",
@@ -28,9 +36,105 @@
       "7": "Tests et lancement"
     }
   },
+  "fields": {
+    "email": "E-mail",
+    "password": "Mot de passe",
+    "newPassword": "Nouveau mot de passe",
+    "currentPassword": "Mot de passe actuel",
+    "firstName": "Prénom",
+    "username": "Nom d'utilisateur",
+    "usernameHint": "3 à 30 caractères : lettres minuscules, chiffres, points et tirets bas.",
+    "passwordHint": "Au moins {{min}} caractères.",
+    "bio": "Courte bio",
+    "charactersLeft": "{{count}} caractères restants",
+    "trainingLevel": "Niveau d'entraînement",
+    "heightCm": "Taille (cm)",
+    "personalGoals": "Objectifs d'entraînement personnels",
+    "timezone": "Fuseau horaire"
+  },
+  "auth": {
+    "backToLogin": "Retour à la connexion",
+    "login": {
+      "title": "Se connecter",
+      "subtitle": "Content de te revoir sur PACE.",
+      "forgot": "Mot de passe oublié ?",
+      "submit": "Se connecter",
+      "noAccount": "Nouveau sur PACE ?",
+      "link": "Se connecter"
+    },
+    "register": {
+      "title": "Crée ton compte",
+      "subtitle": "Suis tes entraînements et reste régulier.",
+      "submit": "Créer un compte",
+      "privacyNote": "Les détails de tes entraînements, tes réflexions et ton poids sont privés par défaut. Tu décides de ce que voient tes amis.",
+      "haveAccount": "Tu as déjà un compte ?",
+      "link": "Créer un compte"
+    },
+    "forgot": {
+      "title": "Réinitialiser le mot de passe",
+      "subtitle": "Saisis ton e-mail et nous t'enverrons un lien pour choisir un nouveau mot de passe.",
+      "submit": "Envoyer le lien",
+      "sent": "Si un compte existe avec cet e-mail, un lien est en route. Vérifie ta boîte de réception ; il est valable 30 minutes."
+    },
+    "reset": {
+      "title": "Choisis un nouveau mot de passe",
+      "subtitle": "Tu seras ensuite déconnecté de tous tes appareils.",
+      "submit": "Enregistrer le mot de passe",
+      "newLink": "Demander un nouveau lien",
+      "done": "Ton mot de passe a été modifié. Connecte-toi avec ton nouveau mot de passe."
+    }
+  },
+  "profile": {
+    "title": "Profil",
+    "subtitle": "Ce que les autres voient de toi sur PACE. Tes amis ne voient que ce que tes paramètres de confidentialité autorisent.",
+    "photo": "Photo de profil",
+    "about": "À propos de toi",
+    "training": "Entraînement",
+    "heightPrivate": "Privé : jamais montré à tes amis.",
+    "goalsHint": "Vers quoi travailles-tu ? Toi seul peux voir ceci.",
+    "timezoneHint": "Utilisé pour ton rapport hebdomadaire le dimanche à 18 h.",
+    "sports": "Sports que tu pratiques",
+    "avatar": {
+      "change": "Changer la photo",
+      "upload": "Importer une photo",
+      "remove": "Supprimer",
+      "hint": "JPG, PNG ou WebP, jusqu'à 8 Mo. Les données de localisation sont retirées de la photo."
+    },
+    "gym": {
+      "label": "Salle ou lieu d'entraînement",
+      "change": "Changer",
+      "name": "Nom de la salle",
+      "city": "Ville",
+      "add": "Ajouter la salle",
+      "search": "Cherche ta salle",
+      "searchPlaceholder": "Nom ou ville",
+      "addNew": "Ajouter « {{name}} » comme nouvelle salle"
+    }
+  },
+  "trainingLevels": {
+    "beginner": "Débutant",
+    "intermediate": "Intermédiaire",
+    "advanced": "Avancé",
+    "competitive": "Compétition",
+    "professional": "Professionnel"
+  },
+  "sports": {
+    "mma": "MMA",
+    "kickboxing": "Kickboxing",
+    "boxing": "Boxe",
+    "muay-thai": "Muay-thaï",
+    "bjj": "JJB",
+    "wrestling": "Lutte",
+    "judo": "Judo",
+    "gym": "Musculation",
+    "conditioning": "Préparation physique",
+    "running": "Course à pied",
+    "cycling": "Cyclisme",
+    "swimming": "Natation",
+    "mobility": "Mobilité / Yoga"
+  },
   "settings": {
     "title": "Paramètres",
-    "deviceNote": "Ces paramètres sont enregistrés sur cet appareil. Dès que les comptes seront disponibles, ils seront transférés vers ton compte.",
     "appearance": "Apparence",
     "appearanceHelp": "Choisis une interface claire ou sombre, ou suis ton appareil.",
     "themes": {
@@ -46,7 +150,148 @@
       "large": "Grande"
     },
     "language": "Langue",
-    "languageHelp": "Tout le texte de PACE change immédiatement."
+    "languageHelp": "Tout le texte de PACE change immédiatement.",
+    "nav": {
+      "account": "Compte",
+      "privacy": "Confidentialité",
+      "notifications": "Notifications",
+      "appearance": "Apparence",
+      "language": "Langue",
+      "about": "À propos",
+      "delete": "Supprimer le compte"
+    },
+    "account": {
+      "title": "Compte",
+      "description": "Tes identifiants de connexion.",
+      "email": "Adresse e-mail",
+      "password": "Mot de passe",
+      "changeEmail": "Changer l'e-mail",
+      "changePassword": "Changer le mot de passe",
+      "passwordChanged": "Mot de passe modifié. Tes autres appareils ont été déconnectés.",
+      "sessions": "Appareils",
+      "sessionsHelp": "Déconnecte-toi de tous les appareils où tu es connecté, y compris celui-ci.",
+      "logoutAll": "Se déconnecter partout"
+    },
+    "privacy": {
+      "title": "Confidentialité",
+      "description": "Décide de ce que tes amis peuvent voir. Personne d'autre ne voit jamais tes données d'entraînement.",
+      "discoverable": "Visible dans la recherche",
+      "discoverableHelp": "Les autres peuvent te trouver par ton nom ou ton nom d'utilisateur. Ils ne voient que ton nom d'utilisateur, ton prénom et ta photo de profil.",
+      "private": "Moi seul",
+      "friends": "Amis",
+      "neverShared": "Tes réflexions sur la réussite ou l'échec d'une séance et ta motivation ne sont jamais partagées, sauf si tu choisis de partager une séance précise.",
+      "items": {
+        "profile": {
+          "label": "Profil",
+          "help": "Bio, salle et sports."
+        },
+        "activity": {
+          "label": "Activité d'entraînement",
+          "help": "Date, sport, durée et heures par semaine."
+        },
+        "streaks": {
+          "label": "Séries",
+          "help": "Ta série actuelle et ta plus longue série."
+        },
+        "achievements": {
+          "label": "Succès",
+          "help": "Les étapes que tu as atteintes."
+        },
+        "dashboard": {
+          "label": "Rapport hebdomadaire",
+          "help": "Tes statistiques et ton analyse de la semaine."
+        },
+        "weight": {
+          "label": "Poids",
+          "help": "Historique de poids et photos. Nous conseillons de le garder privé."
+        }
+      }
+    },
+    "notifications": {
+      "title": "Notifications",
+      "description": "Choisis les notifications que tu reçois dans PACE.",
+      "items": {
+        "friendRequests": "Demandes d'ami",
+        "friendAccepted": "Demandes d'ami acceptées",
+        "friendMilestones": "Étapes atteintes par tes amis",
+        "reactions": "Réactions de tes amis",
+        "weeklyReport": "Rapport hebdomadaire prêt",
+        "streaks": "Étapes de série",
+        "goals": "Objectifs atteints"
+      }
+    },
+    "delete": {
+      "title": "Supprimer le compte",
+      "description": "Supprime définitivement ton compte, tes données d'entraînement, tes rapports, ton historique de poids et toutes tes photos. Cette action est irréversible.",
+      "button": "Supprimer mon compte",
+      "confirmTitle": "Supprimer ton compte ?",
+      "confirmText": "Tout est supprimé immédiatement et définitivement. Saisis ton mot de passe pour confirmer.",
+      "confirmButton": "Supprimer définitivement",
+      "done": "Ton compte et toutes tes données ont été supprimés."
+    },
+    "about": {
+      "title": "À propos de PACE",
+      "text": "PACE aide les sportifs à s'entraîner avec plus de discipline et de régularité : un calendrier d'entraînement, un tableau de bord de performance personnel, des rapports hebdomadaires et des amis qui se motivent mutuellement.",
+      "privacy": "La confidentialité passe en premier. Tes données ne sont visibles que par toi, sauf si tu choisis de les partager, et supprimer ton compte supprime tout.",
+      "version": "Version"
+    }
+  },
+  "errors": {
+    "codes": {
+      "invalid": "Cette valeur n'est pas valide.",
+      "too_small": "C'est trop court.",
+      "too_big": "C'est trop long.",
+      "invalid_format": "Ce format n'est pas valide.",
+      "invalid_type": "Ce champ est obligatoire.",
+      "taken": "Déjà utilisé.",
+      "wrong_password": "Mot de passe incorrect.",
+      "not_found": "Introuvable.",
+      "required": "Ce champ est obligatoire.",
+      "custom": "Cette valeur n'est pas valide.",
+      "invalid_value": "Choisis une option valide."
+    },
+    "fields": {
+      "email": {
+        "invalid_format": "Saisis une adresse e-mail valide.",
+        "taken": "Un compte existe déjà avec cet e-mail."
+      },
+      "password": {
+        "too_small": "Utilise au moins 10 caractères.",
+        "wrong_password": "Mot de passe incorrect."
+      },
+      "currentPassword": {
+        "wrong_password": "Ton mot de passe actuel est incorrect."
+      },
+      "username": {
+        "invalid_format": "Utilise 3 à 30 lettres minuscules, chiffres, points ou tirets bas.",
+        "taken": "Ce nom d'utilisateur est déjà pris."
+      },
+      "firstName": {
+        "too_small": "Saisis ton prénom."
+      },
+      "heightCm": {
+        "too_small": "Saisis une taille entre 80 et 260 cm.",
+        "too_big": "Saisis une taille entre 80 et 260 cm.",
+        "invalid_type": "Saisis un nombre entier."
+      },
+      "timezone": {
+        "custom": "Choisis un fuseau horaire valide."
+      }
+    },
+    "api": {
+      "unknown_error": "Une erreur s'est produite. Réessaie.",
+      "network_error": "Impossible de joindre PACE. Vérifie ta connexion.",
+      "internal_error": "Une erreur s'est produite de notre côté. Réessaie.",
+      "invalid_credentials": "E-mail ou mot de passe incorrect.",
+      "too_many_requests": "Trop de tentatives. Attends quelques minutes et réessaie.",
+      "invalid_token": "Ce lien est invalide ou a expiré. Demandes-en un nouveau.",
+      "unsupported_image": "Ce fichier n'est pas une image JPG, PNG ou WebP.",
+      "file_too_large": "Cette photo est trop lourde (8 Mo max.).",
+      "conflict": "Déjà utilisé.",
+      "wrong_password": "Mot de passe incorrect.",
+      "unauthenticated": "Ta session a expiré. Reconnecte-toi.",
+      "validation_error": "Vérifie les champs signalés."
+    }
   },
   "notFound": {
     "title": "Page introuvable",

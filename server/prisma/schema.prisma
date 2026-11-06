@@ -408,3 +408,17 @@ model WeightEvidence {
 
   measurement WeightMeasurement @relation(fields: [measurementId], references: [id], onDelete: Cascade)
 }
+
+// ---------- Housekeeping ----------
+
+// Files to remove from object storage. Written in the same transaction as the database change
+// (e.g. account deletion), so a failed storage call is retried instead of leaving orphaned photos.
+model PendingFileDeletion {
+  id        String   @id @default(uuid()) @db.Char(36)
+  key       String   @db.VarChar(255)
+  attempts  Int      @default(0)
+  lastError String?  @db.VarChar(500)
+  createdAt DateTime @default(now())
+
+  @@index([createdAt])
+}

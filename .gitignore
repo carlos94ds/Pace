@@ -27,3 +27,7 @@ npm-debug.log*
 
 # Prisma client (generated during build)
 server/src/generated/
+
+# Playwright
+test-results/
+playwright-report/

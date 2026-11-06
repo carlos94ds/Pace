@@ -1,17 +1,27 @@
+import type { ApiErrorBody } from '@pace/shared';
+
 export class ApiError extends Error {
   constructor(
     public readonly status: number,
     public readonly code: string,
+    public readonly fields: Record<string, string> = {},
   ) {
     super(code);
   }
 }
 
+type Body = Record<string, unknown> | FormData;
+
 /** JSON fetch against our own API. Cookies are sent automatically (same origin). */
-export async function api<T>(path: string, init: RequestInit = {}): Promise<T> {
+export async function api<T = void>(
+  path: string,
+  { method = 'GET', body }: { method?: string; body?: Body } = {},
+): Promise<T> {
+  const isForm = body instanceof FormData;
   const res = await fetch(`/api/v1${path}`, {
-    ...init,
-    headers: { 'Content-Type': 'application/json', ...init.headers },
+    method,
+    headers: body && !isForm ? { 'Content-Type': 'application/json' } : undefined,
+    body: isForm ? body : body && JSON.stringify(body),
   });
   return parse<T>(res);
 }
@@ -26,8 +36,9 @@ export async function fetchHealth<T>(): Promise<T> {
 
 async function parse<T>(res: Response): Promise<T> {
   if (!res.ok) {
-    const body = (await res.json().catch(() => null)) as { error?: { code?: string } } | null;
-    throw new ApiError(res.status, body?.error?.code ?? 'unknown_error');
+    const body = (await res.json().catch(() => null)) as ApiErrorBody | null;
+    throw new ApiError(res.status, body?.error.code ?? 'unknown_error', body?.error.fields);
   }
+  if (res.status === 204) return undefined as T;
   return (await res.json()) as T;
 }

@@ -1,12 +1,20 @@
 {
+  "common": {
+    "retry": "Opnieuw proberen",
+    "cancel": "Annuleren",
+    "save": "Wijzigingen opslaan",
+    "saved": "Opgeslagen"
+  },
   "nav": {
     "main": "Hoofdnavigatie",
     "overview": "Overzicht",
-    "settings": "Instellingen"
+    "profile": "Profiel",
+    "settings": "Instellingen",
+    "logout": "Uitloggen"
   },
   "status": {
-    "title": "Welkom bij PACE",
-    "subtitle": "De basis draait. Trainingen, je dashboard en vrienden volgen in de volgende fases.",
+    "greeting": "Welkom, {{name}}",
+    "subtitle": "Je account staat klaar. De trainingskalender en het dashboard volgen in de volgende fases.",
     "systemTitle": "Systeemstatus",
     "refresh": "Opnieuw controleren",
     "api": "API",
@@ -28,9 +36,105 @@
       "7": "Testen en lancering"
     }
   },
+  "fields": {
+    "email": "E-mail",
+    "password": "Wachtwoord",
+    "newPassword": "Nieuw wachtwoord",
+    "currentPassword": "Huidig wachtwoord",
+    "firstName": "Voornaam",
+    "username": "Gebruikersnaam",
+    "usernameHint": "3–30 tekens: kleine letters, cijfers, punten en underscores.",
+    "passwordHint": "Minstens {{min}} tekens.",
+    "bio": "Korte bio",
+    "charactersLeft": "Nog {{count}} tekens",
+    "trainingLevel": "Trainingsniveau",
+    "heightCm": "Lengte (cm)",
+    "personalGoals": "Persoonlijke trainingsdoelen",
+    "timezone": "Tijdzone"
+  },
+  "auth": {
+    "backToLogin": "Terug naar inloggen",
+    "login": {
+      "title": "Inloggen",
+      "subtitle": "Welkom terug bij PACE.",
+      "forgot": "Wachtwoord vergeten?",
+      "submit": "Inloggen",
+      "noAccount": "Nieuw bij PACE?",
+      "link": "Inloggen"
+    },
+    "register": {
+      "title": "Maak je account aan",
+      "subtitle": "Houd je trainingen bij en blijf consistent.",
+      "submit": "Account aanmaken",
+      "privacyNote": "Je trainingsdetails, reflecties en gewicht zijn standaard privé. Jij bepaalt wat vrienden zien.",
+      "haveAccount": "Heb je al een account?",
+      "link": "Account aanmaken"
+    },
+    "forgot": {
+      "title": "Wachtwoord herstellen",
+      "subtitle": "Vul je e-mailadres in, dan sturen we je een link om een nieuw wachtwoord te kiezen.",
+      "submit": "Link versturen",
+      "sent": "Als er een account met dit e-mailadres bestaat, is er een link onderweg. Kijk in je inbox; de link is 30 minuten geldig."
+    },
+    "reset": {
+      "title": "Kies een nieuw wachtwoord",
+      "subtitle": "Daarna word je op alle apparaten uitgelogd.",
+      "submit": "Nieuw wachtwoord opslaan",
+      "newLink": "Nieuwe link aanvragen",
+      "done": "Je wachtwoord is gewijzigd. Log in met je nieuwe wachtwoord."
+    }
+  },
+  "profile": {
+    "title": "Profiel",
+    "subtitle": "Zo zie je eruit in PACE. Vrienden zien alleen wat je privacyinstellingen toestaan.",
+    "photo": "Profielfoto",
+    "about": "Over jou",
+    "training": "Training",
+    "heightPrivate": "Privé: nooit zichtbaar voor vrienden.",
+    "goalsHint": "Waar werk je naartoe? Alleen jij ziet dit.",
+    "timezoneHint": "Gebruikt voor je weekrapport op zondag om 18:00.",
+    "sports": "Sporten die je beoefent",
+    "avatar": {
+      "change": "Foto wijzigen",
+      "upload": "Foto uploaden",
+      "remove": "Verwijderen",
+      "hint": "JPG, PNG of WebP, maximaal 8 MB. Locatiegegevens worden uit de foto verwijderd."
+    },
+    "gym": {
+      "label": "Gym of trainingslocatie",
+      "change": "Wijzigen",
+      "name": "Naam van de gym",
+      "city": "Plaats",
+      "add": "Gym toevoegen",
+      "search": "Zoek je gym",
+      "searchPlaceholder": "Naam of plaats",
+      "addNew": "\"{{name}}\" toevoegen als nieuwe gym"
+    }
+  },
+  "trainingLevels": {
+    "beginner": "Beginner",
+    "intermediate": "Gevorderd",
+    "advanced": "Ervaren",
+    "competitive": "Wedstrijdniveau",
+    "professional": "Professioneel"
+  },
+  "sports": {
+    "mma": "MMA",
+    "kickboxing": "Kickboksen",
+    "boxing": "Boksen",
+    "muay-thai": "Muay Thai",
+    "bjj": "BJJ",
+    "wrestling": "Worstelen",
+    "judo": "Judo",
+    "gym": "Gym / Kracht",
+    "conditioning": "Conditie",
+    "running": "Hardlopen",
+    "cycling": "Wielrennen",
+    "swimming": "Zwemmen",
+    "mobility": "Mobiliteit / Yoga"
+  },
   "settings": {
     "title": "Instellingen",
-    "deviceNote": "Deze instellingen worden op dit apparaat bewaard. Zodra accounts beschikbaar zijn, gaan ze mee naar je account.",
     "appearance": "Weergave",
     "appearanceHelp": "Kies een lichte of donkere interface, of volg je apparaat.",
     "themes": {
@@ -46,7 +150,148 @@
       "large": "Groot"
     },
     "language": "Taal",
-    "languageHelp": "Alle tekst in PACE verandert direct."
+    "languageHelp": "Alle tekst in PACE verandert direct.",
+    "nav": {
+      "account": "Account",
+      "privacy": "Privacy",
+      "notifications": "Meldingen",
+      "appearance": "Weergave",
+      "language": "Taal",
+      "about": "Over PACE",
+      "delete": "Account verwijderen"
+    },
+    "account": {
+      "title": "Account",
+      "description": "Je inloggegevens.",
+      "email": "E-mailadres",
+      "password": "Wachtwoord",
+      "changeEmail": "E-mail wijzigen",
+      "changePassword": "Wachtwoord wijzigen",
+      "passwordChanged": "Wachtwoord gewijzigd. Andere apparaten zijn uitgelogd.",
+      "sessions": "Apparaten",
+      "sessionsHelp": "Log uit op elk apparaat waarop je ingelogd bent, ook dit apparaat.",
+      "logoutAll": "Overal uitloggen"
+    },
+    "privacy": {
+      "title": "Privacy",
+      "description": "Bepaal wat je vrienden kunnen zien. Niemand anders ziet ooit je trainingsgegevens.",
+      "discoverable": "Vindbaar voor andere gebruikers",
+      "discoverableHelp": "Anderen kunnen je vinden op naam of gebruikersnaam. Ze zien alleen je gebruikersnaam, voornaam en profielfoto.",
+      "private": "Alleen ik",
+      "friends": "Vrienden",
+      "neverShared": "Reflecties over waarom een training goed of slecht ging en je motivatie worden nooit gedeeld, tenzij je zelf een specifieke training deelt.",
+      "items": {
+        "profile": {
+          "label": "Profiel",
+          "help": "Bio, gym en sporten."
+        },
+        "activity": {
+          "label": "Trainingsactiviteit",
+          "help": "Datum, sport, duur en uren per week."
+        },
+        "streaks": {
+          "label": "Streaks",
+          "help": "Je huidige en langste streak."
+        },
+        "achievements": {
+          "label": "Prestaties",
+          "help": "Mijlpalen die je hebt bereikt."
+        },
+        "dashboard": {
+          "label": "Weekrapport",
+          "help": "Je statistieken en weekanalyse."
+        },
+        "weight": {
+          "label": "Gewicht",
+          "help": "Gewichtsgeschiedenis en foto's. We raden aan dit privé te houden."
+        }
+      }
+    },
+    "notifications": {
+      "title": "Meldingen",
+      "description": "Kies welke meldingen je in PACE ontvangt.",
+      "items": {
+        "friendRequests": "Vriendschapsverzoeken",
+        "friendAccepted": "Geaccepteerde vriendschapsverzoeken",
+        "friendMilestones": "Vrienden die een mijlpaal bereiken",
+        "reactions": "Reacties van vrienden",
+        "weeklyReport": "Weekrapport klaar",
+        "streaks": "Streak-mijlpalen",
+        "goals": "Behaalde doelen"
+      }
+    },
+    "delete": {
+      "title": "Account verwijderen",
+      "description": "Verwijdert je account, trainingsgegevens, rapporten, gewichtsgeschiedenis en alle geüploade foto's definitief. Dit kan niet ongedaan worden gemaakt.",
+      "button": "Mijn account verwijderen",
+      "confirmTitle": "Je account verwijderen?",
+      "confirmText": "Alles wordt direct en definitief verwijderd. Vul je wachtwoord in om te bevestigen.",
+      "confirmButton": "Definitief verwijderen",
+      "done": "Je account en al je gegevens zijn verwijderd."
+    },
+    "about": {
+      "title": "Over PACE",
+      "text": "PACE helpt sporters om gedisciplineerder en consistenter te trainen: een trainingskalender, een persoonlijk prestatiedashboard, weekrapporten en vrienden die elkaar gemotiveerd houden.",
+      "privacy": "Privacy staat voorop. Je gegevens zijn alleen voor jou zichtbaar, tenzij je ze zelf deelt, en als je je account verwijdert, wordt alles verwijderd.",
+      "version": "Versie"
+    }
+  },
+  "errors": {
+    "codes": {
+      "invalid": "Deze waarde is ongeldig.",
+      "too_small": "Dit is te kort.",
+      "too_big": "Dit is te lang.",
+      "invalid_format": "Dit formaat is ongeldig.",
+      "invalid_type": "Dit veld is verplicht.",
+      "taken": "Dit is al in gebruik.",
+      "wrong_password": "Onjuist wachtwoord.",
+      "not_found": "Niet gevonden.",
+      "required": "Dit veld is verplicht.",
+      "custom": "Deze waarde is ongeldig.",
+      "invalid_value": "Kies een geldige optie."
+    },
+    "fields": {
+      "email": {
+        "invalid_format": "Vul een geldig e-mailadres in.",
+        "taken": "Er bestaat al een account met dit e-mailadres."
+      },
+      "password": {
+        "too_small": "Gebruik minstens 10 tekens.",
+        "wrong_password": "Onjuist wachtwoord."
+      },
+      "currentPassword": {
+        "wrong_password": "Je huidige wachtwoord klopt niet."
+      },
+      "username": {
+        "invalid_format": "Gebruik 3–30 kleine letters, cijfers, punten of underscores.",
+        "taken": "Deze gebruikersnaam is al bezet."
+      },
+      "firstName": {
+        "too_small": "Vul je voornaam in."
+      },
+      "heightCm": {
+        "too_small": "Vul een lengte tussen 80 en 260 cm in.",
+        "too_big": "Vul een lengte tussen 80 en 260 cm in.",
+        "invalid_type": "Vul een heel getal in."
+      },
+      "timezone": {
+        "custom": "Kies een geldige tijdzone."
+      }
+    },
+    "api": {
+      "unknown_error": "Er ging iets mis. Probeer het opnieuw.",
+      "network_error": "PACE is niet bereikbaar. Controleer je verbinding.",
+      "internal_error": "Er ging aan onze kant iets mis. Probeer het opnieuw.",
+      "invalid_credentials": "Onjuist e-mailadres of wachtwoord.",
+      "too_many_requests": "Te veel pogingen. Wacht een paar minuten en probeer het opnieuw.",
+      "invalid_token": "Deze link is ongeldig of verlopen. Vraag een nieuwe aan.",
+      "unsupported_image": "Dit bestand is geen JPG-, PNG- of WebP-afbeelding.",
+      "file_too_large": "Deze foto is te groot (max. 8 MB).",
+      "conflict": "Dit is al in gebruik.",
+      "wrong_password": "Onjuist wachtwoord.",
+      "unauthenticated": "Je sessie is verlopen. Log opnieuw in.",
+      "validation_error": "Controleer de gemarkeerde velden."
+    }
   },
   "notFound": {
     "title": "Pagina niet gevonden",

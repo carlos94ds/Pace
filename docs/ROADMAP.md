@@ -2,7 +2,7 @@
 
 Each phase ends with working, tested functionality and a commit/push. The next phase starts only after the current one works.
 
-## Phase 1 – Foundation
+## Phase 1 – Foundation ✓
 
 - npm workspaces: `client`, `server`, `shared`.
 - Vite + React + TypeScript + Tailwind; design tokens, light/dark and text-size switch, app layout (sidebar on desktop, bottom navigation on mobile), base components.
@@ -13,7 +13,7 @@ Each phase ends with working, tested functionality and a commit/push. The next p
 
 **Done when:** `npm run dev` starts client and server, the client shows the health status from the API, the migration runs on a clean database.
 
-## Phase 2 – Authentication and profiles
+## Phase 2 – Authentication and profiles ✓
 
 - Register, login, logout, log out everywhere; argon2 hashing; session cookie; rate limiting.
 - Password recovery by email.

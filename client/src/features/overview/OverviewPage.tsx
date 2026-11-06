@@ -7,12 +7,14 @@ import { Button } from '../../components/Button';
 import { Card } from '../../components/Card';
 import { StatusDot } from '../../components/StatusDot';
 import { fetchHealth } from '../../lib/api';
+import { useCurrentUser } from '../auth/session';
 
 const PHASES = [1, 2, 3, 4, 5, 6, 7] as const;
-const CURRENT_PHASE = 1;
+const CURRENT_PHASE = 2;
 
-export function StatusPage() {
+export function OverviewPage() {
   const { t, i18n } = useTranslation();
+  const me = useCurrentUser();
   const health = useQuery({
     queryKey: ['health'],
     queryFn: () => fetchHealth<HealthResponse>(),
@@ -45,7 +47,10 @@ export function StatusPage() {
 
   return (
     <>
-      <PageHeader title={t('status.title')} subtitle={t('status.subtitle')} />
+      <PageHeader
+        title={t('status.greeting', { name: me.profile.firstName })}
+        subtitle={t('status.subtitle')}
+      />
 
       <div className="grid gap-6 lg:grid-cols-[1fr_1.2fr]">
         <Card

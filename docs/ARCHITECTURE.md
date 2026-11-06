@@ -155,7 +155,7 @@ Why one service: frontend and API on the same domain means the session cookie wo
 - Pre-deploy command: `npm run db:deploy -w server` (`prisma migrate deploy`). Migrations run before the new version starts; if one fails, the deploy stops.
 - Health check: `GET /api/health`, timeout 120 s.
 - These settings live on the Railway service itself. Railway retired `railway.json`; moving them into a `.railway/railway.ts` file (Railway's Infrastructure as Code) is an open decision because it adds the `railway` npm package.
-- Variables: `DATABASE_URL=${{MySQL.MYSQL_URL}}` (private network, database `railway`), `NODE_ENV=production`.
+- Variables: `DATABASE_URL=${{MySQL.MYSQL_URL}}` (private network, database `railway`), `NODE_ENV=production`, `APP_URL`, `S3_*` for the `pace-uploads` bucket (EU West), `MAIL_FROM`, and `SMTP_*` once a mail account is configured. Production stores files at the bucket root; development uses the `dev/` prefix.
 - Secrets (`DATABASE_URL`, `SESSION_SECRET`, `S3_*`, `MAIL_*`) only as Railway variables; `.env.example` in the repo lists their names without values.
 - The scheduler runs inside the app service. Keep **one replica** (or add a database lock before scaling out).
 

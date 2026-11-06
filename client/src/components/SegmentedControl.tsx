@@ -29,7 +29,7 @@ export function SegmentedControl<T extends string>({
             key={option.value}
             className={`cursor-pointer rounded-lg px-3.5 py-1.5 text-sm font-medium transition-colors duration-150 has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-accent ${
               option.value === value
-                ? 'bg-surface text-text shadow-sm'
+                ? 'bg-accent-soft text-accent shadow-sm'
                 : 'text-muted hover:text-text'
             }`}
           >

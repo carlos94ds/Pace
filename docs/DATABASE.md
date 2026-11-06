@@ -334,6 +334,10 @@ model WeightEvidence {
 
 Enums: `TrainingLevel` (BEGINNER, INTERMEDIATE, ADVANCED, COMPETITIVE, PROFESSIONAL), `Visibility` (PRIVATE, FRIENDS), `Language` (NL, EN, DE, FR, PT, IT, ES), `Theme` (LIGHT, DARK, SYSTEM), `TextSize` (SMALL, MEDIUM, LARGE), plus the ones named in the comments above.
 
+## Housekeeping
+
+`PendingFileDeletion (id, key, attempts, lastError, createdAt)`: storage keys to delete. Rows are written in the same transaction as the database change that orphans a file (replacing an avatar, deleting an account), then processed immediately; failures are retried every 15 minutes by the scheduler.
+
 ## Notes
 
 - **Cascades and files:** a database cascade can't delete files in the bucket. Account deletion therefore first collects all storage keys (avatar, evidence), deletes the user (cascade removes all rows), then deletes the objects. If object deletion fails, the keys go into a retry queue so no orphaned photos remain.

@@ -1,18 +1,18 @@
 import { mkdtempSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { pino } from 'pino';
 import request from 'supertest';
 import { describe, expect, it } from 'vitest';
-import { createApp, type AppDeps } from './app';
+import { createApp, type AppOptions } from './app';
+import { makeTestApp } from '../test/helpers';
 
-function makeApp(overrides: Partial<AppDeps> = {}) {
-  return createApp({
-    logger: pino({ level: 'silent' }),
+function makeApp(options: Partial<AppOptions> = {}) {
+  const { ctx } = makeTestApp();
+  return createApp(ctx, {
     checkDatabase: async () => true,
     version: 'test',
     clientDist: '/nonexistent',
-    ...overrides,
+    ...options,
   });
 }
 
@@ -51,5 +51,26 @@ describe('unknown routes', () => {
     const res = await request(makeApp({ clientDist: dist })).get('/api/nope');
     expect(res.status).toBe(404);
     expect(res.headers['content-type']).toMatch(/json/);
+  });
+});
+
+describe('cross-site requests', () => {
+  it('rejects state-changing requests from another origin', async () => {
+    const res = await request(makeApp())
+      .post('/api/v1/auth/login')
+      .set('Origin', 'https://evil.example')
+      .send({ email: 'a@b.nl', password: 'x' });
+    expect(res.status).toBe(403);
+    expect(res.body.error.code).toBe('cross_origin');
+  });
+});
+
+describe('same-origin check', () => {
+  it('accepts requests from the configured app URL (development proxy)', async () => {
+    const res = await request(makeApp())
+      .post('/api/v1/auth/login')
+      .set('Origin', 'http://localhost:5173')
+      .send({});
+    expect(res.status).toBe(400);
   });
 });
