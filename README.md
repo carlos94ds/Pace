@@ -26,7 +26,7 @@ npm run dev                          # client on http://localhost:5173, API on :
 | `npm run build` && `npm start`       | Production build, served by Express on one port |
 | `npm run db:studio`                  | Browse the database (or use MySQL Workbench)    |
 
-Deployment: Railway builds with [railway.json](railway.json), runs `prisma migrate deploy` before each release and checks `/api/health`.
+Deployment: every push to `main` deploys to Railway (https://pace-app-production.up.railway.app), with `prisma migrate deploy` before each release and a health check on `/api/health`. Details in [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md#10-deployment-on-railway).
 
 | Document                                     | Contents                                                                                            |
 | -------------------------------------------- | --------------------------------------------------------------------------------------------------- |
