@@ -101,7 +101,7 @@ function SessionForm({
   const [values, setValues] = useState<FormValues>(() => ({
     date: session?.date ?? (date && date <= today ? date : today),
     sportId: session?.sport.id ?? me.profile.sports[0]?.id ?? '',
-    gym: session ? session.gym : me.profile.gym,
+    gym: session ? session.gym : (me.profile.gyms[0] ?? null),
     hours: session ? String(Math.floor(session.durationMinutes / 60)) : '',
     minutes: session ? String(session.durationMinutes % 60) : '',
     punctuality: session?.punctuality ?? 'on_time',
@@ -234,7 +234,11 @@ function SessionForm({
 
       <div className="flex flex-col gap-1.5">
         <p className="text-sm font-medium">{t('training.fields.gym')}</p>
-        <GymPicker value={values.gym} onChange={(gym) => set('gym', gym)} />
+        <GymPicker
+          value={values.gym}
+          onChange={(gym) => set('gym', gym)}
+          suggestions={me.profile.gyms}
+        />
         {errors.gymId && <p className="text-xs text-danger">{msg('gymId')}</p>}
       </div>
 

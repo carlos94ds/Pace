@@ -115,7 +115,7 @@ export interface UserProfileView {
   profile: {
     bio: string | null;
     trainingLevel: TrainingLevel;
-    gym: Gym | null;
+    gyms: Gym[];
     sports: Sport[];
   } | null;
   activity: {

@@ -36,6 +36,12 @@ describe('profile', () => {
     const gym = (
       await agent.post('/api/v1/gyms').send({ name: gymName, city: 'Zwolle' }).expect(201)
     ).body;
+    const gym2 = (
+      await agent
+        .post('/api/v1/gyms')
+        .send({ name: `${gymName} 2`, city: 'Deventer' })
+        .expect(201)
+    ).body;
 
     const me = (
       await agent
@@ -44,14 +50,15 @@ describe('profile', () => {
           bio: 'Fighter',
           heightCm: 180,
           trainingLevel: 'advanced',
-          gymId: gym.id,
+          gymIds: [gym2.id, gym.id],
           sportIds: [mma.id, bjj.id],
         })
         .expect(200)
     ).body;
 
     expect(me.profile).toMatchObject({ bio: 'Fighter', heightCm: 180, trainingLevel: 'advanced' });
-    expect(me.profile.gym).toEqual(gym);
+    // Both gyms, in the order the user chose.
+    expect(me.profile.gyms).toEqual([gym2, gym]);
     expect(me.profile.sports.map((s: { slug: string }) => s.slug).sort()).toEqual(['bjj', 'mma']);
 
     const found = (await agent.get(`/api/v1/gyms?q=${gymName.toLowerCase()}`).expect(200)).body;
@@ -61,7 +68,20 @@ describe('profile', () => {
       await agent.post('/api/v1/gyms').send({ name: gymName.toUpperCase(), city: 'zwolle' })
     ).body;
     expect(again.id).toBe(gym.id);
-    await prisma.gym.delete({ where: { id: gym.id } });
+
+    // Removing one keeps the other; an unknown gym is rejected.
+    const after = (
+      await agent
+        .patch('/api/v1/me/profile')
+        .send({ gymIds: [gym.id] })
+        .expect(200)
+    ).body;
+    expect(after.profile.gyms).toEqual([gym]);
+    await agent
+      .patch('/api/v1/me/profile')
+      .send({ gymIds: [gym.id, '00000000-0000-4000-8000-000000000000'] })
+      .expect(400);
+    await prisma.gym.deleteMany({ where: { id: { in: [gym.id, gym2.id] } } });
   });
 
   it("can't link another user's custom sport", async () => {

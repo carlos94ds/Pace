@@ -84,14 +84,16 @@
       "hint": "JPG, PNG ou WebP, jusqu'à 8 Mo. Les données de localisation sont retirées de la photo."
     },
     "gym": {
-      "label": "Salle ou lieu d'entraînement",
+      "label": "Salles ou lieux d'entraînement",
       "change": "Changer",
       "name": "Nom de la salle",
       "city": "Ville",
       "add": "Ajouter la salle",
-      "search": "Cherche ta salle",
+      "search": "Cherche une salle",
       "searchPlaceholder": "Nom ou ville",
-      "addNew": "Ajouter « {{name}} » comme nouvelle salle"
+      "addNew": "Ajouter « {{name}} » comme nouvelle salle",
+      "remove": "Retirer {{name}}",
+      "max": "Tu peux ajouter jusqu'à {{count}} salles."
     }
   },
   "trainingLevels": {

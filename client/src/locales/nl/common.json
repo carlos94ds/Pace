@@ -84,14 +84,16 @@
       "hint": "JPG, PNG of WebP, maximaal 8 MB. Locatiegegevens worden uit de foto verwijderd."
     },
     "gym": {
-      "label": "Gym of trainingslocatie",
+      "label": "Gyms of trainingslocaties",
       "change": "Wijzigen",
       "name": "Naam van de gym",
       "city": "Plaats",
       "add": "Gym toevoegen",
-      "search": "Zoek je gym",
+      "search": "Zoek een gym",
       "searchPlaceholder": "Naam of plaats",
-      "addNew": "\"{{name}}\" toevoegen als nieuwe gym"
+      "addNew": "\"{{name}}\" toevoegen als nieuwe gym",
+      "remove": "{{name}} verwijderen",
+      "max": "Je kunt maximaal {{count}} gyms toevoegen."
     }
   },
   "trainingLevels": {

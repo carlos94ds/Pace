@@ -24,6 +24,9 @@ const optionalText = (max: number) =>
     .transform((v) => (v === '' ? null : v))
     .nullable();
 
+/** How many gyms a profile can list. */
+export const MAX_GYMS = 10;
+
 export const updateProfileSchema = z
   .object({
     firstName: firstNameSchema,
@@ -33,7 +36,7 @@ export const updateProfileSchema = z
     trainingLevel: trainingLevelSchema,
     personalGoals: optionalText(2000),
     timezone: timezoneSchema,
-    gymId: z.uuid().nullable(),
+    gymIds: z.array(z.uuid()).max(MAX_GYMS),
     sportIds: z.array(z.uuid()).max(20),
   })
   .partial();
@@ -120,7 +123,8 @@ export interface Me {
     trainingLevel: TrainingLevel;
     personalGoals: string | null;
     timezone: string;
-    gym: Gym | null;
+    /** In the user's order; the first is the default for new sessions. */
+    gyms: Gym[];
     sports: Sport[];
   };
   preferences: {

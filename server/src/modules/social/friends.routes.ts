@@ -142,9 +142,9 @@ export function friendsRouter(ctx: AppContext): Router {
     const viewerId = currentUserId(req);
     const [mine, me] = await Promise.all([
       friendIds(prisma, viewerId),
-      prisma.userProfile.findUniqueOrThrow({
-        where: { userId: viewerId },
-        select: { gymId: true, user: { select: { sports: { select: { sportId: true } } } } },
+      prisma.user.findUniqueOrThrow({
+        where: { id: viewerId },
+        select: { sports: { select: { sportId: true } }, gyms: { select: { gymId: true } } },
       }),
     ]);
     const connected = await prisma.friendship.findMany({
@@ -178,15 +178,17 @@ export function friendsRouter(ctx: AppContext): Router {
         if (mineSet.has(f.addresseeId)) bump(f.requesterId, 3, 1);
       }
     }
-    if (me.gymId) {
-      const sameGym = await prisma.userProfile.findMany({
-        where: { gymId: me.gymId },
+    const gymIds = me.gyms.map((g) => g.gymId);
+    if (gymIds.length) {
+      const sameGym = await prisma.userGym.findMany({
+        where: { gymId: { in: gymIds }, userId: { not: viewerId } },
         select: { userId: true },
+        distinct: ['userId'],
         take: 200,
       });
       for (const p of sameGym) bump(p.userId, 2);
     }
-    const sportIds = me.user.sports.map((s) => s.sportId);
+    const sportIds = me.sports.map((s) => s.sportId);
     if (sportIds.length) {
       const sameSport = await prisma.userSport.findMany({
         where: { sportId: { in: sportIds } },

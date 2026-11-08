@@ -120,14 +120,21 @@ export function usersRouter(ctx: AppContext): Router {
         select: {
           bio: true,
           trainingLevel: true,
-          gym: { select: { id: true, name: true, city: true } },
-          user: { select: { sports: { select: { sport: { select: sportSelect } } } } },
+          user: {
+            select: {
+              sports: { select: { sport: { select: sportSelect } } },
+              gyms: {
+                select: { gym: { select: { id: true, name: true, city: true } } },
+                orderBy: { position: 'asc' },
+              },
+            },
+          },
         },
       });
       view.profile = {
         bio: p.bio,
         trainingLevel: toApi(p.trainingLevel),
-        gym: p.gym,
+        gyms: p.user.gyms.map((g) => g.gym),
         sports: p.user.sports.map((s) => s.sport).sort((a, b) => a.name.localeCompare(b.name)),
       };
     }

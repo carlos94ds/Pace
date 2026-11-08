@@ -47,7 +47,7 @@ export function meRouter(ctx: AppContext): Router {
 
   router.patch('/profile', async (req, res) => {
     const userId = currentUserId(req);
-    const { sportIds, gymId, trainingLevel, username, ...rest } = parseBody(
+    const { sportIds, gymIds, trainingLevel, username, ...rest } = parseBody(
       updateProfileSchema,
       req,
     );
@@ -60,8 +60,12 @@ export function meRouter(ctx: AppContext): Router {
       if (owner && owner.userId !== userId)
         throw new HttpError(409, 'conflict', { username: 'taken' });
     }
-    if (gymId && !(await prisma.gym.findUnique({ where: { id: gymId }, select: { id: true } }))) {
-      throw new HttpError(400, 'validation_error', { gymId: 'not_found' });
+    const uniqueGymIds = gymIds && [...new Set(gymIds)];
+    if (
+      uniqueGymIds?.length &&
+      (await prisma.gym.count({ where: { id: { in: uniqueGymIds } } })) !== uniqueGymIds.length
+    ) {
+      throw new HttpError(400, 'validation_error', { gymIds: 'not_found' });
     }
     if (sportIds) {
       // Only built-in sports and the user's own custom sports may be linked.
@@ -77,9 +81,6 @@ export function meRouter(ctx: AppContext): Router {
       ...rest,
       ...(username && { username }),
       ...(trainingLevel && { trainingLevel: toDb(trainingLevel) }),
-      ...(gymId !== undefined && {
-        gym: gymId ? { connect: { id: gymId } } : { disconnect: true },
-      }),
     };
 
     await prisma.$transaction(async (tx) => {
@@ -88,6 +89,12 @@ export function meRouter(ctx: AppContext): Router {
         await tx.userSport.deleteMany({ where: { userId } });
         await tx.userSport.createMany({
           data: [...new Set(sportIds)].map((sportId) => ({ userId, sportId })),
+        });
+      }
+      if (uniqueGymIds) {
+        await tx.userGym.deleteMany({ where: { userId } });
+        await tx.userGym.createMany({
+          data: uniqueGymIds.map((gymId, position) => ({ userId, gymId, position })),
         });
       }
     });

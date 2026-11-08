@@ -172,12 +172,12 @@ function Header({ view }: { view: UserProfileView }) {
             {view.profile.bio && <p>{view.profile.bio}</p>}
             <p className="flex flex-wrap items-center gap-x-3 gap-y-1 text-muted">
               <span>{t(`trainingLevels.${view.profile.trainingLevel}`)}</span>
-              {view.profile.gym && (
-                <span className="inline-flex items-center gap-1">
+              {view.profile.gyms.map((gym) => (
+                <span key={gym.id} className="inline-flex items-center gap-1">
                   <MapPin className="size-3.5" aria-hidden="true" />
-                  {view.profile.gym.name}, {view.profile.gym.city}
+                  {gym.name}, {gym.city}
                 </span>
-              )}
+              ))}
             </p>
             {view.profile.sports.length > 0 && (
               <ul className="flex flex-wrap gap-1.5">

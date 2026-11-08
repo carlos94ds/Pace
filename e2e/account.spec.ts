@@ -30,6 +30,18 @@ test('account lifecycle', async ({ page }, testInfo) => {
   await expect(page).toHaveURL(/\/profile$/);
   await page.getByLabel('Short bio').fill('MMA and BJJ.');
   await page.getByRole('button', { name: 'MMA' }).click();
+
+  // Several gyms: add three new ones, remove one again.
+  const gyms = ['A', 'B', 'C'].map((x) => `E2E Gym ${x} ${id}`);
+  for (const gym of gyms) {
+    await page.getByLabel('Search for a gym').fill(gym);
+    await page.getByRole('button', { name: `Add "${gym}" as a new gym` }).click();
+    await page.getByLabel('City').fill('Zwolle');
+    await page.getByRole('button', { name: 'Add gym', exact: true }).click();
+    await expect(page.getByText(gym, { exact: true })).toBeVisible();
+  }
+  await page.getByRole('button', { name: `Remove ${gyms[1]}` }).click();
+  await expect(page.getByText(gyms[1], { exact: true })).toHaveCount(0);
   await page.locator('input[type=file]').setInputFiles({
     name: 'me.png',
     mimeType: 'image/png',
@@ -39,9 +51,13 @@ test('account lifecycle', async ({ page }, testInfo) => {
       'base64',
     ),
   });
-  await expect(page.getByRole('button', { name: 'Remove' })).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Remove', exact: true })).toBeVisible();
   await page.getByRole('button', { name: 'Save changes' }).click();
   await expect(page.getByText('Saved')).toBeVisible();
+  await page.reload();
+  await expect(page.getByText(gyms[0], { exact: true })).toBeVisible();
+  await expect(page.getByText(gyms[2], { exact: true })).toBeVisible();
+  await expect(page.getByText(gyms[1], { exact: true })).toHaveCount(0);
   await shot('profile');
 
   await page.goto('/settings');

@@ -15,11 +15,12 @@ MySQL 8, managed through Prisma migrations. **The Prisma schema is the single so
 ## Overview
 
 ```
-User ─1:1─ UserProfile ── Gym (n:1)
+User ─1:1─ UserProfile
  │   ─1:1─ PrivacySettings
  │   ─1:1─ UserPreferences
  │   ─1:n─ AuthSession, PasswordResetToken
  │   ─n:m─ Sport            (via UserSport: "sports I practise")
+ │   ─n:m─ Gym              (via UserGym: "gyms I train at")
  │   ─1:n─ Sport            (custom sports; system sports have ownerId NULL)
  │   ─1:n─ TrainingSession ── Sport, Gym
  │   ─1:n─ WeeklyGoal ── Sport (optional, for "3 MMA sessions")
@@ -31,7 +32,7 @@ User ─1:1─ UserProfile ── Gym (n:1)
  └─ Reaction   (from user → target: session / achievement / streak / goal)
 ```
 
-All 15 requested tables are included. Three extra tables are needed: `AuthSession` and `PasswordResetToken` for secure login and recovery, `UserSport` for the many-to-many link between users and sports, and `Reaction` for congratulations/motivation.
+All 15 requested tables are included. Four extra tables are needed: `AuthSession` and `PasswordResetToken` for secure login and recovery, `UserSport` and `UserGym` for the many-to-many links between users and sports or gyms, and `Reaction` for congratulations/motivation.
 
 ## Draft Prisma schema
 
@@ -75,13 +76,10 @@ model UserProfile {
   trainingLevel TrainingLevel @default(BEGINNER)
   personalGoals String?       @db.Text
   timezone      String        @default("Europe/Amsterdam") @db.VarChar(64)
-  gymId         String?       @db.Char(36)
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-  gym  Gym? @relation(fields: [gymId], references: [id], onDelete: SetNull)
 
   @@index([firstName])
-  @@index([gymId])
 }
 // "Current weight" is not stored here: it is the latest WeightMeasurement,
 // so there is no second copy that can get out of sync.
@@ -166,13 +164,25 @@ model UserSport {
   @@index([sportId])
 }
 
+// A user can train at several gyms; the first (position 0) is the default for new sessions.
+model UserGym {
+  userId   String @db.Char(36)
+  gymId    String @db.Char(36)
+  position Int    @db.TinyInt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  gym  Gym  @relation(fields: [gymId], references: [id], onDelete: Cascade)
+  @@id([userId, gymId])
+  @@index([gymId])
+}
+
 model Gym {
   id          String  @id @default(uuid()) @db.Char(36)
   name        String  @db.VarChar(100)
   city        String  @db.VarChar(100)
   createdById String? @db.Char(36)
 
-  profiles UserProfile[]
+  members  UserGym[]
   sessions TrainingSession[]
   @@unique([name, city])     // shared list, so "same gym" suggestions work
 }

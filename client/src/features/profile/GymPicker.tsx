@@ -19,10 +19,14 @@ function useDebounced<T>(value: T, ms: number) {
 interface GymPickerProps {
   value: Gym | null;
   onChange: (gym: Gym | null) => void;
+  /** Gyms to leave out of the search results, e.g. ones already chosen. */
+  exclude?: string[];
+  /** Offered as one-tap choices while nothing is selected, e.g. the user's own gyms. */
+  suggestions?: Gym[];
 }
 
 /** Search the shared gym list, or add a gym that isn't in it yet. */
-export function GymPicker({ value, onChange }: GymPickerProps) {
+export function GymPicker({ value, onChange, exclude = [], suggestions = [] }: GymPickerProps) {
   const { t } = useTranslation();
   const [query, setQuery] = useState('');
   const [adding, setAdding] = useState(false);
@@ -92,6 +96,20 @@ export function GymPicker({ value, onChange }: GymPickerProps) {
 
   return (
     <div className="flex flex-col gap-2">
+      {suggestions.length > 0 && (
+        <div className="flex flex-wrap gap-2">
+          {suggestions.map((gym) => (
+            <button
+              key={gym.id}
+              type="button"
+              onClick={() => onChange(gym)}
+              className="rounded-full border border-border px-3 py-1.5 text-sm text-muted transition-colors duration-150 hover:text-text"
+            >
+              {gym.name}
+            </button>
+          ))}
+        </div>
+      )}
       <TextField
         label={t('profile.gym.search')}
         value={query}
@@ -100,18 +118,20 @@ export function GymPicker({ value, onChange }: GymPickerProps) {
       />
       {q.length >= 2 && results.data && (
         <ul className="divide-y divide-border rounded-lg border border-border">
-          {results.data.map((gym) => (
-            <li key={gym.id}>
-              <button
-                type="button"
-                onClick={() => onChange(gym)}
-                className="w-full px-3 py-2 text-left text-sm hover:bg-surface-2"
-              >
-                <span className="font-medium">{gym.name}</span>
-                <span className="text-muted"> · {gym.city}</span>
-              </button>
-            </li>
-          ))}
+          {results.data
+            .filter((gym) => !exclude.includes(gym.id))
+            .map((gym) => (
+              <li key={gym.id}>
+                <button
+                  type="button"
+                  onClick={() => onChange(gym)}
+                  className="w-full px-3 py-2 text-left text-sm hover:bg-surface-2"
+                >
+                  <span className="font-medium">{gym.name}</span>
+                  <span className="text-muted"> · {gym.city}</span>
+                </button>
+              </li>
+            ))}
           <li>
             <button
               type="button"

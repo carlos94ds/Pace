@@ -1,10 +1,4 @@
-import {
-  TRAINING_LEVELS,
-  updateProfileSchema,
-  type Gym,
-  type Me,
-  type TrainingLevel,
-} from '@pace/shared';
+import { TRAINING_LEVELS, updateProfileSchema, type Me, type TrainingLevel } from '@pace/shared';
 import { useMemo, useState, type FormEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ChevronRight, Scale } from 'lucide-react';
@@ -25,7 +19,7 @@ import {
 } from '../../lib/forms';
 import { useCurrentUser, useMeMutation } from '../auth/session';
 import { AvatarEditor } from './AvatarEditor';
-import { GymPicker } from './GymPicker';
+import { GymListPicker } from './GymListPicker';
 import { SportPicker } from './SportPicker';
 
 function initialValues(me: Me) {
@@ -38,7 +32,7 @@ function initialValues(me: Me) {
     trainingLevel: p.trainingLevel,
     personalGoals: p.personalGoals ?? '',
     timezone: p.timezone,
-    gym: p.gym,
+    gyms: p.gyms,
     sportIds: p.sports.map((s) => s.id),
   };
 }
@@ -62,10 +56,10 @@ export function ProfilePage() {
 
   function submit(e: FormEvent) {
     e.preventDefault();
-    const { gym, heightCm, ...rest } = values;
+    const { gyms, heightCm, ...rest } = values;
     const { data, errors } = validate(updateProfileSchema, {
       ...rest,
-      gymId: gym?.id ?? null,
+      gymIds: gyms.map((g) => g.id),
       heightCm: heightCm.trim() === '' ? null : Number(heightCm),
     });
     setErrors(errors ?? {});
@@ -145,7 +139,7 @@ export function ProfilePage() {
             <SportPicker value={values.sportIds} onChange={(ids) => set('sportIds', ids)} />
             <div>
               <p className="mb-1.5 text-sm font-medium">{t('profile.gym.label')}</p>
-              <GymPicker value={values.gym} onChange={(gym: Gym | null) => set('gym', gym)} />
+              <GymListPicker value={values.gyms} onChange={(gyms) => set('gyms', gyms)} />
             </div>
             <TextArea
               label={t('fields.personalGoals')}

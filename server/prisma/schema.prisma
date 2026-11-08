@@ -111,6 +111,7 @@ model User {
   authSessions      AuthSession[]
   resetTokens       PasswordResetToken[]
   sports            UserSport[]
+  gyms              UserGym[]
   customSports      Sport[]              @relation("CustomSports")
   gymsCreated       Gym[]                @relation("GymCreator")
   sessions          TrainingSession[]
@@ -136,13 +137,10 @@ model UserProfile {
   trainingLevel TrainingLevel @default(BEGINNER)
   personalGoals String?       @db.Text
   timezone      String        @default("Europe/Amsterdam") @db.VarChar(64)
-  gymId         String?       @db.Char(36)
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-  gym  Gym? @relation(fields: [gymId], references: [id], onDelete: SetNull)
 
   @@index([firstName])
-  @@index([gymId])
 }
 
 model AuthSession {
@@ -231,6 +229,19 @@ model UserSport {
   @@index([sportId])
 }
 
+/// Gyms a user trains at. `position` keeps the user's order; the first is the default for new sessions.
+model UserGym {
+  userId   String @db.Char(36)
+  gymId    String @db.Char(36)
+  position Int    @db.TinyInt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  gym  Gym  @relation(fields: [gymId], references: [id], onDelete: Cascade)
+
+  @@id([userId, gymId])
+  @@index([gymId])
+}
+
 model Gym {
   id          String  @id @default(uuid()) @db.Char(36)
   name        String  @db.VarChar(100)
@@ -238,7 +249,7 @@ model Gym {
   createdById String? @db.Char(36)
 
   createdBy User?             @relation("GymCreator", fields: [createdById], references: [id], onDelete: SetNull)
-  profiles  UserProfile[]
+  members   UserGym[]
   sessions  TrainingSession[]
 
   @@unique([name, city])

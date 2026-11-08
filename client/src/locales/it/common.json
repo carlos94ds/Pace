@@ -84,14 +84,16 @@
       "hint": "JPG, PNG o WebP, fino a 8 MB. I dati di posizione vengono rimossi dalla foto."
     },
     "gym": {
-      "label": "Palestra o luogo di allenamento",
+      "label": "Palestre o luoghi di allenamento",
       "change": "Cambia",
       "name": "Nome della palestra",
       "city": "Città",
       "add": "Aggiungi palestra",
-      "search": "Cerca la tua palestra",
+      "search": "Cerca una palestra",
       "searchPlaceholder": "Nome o città",
-      "addNew": "Aggiungi \"{{name}}\" come nuova palestra"
+      "addNew": "Aggiungi \"{{name}}\" come nuova palestra",
+      "remove": "Rimuovi {{name}}",
+      "max": "Puoi aggiungere fino a {{count}} palestre."
     }
   },
   "trainingLevels": {

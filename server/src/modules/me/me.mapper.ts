@@ -23,7 +23,8 @@ export async function loadMe(prisma: PrismaClient, userId: string): Promise<Me> 
   const user = await prisma.user.findUnique({
     where: { id: userId },
     include: {
-      profile: { include: { gym: true } },
+      profile: true,
+      gyms: { include: { gym: true }, orderBy: { position: 'asc' } },
       preferences: true,
       privacy: true,
       sports: { include: { sport: true }, orderBy: { sport: { name: 'asc' } } },
@@ -56,7 +57,7 @@ export async function loadMe(prisma: PrismaClient, userId: string): Promise<Me> 
       trainingLevel: toApi<TrainingLevel>(profile.trainingLevel),
       personalGoals: profile.personalGoals,
       timezone: profile.timezone,
-      gym: profile.gym && { id: profile.gym.id, name: profile.gym.name, city: profile.gym.city },
+      gyms: user.gyms.map(({ gym }) => ({ id: gym.id, name: gym.name, city: gym.city })),
       sports: user.sports.map(({ sport }) => ({
         id: sport.id,
         slug: sport.slug,

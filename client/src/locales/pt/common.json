@@ -84,14 +84,16 @@
       "hint": "JPG, PNG ou WebP, até 8 MB. Os dados de localização são removidos da foto."
     },
     "gym": {
-      "label": "Ginásio ou local de treino",
+      "label": "Ginásios ou locais de treino",
       "change": "Alterar",
       "name": "Nome do ginásio",
       "city": "Cidade",
       "add": "Adicionar ginásio",
-      "search": "Procura o teu ginásio",
+      "search": "Procura um ginásio",
       "searchPlaceholder": "Nome ou cidade",
-      "addNew": "Adicionar \"{{name}}\" como novo ginásio"
+      "addNew": "Adicionar \"{{name}}\" como novo ginásio",
+      "remove": "Remover {{name}}",
+      "max": "Podes adicionar até {{count}} ginásios."
     }
   },
   "trainingLevels": {

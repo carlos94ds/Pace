@@ -84,14 +84,16 @@
       "hint": "JPG, PNG or WebP, up to 8 MB. Location data is removed from the photo."
     },
     "gym": {
-      "label": "Gym or training location",
+      "label": "Gyms or training locations",
       "change": "Change",
       "name": "Gym name",
       "city": "City",
       "add": "Add gym",
-      "search": "Search for your gym",
+      "search": "Search for a gym",
       "searchPlaceholder": "Name or city",
-      "addNew": "Add \"{{name}}\" as a new gym"
+      "addNew": "Add \"{{name}}\" as a new gym",
+      "remove": "Remove {{name}}",
+      "max": "You can add up to {{count}} gyms."
     }
   },
   "trainingLevels": {
