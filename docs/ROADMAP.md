@@ -57,7 +57,7 @@ Each phase ends with working, tested functionality and a commit/push. The next p
 
 **Done when:** a weight entry without a photo is impossible; evidence is only visible to its owner; every interface text changes with the language.
 
-## Phase 7 – Testing and deployment
+## Phase 7 – Testing and deployment ✓
 
 - Playwright end-to-end tests for the main flows; responsive checks.
 - Railway: app service, MySQL, bucket, variables, pre-deploy migration, health check.

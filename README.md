@@ -1,8 +1,12 @@
 # PACE – Social Training & Performance Tracker
 
+[![CI](https://github.com/carlos94ds/Pace/actions/workflows/ci.yml/badge.svg)](https://github.com/carlos94ds/Pace/actions/workflows/ci.yml)
+
 PACE helps athletes train with more discipline and consistency. It combines a training calendar, a personal performance dashboard, automatic weekly reports and a privacy-first social layer where friends motivate each other.
 
 ## Status
+
+**Phase 7 – Testing and deployment: done.** All seven phases are complete. CI runs every test on every push from an empty database; the browser tests also pass against the live site; nightly database backups are verified by restoring them. See the production checklist in [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md#production-checklist).
 
 **Phase 6 – Weight, notifications and polish: done.** Weight history with a mandatory photo of the scale (stored privately, location data removed, deleted together with the entry), notification centre with unread count, and every page checked in dark mode, large text and another language.
 
@@ -28,15 +32,16 @@ npm run db:seed                      # built-in sports and achievements
 npm run dev                          # client on http://localhost:5173, API on :3000
 ```
 
-| Command                                                    | What it does                                                                                 |
-| ---------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
-| `npm run dev`                                              | Client and API with hot reload                                                               |
-| `npm test`                                                 | Unit and API tests (API tests use the `pace_test` database)                                  |
-| `npm run test:e2e`                                         | Browser tests (desktop + mobile) via Playwright; first run `npx playwright install chromium` |
-| `npm run lint` / `npm run typecheck`                       | Code checks                                                                                  |
-| `npm run build` && `npm start`                             | Production build, served by Express on one port                                              |
-| `npm run db:studio`                                        | Browse the database (or use MySQL Workbench)                                                 |
-| `npm run report:generate -w server -- <email> [weekStart]` | Create a weekly report now instead of on Sunday 18:00                                        |
+| Command                                                                | What it does                                                                                 |
+| ---------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| `npm run dev`                                                          | Client and API with hot reload                                                               |
+| `npm test`                                                             | Unit and API tests (API tests use the `pace_test` database)                                  |
+| `npm run test:e2e`                                                     | Browser tests (desktop + mobile) via Playwright; first run `npx playwright install chromium` |
+| `npm run lint` / `npm run typecheck`                                   | Code checks                                                                                  |
+| `npm run build` && `npm start`                                         | Production build, served by Express on one port                                              |
+| `npm run db:studio`                                                    | Browse the database (or use MySQL Workbench)                                                 |
+| `E2E_BASE_URL=<url> npx playwright test --project=desktop --workers=1` | Browser tests against a deployed site                                                        |
+| `npm run report:generate -w server -- <email> [weekStart]`             | Create a weekly report now instead of on Sunday 18:00                                        |
 
 Deployment: every push to `main` deploys to Railway (https://pace-app-production.up.railway.app), with `prisma migrate deploy` before each release and a health check on `/api/health`. Details in [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md#10-deployment-on-railway).
 

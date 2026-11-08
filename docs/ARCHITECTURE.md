@@ -175,12 +175,44 @@ Why one service: frontend and API on the same domain means the session cookie wo
 - Health check: `GET /api/health`, timeout 120 s.
 - These settings live on the Railway service itself. Railway retired `railway.json`; moving them into a `.railway/railway.ts` file (Railway's Infrastructure as Code) is an open decision because it adds the `railway` npm package.
 - Variables: `DATABASE_URL=${{MySQL.MYSQL_URL}}` (private network, database `railway`), `NODE_ENV=production`, `APP_URL`, `S3_*` for the `pace-uploads` bucket (EU West), `MAIL_FROM`, and `SMTP_*` once a mail account is configured. Production stores files at the bucket root; development uses the `dev/` prefix.
-- Secrets (`DATABASE_URL`, `SESSION_SECRET`, `S3_*`, `MAIL_*`) only as Railway variables; `.env.example` in the repo lists their names without values.
+- Secrets (`DATABASE_URL`, `S3_*`, `SMTP_*`) only as Railway variables; `.env.example` in the repo lists their names without values. Sessions need no signing secret: the cookie holds a random token whose hash is looked up in the database.
 - The scheduler runs inside the app service. Keep **one replica** (or add a database lock before scaling out).
+- Scheduled jobs (every 15 minutes): weekly reports, retrying file deletions, removing read notifications older than 90 days, and removing expired sessions and old reset tokens.
+
+### Backups
+
+Railway's own volume backups need a Pro workspace. Instead, `.github/workflows/backup.yml` runs every night at 02:30 UTC (and on demand from the Actions tab):
+
+1. `mysqldump` of the production database with the same MySQL version as Railway (8.4), in a single transaction.
+2. The dump is restored into an empty MySQL inside the job; the backup only counts if that works.
+3. Upload to the private bucket as `backups/pace-<date>.sql.gz`; backups older than 30 days are removed.
+
+Credentials are GitHub repository secrets (`BACKUP_DATABASE_URL` uses Railway's public TCP proxy; `BACKUP_S3_*` the bucket). If the root password or bucket keys change, update these secrets.
+
+**Restoring:** download the file from the bucket (Railway dashboard → bucket → `backups/`), then either `gunzip -c pace-….sql.gz | mysql -h <host> -P <port> -u root -p railway`, or unpack it and use MySQL Workbench → Server → Data Import. Restore into a new database first to check it, then point `DATABASE_URL` to it or copy the tables. Photos are not in the dump; they stay in the bucket.
+
+### Production checklist
+
+| Item                                                                                             | State                                                      |
+| ------------------------------------------------------------------------------------------------ | ---------------------------------------------------------- |
+| HTTPS only, HSTS, HTTP redirects to HTTPS                                                        | ✓ (Railway + helmet)                                       |
+| Session cookie `__Host-`, `HttpOnly`, `Secure`, `SameSite=Lax`, 30 days, revocable               | ✓                                                          |
+| Cross-site requests refused (Origin check)                                                       | ✓                                                          |
+| Content Security Policy: only own scripts, fonts and styles; no framing                          | ✓                                                          |
+| Rate limits: 20 login/registration/reset requests per 15 min per IP; 300 API requests per minute | ✓                                                          |
+| Upload limits: 8 MB, one file, real image type checked, re-encoded without metadata              | ✓                                                          |
+| JSON body limit 100 KB                                                                           | ✓                                                          |
+| Errors: no stack traces or SQL to clients; logs without cookies, tokens or query strings         | ✓                                                          |
+| Dependencies: `npm audit --omit=dev` reports 0 vulnerabilities                                   | ✓ (moderate advisories only in ESLint, a development tool) |
+| Migrations before each release; health check                                                     | ✓                                                          |
+| Nightly verified database backups, 30 days                                                       | ✓                                                          |
+| Password-reset emails in production                                                              | Open: needs `SMTP_*` (Gmail app password)                  |
 
 ## 11. Testing
 
 - **Vitest + Supertest** for API tests against a real MySQL test database (no mocks for data access).
 - Dedicated privacy test suite (section 5).
 - Unit tests for the tricky logic: streaks, week boundaries/DST, goal evaluation, report conclusions.
-- **Playwright** for main user flows and responsive checks (mobile, tablet, desktop).
+- **Playwright** for main user flows and responsive checks (desktop and phone), including a pass over every page in dark mode, large text and another language.
+- **CI** (`.github/workflows/ci.yml`) on every push and pull request: formatting, lint, types, unit tests and build; API tests against an empty MySQL 8.4; browser tests with MySQL and an S3-compatible test bucket (S3Mock). Every run starts from an empty database, so the migrations and seed are tested as a fresh install.
+- `E2E_BASE_URL=https://… npx playwright test --project=desktop --workers=1` runs the browser tests against a deployed site (each test deletes its own accounts). The dashboard test is skipped there because it creates a report through a local script.
