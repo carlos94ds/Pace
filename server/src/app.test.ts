@@ -84,3 +84,15 @@ describe('rate limiting', () => {
     expect(res.body).toEqual({ error: { code: 'too_many_requests' } });
   });
 });
+
+describe('security headers', () => {
+  it('forbid framing and outside fonts or styles', async () => {
+    const res = await request(makeApp()).get('/api/health');
+    const csp = res.headers['content-security-policy'] as string;
+    expect(csp).toContain("frame-ancestors 'none'");
+    expect(csp).toContain("font-src 'self' data:");
+    expect(csp).not.toContain('https:');
+    expect(res.headers['x-frame-options']).toBe('DENY');
+    expect(res.headers['x-content-type-options']).toBe('nosniff');
+  });
+});

@@ -52,7 +52,20 @@ export function createApp(
   app.set('trust proxy', 1);
   app.disable('x-powered-by');
 
-  app.use(helmet());
+  app.use(
+    helmet({
+      contentSecurityPolicy: {
+        directives: {
+          // Fonts and styles are bundled with the app; nothing loads from other sites.
+          'font-src': ["'self'", 'data:'],
+          'style-src': ["'self'", "'unsafe-inline'"],
+          // PACE is never meant to be shown inside another site's frame.
+          'frame-ancestors': ["'none'"],
+        },
+      },
+      frameguard: { action: 'deny' },
+    }),
+  );
   app.use(
     pinoHttp({
       logger: ctx.logger,
