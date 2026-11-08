@@ -1,0 +1,88 @@
+# Nightly backup of the production database. Railway's own volume backups need a Pro
+# workspace, so this makes a standard mysqldump, proves it can be restored, and stores it
+# in the private Railway bucket under backups/. Backups older than 30 days are removed.
+#
+# Restore: download a file from the bucket, then `gunzip -c file.sql.gz | mysql …`
+# or open the .sql in MySQL Workbench (Server → Data Import). See docs/ARCHITECTURE.md.
+name: Database backup
+
+on:
+  schedule:
+    - cron: '30 2 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: database-backup
+  cancel-in-progress: false
+
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    services:
+      # An empty MySQL to prove each dump restores before it is kept.
+      verify:
+        image: mysql:8.4
+        env:
+          MYSQL_ROOT_PASSWORD: verify
+          MYSQL_DATABASE: restore_check
+        ports: ['3307:3306']
+        options: >-
+          --health-cmd="mysqladmin ping -h 127.0.0.1 -pverify"
+          --health-interval=5s --health-timeout=5s --health-retries=20
+    env:
+      DATABASE_URL: ${{ secrets.BACKUP_DATABASE_URL }}
+      AWS_ACCESS_KEY_ID: ${{ secrets.BACKUP_S3_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.BACKUP_S3_SECRET_ACCESS_KEY }}
+      AWS_DEFAULT_REGION: ${{ secrets.BACKUP_S3_REGION }}
+      S3_ENDPOINT: ${{ secrets.BACKUP_S3_ENDPOINT }}
+      S3_BUCKET: ${{ secrets.BACKUP_S3_BUCKET }}
+      RETENTION_DAYS: 30
+    steps:
+      - name: Read connection details
+        run: |
+          python3 - <<'PY' >> "$GITHUB_ENV"
+          import os, urllib.parse
+          u = urllib.parse.urlparse(os.environ['DATABASE_URL'])
+          print(f"DB_HOST={u.hostname}")
+          print(f"DB_PORT={u.port or 3306}")
+          print(f"DB_USER={urllib.parse.unquote(u.username)}")
+          print(f"DB_NAME={u.path.lstrip('/')}")
+          PY
+          python3 -c "import os,urllib.parse;print('::add-mask::'+urllib.parse.unquote(urllib.parse.urlparse(os.environ['DATABASE_URL']).password))"
+          echo "BACKUP_FILE=pace-$(date -u +%Y-%m-%dT%H%MZ).sql.gz" >> "$GITHUB_ENV"
+
+      - name: Dump the database (same MySQL version as Railway)
+        run: |
+          export MYSQL_PWD=$(python3 -c "import os,urllib.parse;print(urllib.parse.unquote(urllib.parse.urlparse(os.environ['DATABASE_URL']).password))")
+          docker run --rm -e MYSQL_PWD mysql:8.4 mysqldump \
+            -h "$DB_HOST" -P "$DB_PORT" -u "$DB_USER" \
+            --single-transaction --routines --triggers --no-tablespaces --set-gtid-purged=OFF \
+            "$DB_NAME" | gzip -9 > "$BACKUP_FILE"
+          ls -lh "$BACKUP_FILE"
+
+      - name: Prove the dump restores
+        run: |
+          gunzip -c "$BACKUP_FILE" | docker run --rm -i --network host -e MYSQL_PWD=verify mysql:8.4 \
+            mysql -h 127.0.0.1 -P 3307 -u root restore_check
+          migrations=$(docker run --rm --network host -e MYSQL_PWD=verify mysql:8.4 \
+            mysql -h 127.0.0.1 -P 3307 -u root -N -e "SELECT COUNT(*) FROM restore_check._prisma_migrations")
+          echo "Restored database contains $migrations applied migrations."
+          test "$migrations" -gt 0
+
+      - name: Upload to the bucket
+        run: aws s3 cp "$BACKUP_FILE" "s3://$S3_BUCKET/backups/$BACKUP_FILE" --endpoint-url "$S3_ENDPOINT" --only-show-errors
+
+      - name: Remove backups older than the retention period
+        run: |
+          cutoff=$(date -u -d "-$RETENTION_DAYS days" +%Y-%m-%d)
+          aws s3 ls "s3://$S3_BUCKET/backups/" --endpoint-url "$S3_ENDPOINT" | awk '{print $4}' | while read -r name; do
+            day=${name#pace-}; day=${day:0:10}
+            if [[ "$name" == pace-*.sql.gz && "$day" < "$cutoff" ]]; then
+              aws s3 rm "s3://$S3_BUCKET/backups/$name" --endpoint-url "$S3_ENDPOINT" --only-show-errors
+              echo "Removed $name"
+            fi
+          done
