@@ -74,12 +74,15 @@ test('friends, feed and reactions', async ({ browser }, testInfo) => {
     await ana.page.goto('/calendar');
     await ana.page.getByRole('button', { name: 'Add training' }).first().click();
     const dialog = ana.page.getByRole('dialog');
+    await dialog.getByRole('button', { name: /Okay/ }).click();
+    await dialog.getByRole('button', { name: 'On time' }).click();
+    await dialog.getByLabel('Training', { exact: true }).fill('Boxing');
+    await dialog.getByRole('button', { name: 'Next' }).click();
+    await dialog.getByRole('button', { name: /Normal/ }).click();
     await dialog.getByLabel('Minutes').fill(minutes);
-    await dialog.getByLabel('Sport').selectOption({ label: 'Boxing' });
-    for (const name of ['Motivation before', 'How it went', 'Intensity']) {
-      await dialog.getByRole('group', { name }).getByText('3', { exact: true }).click();
-    }
-    await dialog.getByLabel('Reflection').fill(reflection);
+    await dialog.getByRole('button', { name: 'Next' }).click();
+    await dialog.getByRole('button', { name: 'No', exact: true }).click();
+    await dialog.getByLabel(/Anything else to add/).fill(reflection);
     if (share) await dialog.getByRole('switch', { name: 'Share details with friends' }).click();
     await dialog.getByRole('button', { name: 'Save training' }).click();
     await expect(dialog).toBeHidden();

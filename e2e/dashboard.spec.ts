@@ -32,12 +32,14 @@ test('dashboard, goals and weekly report', async ({ page }, testInfo) => {
   // A training from the dashboard.
   await page.getByRole('button', { name: 'Add training' }).click();
   const dialog = page.getByRole('dialog');
-  await dialog.getByLabel('Hours').fill('1');
-  await dialog.getByLabel('Minutes').fill('30');
-  await dialog.getByLabel('Sport').selectOption({ label: 'BJJ' });
-  for (const name of ['Motivation before', 'How it went', 'Intensity']) {
-    await dialog.getByRole('group', { name }).getByText('4', { exact: true }).click();
-  }
+  await dialog.getByRole('button', { name: /Good/ }).click();
+  await dialog.getByRole('button', { name: 'On time' }).click();
+  await dialog.getByLabel('Training', { exact: true }).fill('BJJ');
+  await dialog.getByRole('button', { name: 'Next' }).click();
+  await dialog.getByRole('button', { name: /High/ }).click();
+  await dialog.getByRole('button', { name: '1:30 h', exact: true }).click();
+  await dialog.getByRole('button', { name: 'Next' }).click();
+  await dialog.getByRole('button', { name: 'No', exact: true }).click();
   await dialog.getByRole('button', { name: 'Save training' }).click();
   await expect(dialog).toBeHidden();
   await expect(kpi('Training hours')).toContainText('1.5');
