@@ -19,10 +19,13 @@ export interface PeriodTotals {
   late: number;
   /** 0–100; null without sessions. */
   punctualityPct: number | null;
-  /** Averages on the 1–5 scales, one decimal; null without sessions. */
+  /** Averages on the 1–5 scales, one decimal; null without sessions that have the value. */
   averageMotivation: number | null;
   averageRating: number | null;
   averageIntensity: number | null;
+  averageEnergy: number | null;
+  /** Sessions where the user reported an injury. */
+  injuries: number;
   perSport: { sport: Sport; sessions: number; minutes: number }[];
 }
 

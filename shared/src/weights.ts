@@ -6,7 +6,7 @@ export const WEIGHT_MAX = 400;
 // Same limit as profile pictures, so one "too large" message fits both.
 export const EVIDENCE_MAX_BYTES = 8 * 1024 * 1024;
 
-/** Sent as multipart form fields next to the required photo, so numbers arrive as text. */
+/** Sent as multipart form fields next to the optional photo, so numbers arrive as text. */
 export const weightInputSchema = z.object({
   weightKg: z.coerce
     .number()
@@ -29,8 +29,8 @@ export interface WeightEntry {
   measuredOn: string;
   weightKg: number;
   note: string | null;
-  /** Only ever returned to the owner. */
-  evidenceUrl: string;
+  /** Only ever returned to the owner; null when no photo was added. */
+  evidenceUrl: string | null;
   createdAt: string;
 }
 

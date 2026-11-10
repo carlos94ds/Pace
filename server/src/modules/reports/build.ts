@@ -57,6 +57,7 @@ const toReportSession = (s: SessionFact, sports: Map<string, Sport>): ReportSess
   sport: sports.get(s.sportId)!,
   durationMinutes: s.durationMinutes,
   rating: s.rating,
+  energy: s.energy,
   intensity: s.intensity,
   motivation: s.motivation,
   reflection: s.reflection,
@@ -89,7 +90,11 @@ export function buildReport(input: {
   const best = current
     .filter((s) => s.rating >= 4)
     .sort(
-      (a, b) => b.rating - a.rating || b.intensity - a.intensity || a.date.localeCompare(b.date),
+      (a, b) =>
+        b.rating - a.rating ||
+        (b.intensity ?? 0) - (a.intensity ?? 0) ||
+        (b.energy ?? 0) - (a.energy ?? 0) ||
+        a.date.localeCompare(b.date),
     )
     .slice(0, 3);
   const worst = current
@@ -165,9 +170,13 @@ export function buildReport(input: {
       wentWell.push({ key: 'goodRatings', params: { avg: stats.averageRating! } });
     if (stats.averageRating! <= 2.5)
       improve.push({ key: 'lowRatings', params: { avg: stats.averageRating! } });
-    if (stats.averageMotivation! <= 2)
-      improve.push({ key: 'lowMotivation', params: { avg: stats.averageMotivation! } });
+    if (stats.averageMotivation !== null && stats.averageMotivation <= 2)
+      improve.push({ key: 'lowMotivation', params: { avg: stats.averageMotivation } });
+    if (stats.averageEnergy !== null && stats.averageEnergy <= 2)
+      improve.push({ key: 'lowEnergy', params: { avg: stats.averageEnergy } });
   }
+
+  if (stats.injuries > 0) improve.push({ key: 'injuries', params: { count: stats.injuries } });
 
   const unexplained = worst.filter((s) => !s.reflection).length;
   if (unexplained > 0) improve.push({ key: 'noReasons', params: { count: unexplained } });

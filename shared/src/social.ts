@@ -51,9 +51,10 @@ export interface ReactionSummary {
 
 /** Only present when the owner shared this session's details. */
 export interface SharedSessionDetails {
-  motivation: number;
   rating: number;
-  intensity: number;
+  energy: number | null;
+  motivation: number | null;
+  intensity: number | null;
   reflection: string | null;
 }
 

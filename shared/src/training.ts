@@ -6,6 +6,10 @@ import type { Gym, Sport } from './profile';
 export const MIN_SESSION_DATE = '2000-01-01';
 export const MAX_SESSION_MINUTES = 1440;
 export const REFLECTION_MAX = 2000;
+export const INJURY_NOTE_MAX = 500;
+/** What a user can type as the name of the training they did. */
+export const TRAINING_NAME_MIN = 2;
+export const TRAINING_NAME_MAX = 50;
 
 export const isoDateSchema = z
   .string()
@@ -16,7 +20,7 @@ export const PUNCTUALITIES = ['on_time', 'late'] as const;
 export const punctualitySchema = z.enum(PUNCTUALITIES);
 export type Punctuality = z.infer<typeof punctualitySchema>;
 
-/** Motivation, rating and intensity all use a 1–5 scale. */
+/** Rating, energy (and on older sessions motivation and intensity) use a 1–5 scale. */
 export const scoreSchema = z.number().int().min(1).max(5);
 export const SCORES = [1, 2, 3, 4, 5] as const;
 
@@ -26,9 +30,19 @@ export const sessionInputSchema = z.object({
   gymId: z.uuid().nullable(),
   durationMinutes: z.number().int().min(1).max(MAX_SESSION_MINUTES),
   punctuality: punctualitySchema,
-  motivation: scoreSchema,
   rating: scoreSchema,
-  intensity: scoreSchema,
+  energy: scoreSchema,
+  // No longer asked by the app; kept so older sessions keep their values when edited.
+  motivation: scoreSchema.nullable().default(null),
+  intensity: scoreSchema.nullable().default(null),
+  injured: z.boolean(),
+  injuryNote: z
+    .string()
+    .trim()
+    .max(INJURY_NOTE_MAX)
+    .nullable()
+    .default(null)
+    .transform((v) => (v ? v : null)),
   reflection: z
     .string()
     .trim()
@@ -38,6 +52,7 @@ export const sessionInputSchema = z.object({
   shareDetails: z.boolean(),
 });
 export type SessionInput = z.infer<typeof sessionInputSchema>;
+export type SessionInputValues = z.input<typeof sessionInputSchema>;
 
 export const sessionListQuerySchema = z.object({
   from: isoDateSchema.optional(),
@@ -80,9 +95,14 @@ export interface TrainingSession {
   gym: Gym | null;
   durationMinutes: number;
   punctuality: Punctuality;
-  motivation: number;
   rating: number;
-  intensity: number;
+  /** Null on sessions logged before energy was asked. */
+  energy: number | null;
+  /** Only on sessions logged before the form changed. */
+  motivation: number | null;
+  intensity: number | null;
+  injured: boolean;
+  injuryNote: string | null;
   reflection: string | null;
   shareDetails: boolean;
   createdAt: string;

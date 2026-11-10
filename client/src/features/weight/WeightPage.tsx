@@ -147,7 +147,7 @@ export function WeightPage() {
         size="lg"
         onClose={() => setPhoto(null)}
       >
-        {photo && (
+        {photo?.evidenceUrl && (
           <div className="flex flex-col gap-3">
             <img
               src={photo.evidenceUrl}
@@ -211,10 +211,12 @@ function EntryRow({
           {entry.note && <> · {entry.note}</>}
         </p>
       </div>
-      <Button variant="secondary" onClick={onPhoto}>
-        <ImageIcon className="size-4" aria-hidden="true" />
-        {t('weight.viewPhoto')}
-      </Button>
+      {entry.evidenceUrl && (
+        <Button variant="secondary" onClick={onPhoto}>
+          <ImageIcon className="size-4" aria-hidden="true" />
+          {t('weight.viewPhoto')}
+        </Button>
+      )}
       {confirm ? (
         <span className="flex items-center gap-2">
           <Button
@@ -222,7 +224,7 @@ function EntryRow({
             disabled={remove.isPending}
             onClick={() => remove.mutate(entry.id)}
           >
-            {t('weight.deleteConfirm')}
+            {entry.evidenceUrl ? t('weight.deleteConfirm') : t('weight.delete')}
           </Button>
           <Button variant="ghost" onClick={() => setConfirm(false)}>
             {t('common.cancel')}
@@ -268,7 +270,6 @@ function AddWeightForm({ today, onDone }: { today: string; onDone: () => void })
     const values = { weightKg: weight.replace(',', '.'), measuredOn: date, note };
     const { errors } = validate(weightInputSchema, values);
     const all: FieldErrors = { ...errors };
-    if (!file) all.evidence = 'required';
     if (date > today) all.measuredOn = 'in_future';
     setErrors(all);
     if (Object.keys(all).length) return;
@@ -276,7 +277,7 @@ function AddWeightForm({ today, onDone }: { today: string; onDone: () => void })
     form.append('weightKg', values.weightKg);
     form.append('measuredOn', date);
     if (note.trim()) form.append('note', note.trim());
-    form.append('evidence', file!);
+    if (file) form.append('evidence', file);
     add.mutate(form, { onSuccess: onDone, onError: (err) => setErrors(apiFieldErrors(err)) });
   }
 
@@ -306,7 +307,7 @@ function AddWeightForm({ today, onDone }: { today: string; onDone: () => void })
         />
       </div>
       <fieldset>
-        <legend className="mb-1.5 text-sm font-medium">{t('weight.evidence')}</legend>
+        <legend className="mb-1.5 text-sm font-medium">{t('weight.evidenceOptional')}</legend>
         <p className="mb-2 text-xs text-muted">{t('weight.evidenceHelp')}</p>
         <label
           className={`flex cursor-pointer flex-col items-center justify-center gap-2 rounded-xl border-2 border-dashed p-4 text-sm transition-colors duration-150 hover:bg-surface-2 has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-accent ${

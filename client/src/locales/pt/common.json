@@ -328,24 +328,15 @@
     "fields": {
       "date": "Data",
       "sport": "Desporto",
-      "duration": "Duração",
       "gym": "Ginásio ou local",
       "punctuality": "Pontualidade",
-      "motivation": "Motivação antes",
-      "rating": "Como correu",
-      "intensity": "Intensidade",
-      "reflection": "Reflexão",
       "shareDetails": "Partilhar detalhes com amigos"
-    },
-    "scales": {
-      "motivation": "1 = sem vontade · 5 = totalmente motivado",
-      "rating": "1 = mal · 5 = ótimo",
-      "intensity": "1 = muito leve · 5 = máxima"
     },
     "short": {
       "motivation": "Motivação",
       "rating": "Avaliação",
-      "intensity": "Intensidade"
+      "intensity": "Intensidade",
+      "energy": "Energia"
     },
     "punctuality": {
       "on_time": "A horas",
@@ -358,11 +349,9 @@
       "delete": "Eliminar",
       "deleteConfirm": "Eliminar este treino?",
       "chooseSport": "Escolhe um desporto",
-      "chooseScore": "Escolhe de 1 a 5.",
-      "durationHint": "Por exemplo 1 hora e 30 minutos.",
       "reflectionPlaceholder": "Porque correu bem ou mal? O que vais fazer de diferente?",
       "reflectionHint": "Só tu vês isto, a menos que partilhes os detalhes deste treino.",
-      "shareDetailsHelp": "Os amigos que podem ver a tua atividade também veem a motivação, a avaliação e a reflexão deste treino. Desligado por defeito.",
+      "shareDetailsHelp": "Os amigos que podem ver a tua atividade também veem a avaliação, a energia e a reflexão deste treino. As lesões ficam sempre privadas. Desligado por defeito.",
       "hours": "Horas",
       "minutes": "Minutos"
     },
@@ -372,8 +361,6 @@
       "name": "Nome",
       "color": "Cor no calendário",
       "add": "Adicionar desporto",
-      "addOption": "+ Adicionar o teu desporto…",
-      "newTitle": "Novo desporto",
       "edit": "Editar",
       "delete": "Eliminar",
       "none": "Ainda não adicionaste desportos teus.",
@@ -418,6 +405,73 @@
       "noResults": "Nenhum treino corresponde a estes filtros",
       "noResultsHint": "Experimenta outros filtros ou limpa-os.",
       "loadMore": "Carregar mais"
+    },
+    "injuryBadge": "Lesão",
+    "checkin": {
+      "progress": "Pergunta {{current}} de {{total}}",
+      "progressLabel": "Progresso",
+      "back": "Voltar",
+      "next": "Seguinte",
+      "tapHint": "Toca na tua resposta para continuar.",
+      "rating": {
+        "question": "Como foi o treino?",
+        "short": "Treino",
+        "labels": {
+          "1": "Mau",
+          "2": "Fraco",
+          "3": "Ok",
+          "4": "Bom",
+          "5": "Ótimo"
+        }
+      },
+      "punctuality": {
+        "question": "Chegaste a horas?",
+        "short": "A horas"
+      },
+      "training": {
+        "question": "Que treino fizeste?",
+        "hint": "Escreve tu mesmo ou toca num treino que já fizeste.",
+        "label": "Treino",
+        "placeholder": "Por exemplo: boxe, pernas, sparring",
+        "recent": "Os teus treinos",
+        "tooShort": "Escreve pelo menos 2 letras.",
+        "short": "Que treino"
+      },
+      "energy": {
+        "question": "Como estava o teu nível de energia?",
+        "short": "Energia",
+        "labels": {
+          "1": "Muito baixo",
+          "2": "Baixo",
+          "3": "Normal",
+          "4": "Alto",
+          "5": "Muito alto"
+        }
+      },
+      "duration": {
+        "question": "Quanto tempo treinaste hoje?",
+        "hint": "Toca num tempo ou escreve tu as horas e os minutos.",
+        "custom": "Outro tempo?",
+        "required": "Escolhe quanto tempo treinaste.",
+        "tooLong": "Um treino dura no máximo 24 horas.",
+        "short": "Tempo"
+      },
+      "injury": {
+        "question": "Tens alguma lesão?",
+        "short": "Lesão",
+        "yes": "Sim",
+        "no": "Não",
+        "noteLabel": "Onde sentes dor? (opcional)",
+        "notePlaceholder": "Por exemplo: o joelho esquerdo dói nos agachamentos",
+        "noteHint": "Só tu vês isto."
+      },
+      "summary": {
+        "title": "Está tudo certo?",
+        "hint": "Verifica as tuas respostas e guarda o treino. Toca em Alterar se algo não estiver certo.",
+        "reflection": "Queres acrescentar alguma coisa? (opcional)",
+        "edit": "Alterar",
+        "missing": "Ainda sem resposta"
+      }
     }
   },
   "charts": {
@@ -557,7 +611,10 @@
       "lowMotivation": "A tua motivação antes do treino foi baixa (média de {{avg, number}} em 5).",
       "noReasons_one": "Em {{count}} treino que correu mal não escreveste porquê. Uma reflexão curta ajuda-te a ver padrões.",
       "noReasons_other": "Em {{count}} treinos que correram mal não escreveste porquê. Uma reflexão curta ajuda-te a ver padrões.",
-      "streak": "A tua sequência está agora em {{weeks}} semanas."
+      "streak": "A tua sequência está agora em {{weeks}} semanas.",
+      "lowEnergy": "O teu nível de energia foi baixo (média de {{avg, number}} em 5).",
+      "injuries_one": "Tiveste uma lesão em {{count}} treino. Tem cuidado.",
+      "injuries_other": "Tiveste uma lesão em {{count}} treinos. Tem cuidado."
     }
   },
   "social": {
@@ -666,7 +723,7 @@
   },
   "weight": {
     "title": "Peso",
-    "subtitle": "O teu histórico de peso, cada medição confirmada com uma foto da balança.",
+    "subtitle": "O teu peso ao longo do tempo. A foto da balança é opcional.",
     "add": "Adicionar medição",
     "privacyPrivate": "Só tu vês o teu peso e as tuas fotos.",
     "privacyShared": "Os amigos veem os teus valores de peso. Fotos e notas continuam privadas.",
@@ -678,21 +735,22 @@
     "entries": "Medições",
     "history": "Peso ao longo do tempo",
     "measurements": "Medições",
-    "empty": "Ainda sem medições. Adiciona a primeira com uma foto da tua balança.",
+    "empty": "Ainda sem medições. Adiciona a primeira.",
     "evidence": "Foto da balança",
     "evidenceAlt": "Balança a mostrar {{weight}}",
     "viewPhoto": "Foto",
     "delete": "Eliminar medição",
     "deleteConfirm": "Eliminar com foto",
     "weightKg": "Peso (kg)",
-    "evidenceHelp": "Obrigatório. Tira uma foto em que o visor da balança seja legível. Os dados de localização são removidos.",
+    "evidenceHelp": "Opcional. Não precisas de adicionar uma foto. Se o fizeres, os números devem ler-se bem. Os dados de localização são removidos.",
     "previewAlt": "Foto escolhida",
     "choosePhoto": "Tirar ou escolher foto",
     "changePhoto": "Escolher outra foto",
     "note": "Nota (opcional)",
     "noteHint": "Só tu vês isto.",
     "save": "Guardar medição",
-    "profileLink": "Histórico de peso com prova fotográfica. Privado por defeito."
+    "profileLink": "Histórico de peso com prova fotográfica. Privado por defeito.",
+    "evidenceOptional": "Foto da balança (opcional)"
   },
   "notifications": {
     "title": "Notificações",

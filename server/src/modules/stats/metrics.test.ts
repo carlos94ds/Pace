@@ -30,6 +30,8 @@ const s = (date: string, overrides: Partial<SessionFact> = {}): SessionFact => (
   motivation: 3,
   rating: 3,
   intensity: 3,
+  energy: 3,
+  injured: false,
   reflection: null,
   ...overrides,
 });

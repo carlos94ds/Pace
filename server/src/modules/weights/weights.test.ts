@@ -23,15 +23,19 @@ const addWeight = async (agent: Agent, fields: Record<string, string>, photo?: B
 };
 
 describe('weights', () => {
-  it('requires a photo of the scale', async () => {
+  it('stores an entry without a photo of the scale', async () => {
     const { agent, me } = await registeredAgent(app);
     const res = await addWeight(agent, { weightKg: '80.4', measuredOn: '2026-11-01' });
-    expect(res.status).toBe(400);
-    expect(res.body.error.fields).toEqual({ evidence: 'required' });
-    // Field errors and the missing photo are reported together.
-    const both = await addWeight(agent, { weightKg: '5', measuredOn: '2026-11-01' });
-    expect(both.body.error.fields).toEqual({ weightKg: 'too_small', evidence: 'required' });
-    expect(await prisma.weightMeasurement.count({ where: { userId: me.id } })).toBe(0);
+    expect(res.status, JSON.stringify(res.body)).toBe(201);
+    const entry = res.body as WeightEntry;
+    expect(entry).toMatchObject({ weightKg: 80.4, evidenceUrl: null });
+    expect(await prisma.weightEvidence.count({ where: { measurementId: entry.id } })).toBe(0);
+
+    const invalid = await addWeight(agent, { weightKg: '5', measuredOn: '2026-11-01' });
+    expect(invalid.body.error.fields).toEqual({ weightKg: 'too_small' });
+    expect(await prisma.weightMeasurement.count({ where: { userId: me.id } })).toBe(1);
+
+    await agent.delete(`/api/v1/weights/${entry.id}`).expect(204);
   });
 
   it('stores entry and photo together; the photo is re-encoded without location data', async () => {
@@ -49,7 +53,7 @@ describe('weights', () => {
       where: { measurementId: entry.id },
     });
     expect(evidence.storageKey).toMatch(new RegExp(`^evidence/${me.id}/`));
-    const photo = await agent.get(entry.evidenceUrl).buffer(true).expect(200);
+    const photo = await agent.get(entry.evidenceUrl!).buffer(true).expect(200);
     expect(photo.headers['cache-control']).toBe('private, no-store');
     const meta = await sharp(photo.body as Buffer).metadata();
     expect(meta).toMatchObject({ format: 'webp', width: 2048, height: 1365 });
@@ -104,7 +108,7 @@ describe('weights', () => {
     await agent.delete(`/api/v1/weights/${entry.id}`).expect(204);
     expect(storage.files.has(key)).toBe(false);
     expect(await prisma.weightMeasurement.count({ where: { userId: me.id } })).toBe(0);
-    await agent.get(entry.evidenceUrl).expect(404);
+    await agent.get(entry.evidenceUrl!).expect(404);
   });
 
   it('removes all photos when the account is deleted', async () => {
@@ -140,11 +144,11 @@ describe('weight privacy', () => {
     expect(JSON.stringify(await profile(friend))).not.toContain('82.5');
 
     for (const viewer of [friend, stranger]) {
-      await viewer.agent.get(entry.evidenceUrl).expect(404);
+      await viewer.agent.get(entry.evidenceUrl!).expect(404);
       await viewer.agent.delete(`/api/v1/weights/${entry.id}`).expect(404);
       expect((await viewer.agent.get('/api/v1/weights')).body).toEqual([]);
     }
-    await request(app).get(entry.evidenceUrl).expect(401);
+    await request(app).get(entry.evidenceUrl!).expect(401);
 
     // Shared on purpose: friends see the values only.
     await owner.agent.patch('/api/v1/me/privacy').send({ weight: 'friends' });
@@ -152,7 +156,7 @@ describe('weight privacy', () => {
     expect(shared.weight).toEqual([{ measuredOn: '2026-10-01', weightKg: 82.5 }]);
     expect(JSON.stringify(shared)).not.toContain('SECRET-NOTE');
     expect(JSON.stringify(shared)).not.toContain('evidence');
-    await friend.agent.get(entry.evidenceUrl).expect(404);
+    await friend.agent.get(entry.evidenceUrl!).expect(404);
     expect((await profile(stranger)).weight).toBeNull();
   });
 });

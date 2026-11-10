@@ -328,24 +328,15 @@
     "fields": {
       "date": "Date",
       "sport": "Sport",
-      "duration": "Duration",
       "gym": "Gym or location",
       "punctuality": "Punctuality",
-      "motivation": "Motivation before",
-      "rating": "How it went",
-      "intensity": "Intensity",
-      "reflection": "Reflection",
       "shareDetails": "Share details with friends"
-    },
-    "scales": {
-      "motivation": "1 = no energy · 5 = fully motivated",
-      "rating": "1 = badly · 5 = great",
-      "intensity": "1 = very light · 5 = maximal"
     },
     "short": {
       "motivation": "Motivation",
       "rating": "Rating",
-      "intensity": "Intensity"
+      "intensity": "Intensity",
+      "energy": "Energy"
     },
     "punctuality": {
       "on_time": "On time",
@@ -358,11 +349,9 @@
       "delete": "Delete",
       "deleteConfirm": "Delete this training?",
       "chooseSport": "Choose a sport",
-      "chooseScore": "Choose 1 to 5.",
-      "durationHint": "For example 1 hour and 30 minutes.",
       "reflectionPlaceholder": "Why did it go well or badly? What will you do differently?",
       "reflectionHint": "Only you can see this, unless you share this training's details.",
-      "shareDetailsHelp": "Friends with access to your activity also see motivation, rating and reflection of this training. Off by default.",
+      "shareDetailsHelp": "Friends who can see your activity will then also see the rating, energy and reflection of this training. Injuries always stay private. Off by default.",
       "hours": "Hours",
       "minutes": "Minutes"
     },
@@ -372,8 +361,6 @@
       "name": "Name",
       "color": "Colour in the calendar",
       "add": "Add sport",
-      "addOption": "+ Add your own sport…",
-      "newTitle": "New sport",
       "edit": "Edit",
       "delete": "Delete",
       "none": "You haven't added any sports of your own yet.",
@@ -418,6 +405,73 @@
       "noResults": "No trainings match these filters",
       "noResultsHint": "Try other filters or clear them.",
       "loadMore": "Load more"
+    },
+    "injuryBadge": "Injury",
+    "checkin": {
+      "progress": "Question {{current}} of {{total}}",
+      "progressLabel": "Progress",
+      "back": "Back",
+      "next": "Next",
+      "tapHint": "Tap your answer to go on.",
+      "rating": {
+        "question": "How was your training?",
+        "short": "Training",
+        "labels": {
+          "1": "Bad",
+          "2": "Not great",
+          "3": "Okay",
+          "4": "Good",
+          "5": "Great"
+        }
+      },
+      "punctuality": {
+        "question": "Were you on time?",
+        "short": "On time"
+      },
+      "training": {
+        "question": "Which training did you do?",
+        "hint": "Type it in yourself, or tap one you did before.",
+        "label": "Training",
+        "placeholder": "For example: boxing, legs, sparring",
+        "recent": "Your trainings",
+        "tooShort": "Type at least 2 letters.",
+        "short": "Which training"
+      },
+      "energy": {
+        "question": "How was your energy level?",
+        "short": "Energy",
+        "labels": {
+          "1": "Very low",
+          "2": "Low",
+          "3": "Normal",
+          "4": "High",
+          "5": "Very high"
+        }
+      },
+      "duration": {
+        "question": "How long did you train today?",
+        "hint": "Tap a time, or fill in the hours and minutes yourself.",
+        "custom": "Another time?",
+        "required": "Choose how long you trained.",
+        "tooLong": "A training can last 24 hours at most.",
+        "short": "Time"
+      },
+      "injury": {
+        "question": "Do you have an injury?",
+        "short": "Injury",
+        "yes": "Yes",
+        "no": "No",
+        "noteLabel": "Where does it hurt? (optional)",
+        "notePlaceholder": "For example: my left knee hurts when I squat",
+        "noteHint": "Only you can see this."
+      },
+      "summary": {
+        "title": "Check your answers",
+        "hint": "All good? Then save your training. Tap Change to fix an answer.",
+        "reflection": "Anything else to add? (optional)",
+        "edit": "Change",
+        "missing": "Not answered yet"
+      }
     }
   },
   "charts": {
@@ -557,7 +611,10 @@
       "lowMotivation": "Your motivation before training was low (average {{avg, number}} out of 5).",
       "noReasons_one": "For {{count}} training that went badly you didn't write down why. A short reflection helps you spot patterns.",
       "noReasons_other": "For {{count}} trainings that went badly you didn't write down why. A short reflection helps you spot patterns.",
-      "streak": "Your streak is now {{weeks}} weeks."
+      "streak": "Your streak is now {{weeks}} weeks.",
+      "lowEnergy": "Your energy level was low (average {{avg, number}} out of 5).",
+      "injuries_one": "You reported an injury in {{count}} training. Take good care of it.",
+      "injuries_other": "You reported an injury in {{count}} trainings. Take good care of it."
     }
   },
   "social": {
@@ -666,7 +723,7 @@
   },
   "weight": {
     "title": "Weight",
-    "subtitle": "Your weight history, each entry verified with a photo of the scale.",
+    "subtitle": "Your weight over time. A photo of the scale is optional.",
     "add": "Add measurement",
     "privacyPrivate": "Only you can see your weight and photos.",
     "privacyShared": "Friends can see your weight values. Photos and notes stay private.",
@@ -678,21 +735,22 @@
     "entries": "Measurements",
     "history": "Weight over time",
     "measurements": "Measurements",
-    "empty": "No measurements yet. Add your first one with a photo of your scale.",
+    "empty": "No measurements yet. Add your first one.",
     "evidence": "Photo of the scale",
     "evidenceAlt": "Scale showing {{weight}}",
     "viewPhoto": "Photo",
     "delete": "Delete measurement",
     "deleteConfirm": "Delete with photo",
     "weightKg": "Weight (kg)",
-    "evidenceHelp": "Required. Take a photo where the scale's display is readable. Location data is removed.",
+    "evidenceHelp": "Optional. You don't have to add a photo. If you do, make sure the numbers on the scale are easy to read. Location data is removed.",
     "previewAlt": "Selected photo",
     "choosePhoto": "Take or choose a photo",
     "changePhoto": "Choose another photo",
     "note": "Note (optional)",
     "noteHint": "Only you can see this.",
     "save": "Save measurement",
-    "profileLink": "Weight history with photo evidence. Private by default."
+    "profileLink": "Weight history with photo evidence. Private by default.",
+    "evidenceOptional": "Photo of the scale (optional)"
   },
   "notifications": {
     "title": "Notifications",

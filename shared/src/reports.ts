@@ -14,8 +14,9 @@ export interface ReportSession {
   sport: Sport;
   durationMinutes: number;
   rating: number;
-  intensity: number;
-  motivation: number;
+  energy: number | null;
+  intensity: number | null;
+  motivation: number | null;
   /** The user's own words; never generated. */
   reflection: string | null;
 }

@@ -264,9 +264,12 @@ model TrainingSession {
   date            DateTime    @db.Date
   durationMinutes Int         @db.SmallInt // CHECK 1..1440
   punctuality     Punctuality
-  motivation      Int         @db.TinyInt // before training, CHECK 1..5
+  motivation      Int?        @db.TinyInt // before training, CHECK 1..5; no longer asked
   rating          Int         @db.TinyInt // how it went, CHECK 1..5
-  intensity       Int         @db.TinyInt // CHECK 1..5
+  intensity       Int?        @db.TinyInt // CHECK 1..5; no longer asked
+  energy          Int?        @db.TinyInt // energy level, CHECK 1..5; null on older sessions
+  injured         Boolean     @default(false)
+  injuryNote      String?     @db.VarChar(500) // private, never shared with friends
   reflection      String?     @db.Text // private unless shareDetails
   shareDetails    Boolean     @default(false)
   createdAt       DateTime    @default(now())

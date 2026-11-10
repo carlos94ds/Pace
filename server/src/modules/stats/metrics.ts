@@ -24,9 +24,11 @@ export interface SessionFact {
   durationMinutes: number;
   punctuality: 'on_time' | 'late';
   sportId: string;
-  motivation: number;
+  motivation: number | null;
   rating: number;
-  intensity: number;
+  intensity: number | null;
+  energy: number | null;
+  injured: boolean;
   reflection: string | null;
 }
 
@@ -41,8 +43,11 @@ export interface GoalFact {
 }
 
 const round1 = (n: number) => Math.round(n * 10) / 10;
-const average = (values: number[]) =>
-  values.length ? round1(values.reduce((a, b) => a + b, 0) / values.length) : null;
+/** Average of the values that are filled in; older sessions miss some of them. */
+const average = (input: (number | null)[]) => {
+  const values = input.filter((v): v is number => v !== null);
+  return values.length ? round1(values.reduce((a, b) => a + b, 0) / values.length) : null;
+};
 
 export function totals(sessions: SessionFact[], sports: Map<string, Sport>): PeriodTotals {
   const totalMinutes = sessions.reduce((n, s) => n + s.durationMinutes, 0);
@@ -66,6 +71,8 @@ export function totals(sessions: SessionFact[], sports: Map<string, Sport>): Per
     averageMotivation: average(sessions.map((s) => s.motivation)),
     averageRating: average(sessions.map((s) => s.rating)),
     averageIntensity: average(sessions.map((s) => s.intensity)),
+    averageEnergy: average(sessions.map((s) => s.energy)),
+    injuries: sessions.filter((s) => s.injured).length,
     perSport: [...bySport.entries()]
       .map(([id, v]) => ({ sport: sports.get(id)!, ...v }))
       .sort((a, b) => b.minutes - a.minutes || b.sessions - a.sessions),

@@ -15,6 +15,8 @@ const s = (date: string, o: Partial<SessionFact> = {}): SessionFact => ({
   motivation: 3,
   rating: 3,
   intensity: 3,
+  energy: 3,
+  injured: false,
   reflection: null,
   ...o,
 });
@@ -169,5 +171,22 @@ describe('weekly report', () => {
       'lowMotivation',
     ]);
     expect(keys(report.conclusion.wentWell)).toEqual(['allGoals']);
+  });
+
+  it('flags low energy and injuries, and skips motivation that was not asked', () => {
+    const report = buildReport({
+      weekStart: WEEK,
+      sessions: [
+        s('2026-11-02', { energy: 1, motivation: null, intensity: null, injured: true }),
+        s('2026-11-03', { energy: 2, motivation: null, intensity: null }),
+      ],
+      goals: [goal({ target: 2 })],
+      sports,
+      streak: 1,
+    });
+    expect(keys(report.conclusion.improve)).toEqual(['lowEnergy', 'injuries']);
+    expect(report.conclusion.improve).toContainEqual({ key: 'injuries', params: { count: 1 } });
+    expect(report.stats.averageMotivation).toBeNull();
+    expect(report.stats.averageEnergy).toBe(1.5);
   });
 });

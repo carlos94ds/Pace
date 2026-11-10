@@ -18,7 +18,7 @@ Weighing-scale photos are usually taken at home with a phone, and contain GPS co
 
 ## 5. What "weight verification" can and can't do
 
-The app can _require_ a photo for every weight entry, store it privately, and link it to that entry. It can't _prove_ the photo shows that number or that person; automatic digit reading (OCR) on scale displays is unreliable. **Approach for now:** evidence is mandatory and stored with a hash (re-uploading the same photo is detected). Automatic reading of the number could be an optional later addition.
+The app can _require_ a photo for every weight entry, store it privately, and link it to that entry. It can't _prove_ the photo shows that number or that person; automatic digit reading (OCR) on scale displays is unreliable. **Approach for now:** evidence is optional (since November 2026) and, when added, stored with a hash (re-uploading the same photo is detected). Automatic reading of the number could be an optional later addition.
 
 ## 6. Email for password recovery
 

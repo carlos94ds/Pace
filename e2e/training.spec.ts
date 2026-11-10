@@ -1,12 +1,22 @@
 import { randomUUID } from 'node:crypto';
 import { expect, test, type Page } from '@playwright/test';
 
-async function pickScores(page: Page, scores: [number, number, number]) {
+/** Walks through the check-in questions of a new training. */
+async function checkIn(
+  page: Page,
+  a: { rating: string; late?: boolean; training: string; energy: string; duration: string },
+) {
   const dialog = page.getByRole('dialog');
-  const groups = ['Motivation before', 'How it went', 'Intensity'];
-  for (const [i, name] of groups.entries()) {
-    await dialog.getByRole('group', { name }).getByText(String(scores[i]), { exact: true }).click();
-  }
+  await expect(dialog.getByText('Question 1 of 6')).toBeVisible();
+  await dialog.getByRole('button', { name: new RegExp(a.rating) }).click();
+  await dialog.getByRole('button', { name: a.late ? 'Late' : 'On time' }).click();
+  await dialog.getByLabel('Training', { exact: true }).fill(a.training);
+  await dialog.getByRole('button', { name: 'Next' }).click();
+  await dialog.getByRole('button', { name: new RegExp(a.energy) }).click();
+  await dialog.getByRole('button', { name: a.duration, exact: true }).click();
+  await dialog.getByRole('button', { name: 'Next' }).click();
+  await dialog.getByRole('button', { name: 'No', exact: true }).click();
+  await expect(dialog.getByRole('heading', { name: 'Check your answers' })).toBeVisible();
 }
 
 // Logging, editing and deleting trainings through the calendar, history and settings.
@@ -32,19 +42,27 @@ test('training calendar', async ({ page }, testInfo) => {
   await page.getByRole('link', { name: 'Calendar' }).first().click();
   await expect(page.getByRole('heading', { name: 'Calendar', level: 1 })).toBeVisible();
 
-  // Validation: nothing filled in yet.
+  // The check-in asks one question at a time; empty answers are not accepted.
   await page.getByRole('button', { name: 'Add training' }).first().click();
   const dialog = page.getByRole('dialog');
-  await dialog.getByRole('button', { name: 'Save training' }).click();
-  await expect(dialog.getByText('Choose a sport.')).toBeVisible();
-  await expect(dialog.getByText('Enter how long the training took.')).toBeVisible();
-  await expect(dialog.getByText('Choose 1 to 5.')).toHaveCount(3);
-
+  await dialog.getByRole('button', { name: /Good/ }).click();
+  await dialog.getByRole('button', { name: 'On time' }).click();
+  await dialog.getByRole('button', { name: 'Next' }).click();
+  await expect(dialog.getByText('Type at least 2 letters.')).toBeVisible();
+  await dialog.getByLabel('Training', { exact: true }).fill('MMA');
+  await dialog.getByRole('button', { name: 'Next' }).click();
+  await dialog.getByRole('button', { name: /High/ }).first().click();
+  await dialog.getByRole('button', { name: 'Next' }).click();
+  await expect(dialog.getByText('Choose how long you trained.')).toBeVisible();
   await dialog.getByLabel('Hours').fill('1');
   await dialog.getByLabel('Minutes').fill('30');
-  await dialog.getByLabel('Sport').selectOption({ label: 'MMA' });
-  await pickScores(page, [4, 3, 5]);
-  await dialog.getByLabel('Reflection').fill('Good sparring, slow start.');
+  await dialog.getByRole('button', { name: 'Next' }).click();
+  await dialog.getByRole('button', { name: 'Yes', exact: true }).click();
+  await dialog.getByLabel(/Where does it hurt/).fill('Left knee');
+  await dialog.getByRole('button', { name: 'Next' }).click();
+  await expect(dialog.getByRole('heading', { name: 'Check your answers' })).toBeVisible();
+  await expect(dialog.getByText('Left knee')).toBeVisible();
+  await dialog.getByLabel(/Anything else to add/).fill('Good sparring, slow start.');
   await shot('form');
   await dialog.getByRole('button', { name: 'Save training' }).click();
   await expect(dialog).toBeHidden();
@@ -55,27 +73,30 @@ test('training calendar', async ({ page }, testInfo) => {
   await expect(stats.getByText('Hours', { exact: true }).locator('..')).toContainText('1.5');
   await shot('calendar-month');
 
-  // Edit it from the day panel.
+  // Edit it from the day panel: the summary opens, one answer is changed.
   await page
     .getByRole('button', { name: /MMA.*1:30 h/ })
     .last()
     .click();
+  await expect(dialog.getByRole('heading', { name: 'Check your answers' })).toBeVisible();
+  await dialog.getByRole('button', { name: 'Change: Time' }).click();
   await expect(dialog.getByLabel('Hours')).toHaveValue('1');
   await expect(dialog.getByLabel('Minutes')).toHaveValue('30');
-  await dialog.getByLabel('Minutes').fill('0');
+  await dialog.getByRole('button', { name: '1:00 h', exact: true }).click();
+  await dialog.getByRole('button', { name: 'Next' }).click();
   await dialog.getByRole('button', { name: 'Save changes' }).click();
   await expect(dialog).toBeHidden();
   await expect(page.getByText('1:00 h').filter({ visible: true }).first()).toBeVisible();
 
-  // A second training with a sport of your own, created from the form.
+  // A second training with a name the user types: it becomes a sport of their own.
   await page.getByRole('button', { name: 'Add training' }).first().click();
-  await dialog.getByLabel('Sport').selectOption({ label: '+ Add your own sport…' });
-  await dialog.getByLabel('Name').fill('Sambo');
-  await dialog.getByRole('button', { name: 'Add sport' }).click();
-  await expect(dialog.getByLabel('Sport')).toHaveValue(/[0-9a-f-]{36}/);
-  await dialog.getByLabel('Minutes').fill('45');
-  await dialog.getByText('Late', { exact: true }).click();
-  await pickScores(page, [2, 2, 3]);
+  await checkIn(page, {
+    rating: 'Not great',
+    late: true,
+    training: 'Sambo',
+    energy: 'Low',
+    duration: '45 min',
+  });
   await dialog.getByRole('button', { name: 'Save training' }).click();
   await expect(dialog).toBeHidden();
   await expect(stats.getByText('Trainings', { exact: true }).locator('..')).toContainText('2');

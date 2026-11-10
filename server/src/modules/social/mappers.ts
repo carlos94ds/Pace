@@ -35,8 +35,8 @@ export const toPublicUser = (p: {
 });
 
 /**
- * A session as a friend sees it: date, sport and duration. Motivation, rating, intensity
- * and the reflection only when the owner shared this particular session.
+ * A session as a friend sees it: date, sport and duration. Rating, energy and the reflection
+ * only when the owner shared this particular session. Injury notes are never shared.
  */
 export const friendSessionSelect = {
   id: true,
@@ -47,6 +47,7 @@ export const friendSessionSelect = {
   motivation: true,
   rating: true,
   intensity: true,
+  energy: true,
   reflection: true,
   createdAt: true,
   sport: { select: sportSelect },
@@ -61,8 +62,9 @@ export const toFriendSession = (s: SessionRow): FriendSession => ({
   durationMinutes: s.durationMinutes,
   details: s.shareDetails
     ? {
-        motivation: s.motivation,
         rating: s.rating,
+        energy: s.energy,
+        motivation: s.motivation,
         intensity: s.intensity,
         reflection: s.reflection,
       }

@@ -328,24 +328,15 @@
     "fields": {
       "date": "Datum",
       "sport": "Sport",
-      "duration": "Duur",
       "gym": "Gym of locatie",
       "punctuality": "Op tijd",
-      "motivation": "Motivatie vooraf",
-      "rating": "Hoe ging het",
-      "intensity": "Intensiteit",
-      "reflection": "Reflectie",
       "shareDetails": "Details delen met vrienden"
-    },
-    "scales": {
-      "motivation": "1 = geen zin · 5 = volledig gemotiveerd",
-      "rating": "1 = slecht · 5 = top",
-      "intensity": "1 = heel licht · 5 = maximaal"
     },
     "short": {
       "motivation": "Motivatie",
       "rating": "Beoordeling",
-      "intensity": "Intensiteit"
+      "intensity": "Intensiteit",
+      "energy": "Energie"
     },
     "punctuality": {
       "on_time": "Op tijd",
@@ -358,11 +349,9 @@
       "delete": "Verwijderen",
       "deleteConfirm": "Deze training verwijderen?",
       "chooseSport": "Kies een sport",
-      "chooseScore": "Kies 1 tot 5.",
-      "durationHint": "Bijvoorbeeld 1 uur en 30 minuten.",
       "reflectionPlaceholder": "Waarom ging het goed of slecht? Wat doe je de volgende keer anders?",
       "reflectionHint": "Alleen jij ziet dit, tenzij je de details van deze training deelt.",
-      "shareDetailsHelp": "Vrienden die je activiteit mogen zien, zien dan ook motivatie, beoordeling en reflectie van deze training. Standaard uit.",
+      "shareDetailsHelp": "Vrienden die je activiteit mogen zien, zien dan ook de beoordeling, energie en reflectie van deze training. Blessures blijven altijd privé. Standaard uit.",
       "hours": "Uren",
       "minutes": "Minuten"
     },
@@ -372,8 +361,6 @@
       "name": "Naam",
       "color": "Kleur in de kalender",
       "add": "Sport toevoegen",
-      "addOption": "+ Eigen sport toevoegen…",
-      "newTitle": "Nieuwe sport",
       "edit": "Bewerken",
       "delete": "Verwijderen",
       "none": "Je hebt nog geen eigen sporten toegevoegd.",
@@ -418,6 +405,73 @@
       "noResults": "Geen trainingen gevonden met deze filters",
       "noResultsHint": "Probeer andere filters of wis ze.",
       "loadMore": "Meer laden"
+    },
+    "injuryBadge": "Blessure",
+    "checkin": {
+      "progress": "Vraag {{current}} van {{total}}",
+      "progressLabel": "Voortgang",
+      "back": "Terug",
+      "next": "Volgende",
+      "tapHint": "Tik op je antwoord om verder te gaan.",
+      "rating": {
+        "question": "Hoe was de training?",
+        "short": "Training",
+        "labels": {
+          "1": "Slecht",
+          "2": "Matig",
+          "3": "Oké",
+          "4": "Goed",
+          "5": "Top"
+        }
+      },
+      "punctuality": {
+        "question": "Was je op tijd?",
+        "short": "Op tijd"
+      },
+      "training": {
+        "question": "Welke training heb je gevolgd?",
+        "hint": "Typ het zelf in, of tik op een training die je eerder deed.",
+        "label": "Training",
+        "placeholder": "Bijvoorbeeld: boksen, benen, sparren",
+        "recent": "Jouw trainingen",
+        "tooShort": "Typ minstens 2 letters.",
+        "short": "Welke training"
+      },
+      "energy": {
+        "question": "Hoe was je energieniveau?",
+        "short": "Energie",
+        "labels": {
+          "1": "Heel laag",
+          "2": "Laag",
+          "3": "Normaal",
+          "4": "Hoog",
+          "5": "Heel hoog"
+        }
+      },
+      "duration": {
+        "question": "Hoeveel uur heb je vandaag getraind?",
+        "hint": "Tik op een tijd, of vul zelf de uren en minuten in.",
+        "custom": "Andere tijd?",
+        "required": "Kies hoe lang je hebt getraind.",
+        "tooLong": "Een training duurt maximaal 24 uur.",
+        "short": "Tijd"
+      },
+      "injury": {
+        "question": "Heb je blessures?",
+        "short": "Blessure",
+        "yes": "Ja",
+        "no": "Nee",
+        "noteLabel": "Waar heb je last van? (mag je overslaan)",
+        "notePlaceholder": "Bijvoorbeeld: mijn linkerknie doet pijn bij squats",
+        "noteHint": "Alleen jij ziet dit."
+      },
+      "summary": {
+        "title": "Klopt alles?",
+        "hint": "Kijk je antwoorden na en sla je training op. Tik op Aanpassen als iets niet klopt.",
+        "reflection": "Wil je nog iets kwijt? (mag je overslaan)",
+        "edit": "Aanpassen",
+        "missing": "Nog niet ingevuld"
+      }
     }
   },
   "charts": {
@@ -557,7 +611,10 @@
       "lowMotivation": "Je motivatie vooraf was laag (gemiddeld {{avg, number}} van 5).",
       "noReasons_one": "Bij {{count}} training die slecht ging heb je niet opgeschreven waarom. Een korte reflectie helpt je patronen te zien.",
       "noReasons_other": "Bij {{count}} trainingen die slecht gingen heb je niet opgeschreven waarom. Een korte reflectie helpt je patronen te zien.",
-      "streak": "Je streak staat nu op {{weeks}} weken."
+      "streak": "Je streak staat nu op {{weeks}} weken.",
+      "lowEnergy": "Je energie was laag (gemiddeld {{avg, number}} van 5).",
+      "injuries_one": "Je had bij {{count}} training een blessure. Let er goed op.",
+      "injuries_other": "Je had bij {{count}} trainingen een blessure. Let er goed op."
     }
   },
   "social": {
@@ -666,7 +723,7 @@
   },
   "weight": {
     "title": "Gewicht",
-    "subtitle": "Je gewichtsverloop, elke meting bevestigd met een foto van de weegschaal.",
+    "subtitle": "Je gewicht door de tijd. Een foto van de weegschaal mag, maar hoeft niet.",
     "add": "Meting toevoegen",
     "privacyPrivate": "Alleen jij ziet je gewicht en foto's.",
     "privacyShared": "Vrienden zien je gewichtswaarden. Foto's en notities blijven privé.",
@@ -678,21 +735,22 @@
     "entries": "Metingen",
     "history": "Gewicht door de tijd",
     "measurements": "Metingen",
-    "empty": "Nog geen metingen. Voeg je eerste toe met een foto van je weegschaal.",
+    "empty": "Nog geen metingen. Voeg je eerste meting toe.",
     "evidence": "Foto van de weegschaal",
     "evidenceAlt": "Weegschaal met {{weight}}",
     "viewPhoto": "Foto",
     "delete": "Meting verwijderen",
     "deleteConfirm": "Verwijderen met foto",
     "weightKg": "Gewicht (kg)",
-    "evidenceHelp": "Verplicht. Maak een foto waarop het display van de weegschaal leesbaar is. Locatiegegevens worden verwijderd.",
+    "evidenceHelp": "Niet verplicht. Je hoeft geen foto toe te voegen. Doe je het wel, zorg dan dat de cijfers goed te lezen zijn. Locatiegegevens worden verwijderd.",
     "previewAlt": "Gekozen foto",
     "choosePhoto": "Foto maken of kiezen",
     "changePhoto": "Andere foto kiezen",
     "note": "Notitie (optioneel)",
     "noteHint": "Alleen jij ziet dit.",
     "save": "Meting opslaan",
-    "profileLink": "Gewichtsverloop met fotobewijs. Standaard privé."
+    "profileLink": "Gewichtsverloop met fotobewijs. Standaard privé.",
+    "evidenceOptional": "Foto van de weegschaal (mag je overslaan)"
   },
   "notifications": {
     "title": "Meldingen",

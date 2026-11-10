@@ -59,7 +59,7 @@ test('weight with photo evidence, and notifications', async ({ browser }, testIn
   const ana = await newUser(browser, device, 'Ana', errors);
   const ben = await newUser(browser, device, 'Ben', errors);
 
-  // A measurement can't be saved without a photo.
+  // A photo of the scale is optional.
   await ana.page
     .getByRole('link', { name: /Weight/ })
     .first()
@@ -68,10 +68,18 @@ test('weight with photo evidence, and notifications', async ({ browser }, testIn
   await expect(ana.page.getByText('Only you can see your weight and photos.')).toBeVisible();
   await ana.page.getByRole('button', { name: 'Add measurement' }).click();
   const dialog = ana.page.getByRole('dialog');
-  await dialog.getByLabel('Weight (kg)').fill('80.4');
+  await dialog.getByLabel('Weight (kg)').fill('81.2');
   await dialog.getByRole('button', { name: 'Save measurement' }).click();
-  await expect(dialog.getByText('Add a photo of your scale showing this weight.')).toBeVisible();
+  await expect(dialog).toBeHidden();
+  await expect(ana.page.getByText('81.2 kg').first()).toBeVisible();
+  await expect(ana.page.getByRole('button', { name: 'Photo' })).toHaveCount(0);
+  await ana.page.getByRole('button', { name: /Delete measurement/ }).click();
+  await ana.page.getByRole('button', { name: 'Delete measurement', exact: true }).click();
+  await expect(ana.page.getByText(/No measurements yet/)).toBeVisible();
 
+  // And with a photo.
+  await ana.page.getByRole('button', { name: 'Add measurement' }).click();
+  await dialog.getByLabel('Weight (kg)').fill('80.4');
   await dialog
     .locator('input[type=file]')
     .setInputFiles({ name: 'scale.png', mimeType: 'image/png', buffer: PNG });

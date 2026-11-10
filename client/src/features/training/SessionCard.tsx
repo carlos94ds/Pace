@@ -1,5 +1,5 @@
 import type { TrainingSession } from '@pace/shared';
-import { Clock, Lock, MapPin, Users } from 'lucide-react';
+import { Clock, HeartPulse, Lock, MapPin, Users } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { sportName } from '../profile/sports';
 import { formatDay, formatDuration } from './format';
@@ -56,17 +56,18 @@ export function SessionCard({ session, onSelect, showDate }: SessionCardProps) {
           >
             {t(`training.punctuality.${session.punctuality}`)}
           </span>
+          {session.injured && (
+            <span className="inline-flex items-center gap-1 rounded-full bg-danger/15 px-2 py-0.5 font-medium text-danger">
+              <HeartPulse className="size-3.5" aria-hidden="true" />
+              {t('training.injuryBadge')}
+            </span>
+          )}
         </span>
         <span className="tabular flex flex-wrap gap-x-3 text-xs text-muted">
-          <span>
-            {t('training.short.motivation')} <b className="text-text">{session.motivation}</b>
-          </span>
-          <span>
-            {t('training.short.rating')} <b className="text-text">{session.rating}</b>
-          </span>
-          <span>
-            {t('training.short.intensity')} <b className="text-text">{session.intensity}</b>
-          </span>
+          <Score label={t('training.short.rating')} value={session.rating} />
+          <Score label={t('training.short.energy')} value={session.energy} />
+          <Score label={t('training.short.motivation')} value={session.motivation} />
+          <Score label={t('training.short.intensity')} value={session.intensity} />
           <span
             className="ml-auto inline-flex items-center gap-1"
             title={
@@ -90,5 +91,15 @@ export function SessionCard({ session, onSelect, showDate }: SessionCardProps) {
         )}
       </span>
     </button>
+  );
+}
+
+/** A 1–5 score; sessions from before the form changed miss energy, newer ones miss the rest. */
+function Score({ label, value }: { label: string; value: number | null }) {
+  if (value === null) return null;
+  return (
+    <span>
+      {label} <span className="font-medium text-text">{value}</span>
+    </span>
   );
 }

@@ -20,9 +20,9 @@ const session = (o: Record<string, unknown> = {}) => ({
   gymId: null,
   durationMinutes: 60,
   punctuality: 'on_time',
-  motivation: 2,
   rating: 1,
-  intensity: 3,
+  energy: 2,
+  injured: false,
   reflection: null,
   shareDetails: false,
   ...o,
@@ -187,9 +187,14 @@ describe('privacy', () => {
       .patch('/api/v1/me/profile')
       .send({ bio: 'Fighter', heightCm: 187, personalGoals: 'GOALS-TEXT' });
     sharedId = (
-      await owner.agent
-        .post('/api/v1/sessions')
-        .send(session({ reflection: SHARED, shareDetails: true }))
+      await owner.agent.post('/api/v1/sessions').send(
+        session({
+          reflection: SHARED,
+          shareDetails: true,
+          injured: true,
+          injuryNote: 'private injury note',
+        }),
+      )
     ).body.id;
     privateId = (
       await owner.agent
@@ -260,7 +265,11 @@ describe('privacy', () => {
     expect(recent.find((s) => s.id === sharedId)!.details).toMatchObject({
       reflection: SHARED,
       rating: 1,
+      energy: 2,
     });
+    // Injuries stay private, even on a session whose details are shared.
+    expect(JSON.stringify(view)).not.toContain('private injury note');
+    expect(JSON.stringify(view)).not.toContain('injur');
     expect(recent.find((s) => s.id === privateId)!.details).toBeNull();
     expect(view.streaks).toEqual({ current: expect.any(Number), longest: expect.any(Number) });
     expect(view.achievements!.map((a) => a.code)).toContain('FIRST_SESSION');

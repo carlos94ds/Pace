@@ -8,25 +8,26 @@ Local tooling found: Node.js 26, npm, git, GitHub CLI, Homebrew and MySQL Workbe
 
 ## Decisions taken
 
-| Topic                         | Decision                                                                                  |
-| ----------------------------- | ----------------------------------------------------------------------------------------- |
-| Database (dev + prod)         | Railway MySQL, inspected with MySQL Workbench                                             |
-| File storage                  | Railway Storage Bucket (private)                                                          |
-| Email                         | Gmail SMTP with an app password, behind a replaceable adapter                             |
-| Streak                        | Consecutive weeks reaching the training-day goal; a week below the goal resets it         |
-| Motivation, rating, intensity | Scale 1–5                                                                                 |
-| Discoverability               | On by default; only username, first name and profile picture are shown                    |
-| Training dates                | Logged up to today in the user's timezone; no planned (future) sessions                   |
-| Weeks                         | Monday to Sunday (ISO 8601)                                                               |
-| Custom sports                 | Private to their owner; colour from a fixed palette; deletable once unused                |
-| Goals history                 | Editing or deleting a goal archives it; each week is measured against its own goals       |
-| Missed reports                | After downtime only the most recent due week is caught up, never older weeks              |
-| Declined friend requests      | Look pending to the sender; nobody learns they were declined                              |
-| Friend suggestions            | Ranked by mutual friends, gym and sports; only "mutual friends" is shown as reason        |
-| Achievements                  | Awarded from own data after saving a session or goal and at report time; never revoked    |
-| Weight sharing                | Private by default; when shared, friends see values and dates only, never photos or notes |
-| Notifications                 | In-app, per-type settings; read ones are removed after 90 days                            |
-| Charts                        | Small own components (no chart library), each with a tooltip and a table view             |
+| Topic                    | Decision                                                                                  |
+| ------------------------ | ----------------------------------------------------------------------------------------- |
+| Database (dev + prod)    | Railway MySQL, inspected with MySQL Workbench                                             |
+| File storage             | Railway Storage Bucket (private)                                                          |
+| Email                    | Gmail SMTP with an app password, behind a replaceable adapter                             |
+| Streak                   | Consecutive weeks reaching the training-day goal; a week below the goal resets it         |
+| Rating, energy level     | Scale 1–5                                                                                 |
+| Training check-in        | One question per screen: rating, on time, training (typed), energy, duration, injury      |
+| Discoverability          | On by default; only username, first name and profile picture are shown                    |
+| Training dates           | Logged up to today in the user's timezone; no planned (future) sessions                   |
+| Weeks                    | Monday to Sunday (ISO 8601)                                                               |
+| Custom sports            | Private to their owner; colour from a fixed palette; deletable once unused                |
+| Goals history            | Editing or deleting a goal archives it; each week is measured against its own goals       |
+| Missed reports           | After downtime only the most recent due week is caught up, never older weeks              |
+| Declined friend requests | Look pending to the sender; nobody learns they were declined                              |
+| Friend suggestions       | Ranked by mutual friends, gym and sports; only "mutual friends" is shown as reason        |
+| Achievements             | Awarded from own data after saving a session or goal and at report time; never revoked    |
+| Weight sharing           | Private by default; when shared, friends see values and dates only, never photos or notes |
+| Notifications            | In-app, per-type settings; read ones are removed after 90 days                            |
+| Charts                   | Small own components (no chart library), each with a tooltip and a table view             |
 
 ## 2. Repository structure
 
@@ -104,14 +105,15 @@ Two rules, enforced on the server:
 1. **Owner data is always queried with the logged-in user's id**, never an id from the request: `where: { id: params.id, userId: req.user.id }`. Changing an id in the URL to someone else's session returns 404 (not 403, so you can't tell it exists).
 2. **Viewing another user's data goes through `policies/`.** `canView(viewer, owner, resource)` checks the friendship status plus the owner's privacy settings, and the friend mappers only select public fields.
 
-| Data                                                 | Owner | Friends                                                               | Others                       |
-| ---------------------------------------------------- | ----- | --------------------------------------------------------------------- | ---------------------------- |
-| Date, sport, duration, weekly hours                  | ✓     | if activity sharing on (default **on**)                               | ✗                            |
-| Streaks, achievements                                | ✓     | if sharing on (default **on**)                                        | ✗                            |
-| Reflection ("why it went badly"), motivation, rating | ✓     | only per session when the user shares it explicitly (default **off**) | ✗                            |
-| Weekly report / dashboard                            | ✓     | if dashboard sharing on (default **off**)                             | ✗                            |
-| Weight, height, evidence photos                      | ✓     | never by default                                                      | ✗                            |
-| Username, first name, avatar                         | ✓     | ✓                                                                     | only if "discoverable" is on |
+| Data                                             | Owner | Friends                                                               | Others                       |
+| ------------------------------------------------ | ----- | --------------------------------------------------------------------- | ---------------------------- |
+| Date, sport, duration, weekly hours              | ✓     | if activity sharing on (default **on**)                               | ✗                            |
+| Streaks, achievements                            | ✓     | if sharing on (default **on**)                                        | ✗                            |
+| Reflection ("why it went badly"), rating, energy | ✓     | only per session when the user shares it explicitly (default **off**) | ✗                            |
+| Weekly report / dashboard                        | ✓     | if dashboard sharing on (default **off**)                             | ✗                            |
+| Weight, height, evidence photos                  | ✓     | never by default                                                      | ✗                            |
+| Injuries                                         | ✓     | never                                                                 | ✗                            |
+| Username, first name, avatar                     | ✓     | ✓                                                                     | only if "discoverable" is on |
 
 Automated tests try to reach each private resource as a stranger, as a friend and as a pending friend (`server/src/modules/social/social.test.ts`). Every response to another user is also scanned for private values (email, height, personal goals, private reflections).
 
@@ -127,7 +129,7 @@ Implementation: `server/src/policies/relationship.ts` is the only place that dec
 6. A file that looks like an image but can't be decoded is refused with 415, the same as any other non-image.
 7. A weight entry can't be edited: value and photo belong together. A wrong entry is deleted (with its photo) and added again.
 
-A weight entry and its evidence are created in one request: no photo means no weight entry. If the database write fails, the uploaded object is deleted again.
+A photo of the scale is optional (changed November 2026). When there is one, entry and evidence are created in one request. If the database write fails, the uploaded object is deleted again.
 
 ## 7. Weekly reports
 

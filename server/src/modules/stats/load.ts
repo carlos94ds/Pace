@@ -27,6 +27,8 @@ export async function loadSessions(prisma: Db, userId: string, from: IsoDate, to
       motivation: true,
       rating: true,
       intensity: true,
+      energy: true,
+      injured: true,
       reflection: true,
       sport: { select: sportSelect },
     },

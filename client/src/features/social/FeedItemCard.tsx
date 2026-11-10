@@ -47,10 +47,17 @@ export function FriendSessionBody({
       {session.details && (
         <div className="mt-2 rounded-lg bg-surface-2 px-3 py-2 text-xs text-muted">
           <span className="tabular">
-            {t('training.short.motivation')}{' '}
-            <b className="text-text">{session.details.motivation}</b> · {t('training.short.rating')}{' '}
-            <b className="text-text">{session.details.rating}</b> · {t('training.short.intensity')}{' '}
-            <b className="text-text">{session.details.intensity}</b>
+            {(
+              [
+                ['rating', session.details.rating],
+                ['energy', session.details.energy],
+                ['motivation', session.details.motivation],
+                ['intensity', session.details.intensity],
+              ] as const
+            )
+              .filter(([, value]) => value !== null)
+              .map(([key, value]) => `${t(`training.short.${key}`)} ${value}`)
+              .join(' · ')}
           </span>
           {session.details.reflection && (
             <p className="mt-1 text-sm text-text">“{session.details.reflection}”</p>

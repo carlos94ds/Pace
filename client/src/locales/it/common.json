@@ -328,24 +328,15 @@
     "fields": {
       "date": "Data",
       "sport": "Sport",
-      "duration": "Durata",
       "gym": "Palestra o luogo",
       "punctuality": "Puntualità",
-      "motivation": "Motivazione prima",
-      "rating": "Com'è andata",
-      "intensity": "Intensità",
-      "reflection": "Riflessione",
       "shareDetails": "Condividi i dettagli con gli amici"
-    },
-    "scales": {
-      "motivation": "1 = nessuna voglia · 5 = motivatissimo",
-      "rating": "1 = male · 5 = benissimo",
-      "intensity": "1 = molto leggera · 5 = massima"
     },
     "short": {
       "motivation": "Motivazione",
       "rating": "Valutazione",
-      "intensity": "Intensità"
+      "intensity": "Intensità",
+      "energy": "Energia"
     },
     "punctuality": {
       "on_time": "Puntuale",
@@ -358,11 +349,9 @@
       "delete": "Elimina",
       "deleteConfirm": "Eliminare questo allenamento?",
       "chooseSport": "Scegli uno sport",
-      "chooseScore": "Scegli da 1 a 5.",
-      "durationHint": "Ad esempio 1 ora e 30 minuti.",
       "reflectionPlaceholder": "Perché è andata bene o male? Cosa farai diversamente?",
       "reflectionHint": "Lo vedi solo tu, a meno che tu non condivida i dettagli di questo allenamento.",
-      "shareDetailsHelp": "Gli amici che possono vedere la tua attività vedranno anche motivazione, valutazione e riflessione di questo allenamento. Disattivato per impostazione predefinita.",
+      "shareDetailsHelp": "Gli amici che possono vedere la tua attività vedranno anche voto, energia e riflessione di questo allenamento. Gli infortuni restano sempre privati. Disattivato di default.",
       "hours": "Ore",
       "minutes": "Minuti"
     },
@@ -372,8 +361,6 @@
       "name": "Nome",
       "color": "Colore nel calendario",
       "add": "Aggiungi sport",
-      "addOption": "+ Aggiungi il tuo sport…",
-      "newTitle": "Nuovo sport",
       "edit": "Modifica",
       "delete": "Elimina",
       "none": "Non hai ancora aggiunto sport tuoi.",
@@ -418,6 +405,73 @@
       "noResults": "Nessun allenamento corrisponde a questi filtri",
       "noResultsHint": "Prova altri filtri o cancellali.",
       "loadMore": "Carica altri"
+    },
+    "injuryBadge": "Infortunio",
+    "checkin": {
+      "progress": "Domanda {{current}} di {{total}}",
+      "progressLabel": "Avanzamento",
+      "back": "Indietro",
+      "next": "Avanti",
+      "tapHint": "Tocca la tua risposta per andare avanti.",
+      "rating": {
+        "question": "Com'è andato l'allenamento?",
+        "short": "Allenamento",
+        "labels": {
+          "1": "Male",
+          "2": "Così così",
+          "3": "Ok",
+          "4": "Bene",
+          "5": "Benissimo"
+        }
+      },
+      "punctuality": {
+        "question": "Eri puntuale?",
+        "short": "Puntuale"
+      },
+      "training": {
+        "question": "Che allenamento hai fatto?",
+        "hint": "Scrivilo tu oppure tocca un allenamento che hai già fatto.",
+        "label": "Allenamento",
+        "placeholder": "Per esempio: boxe, gambe, sparring",
+        "recent": "I tuoi allenamenti",
+        "tooShort": "Scrivi almeno 2 lettere.",
+        "short": "Quale allenamento"
+      },
+      "energy": {
+        "question": "Com'era il tuo livello di energia?",
+        "short": "Energia",
+        "labels": {
+          "1": "Molto basso",
+          "2": "Basso",
+          "3": "Normale",
+          "4": "Alto",
+          "5": "Molto alto"
+        }
+      },
+      "duration": {
+        "question": "Quanto ti sei allenato oggi?",
+        "hint": "Tocca un tempo oppure scrivi tu ore e minuti.",
+        "custom": "Un altro tempo?",
+        "required": "Scegli quanto ti sei allenato.",
+        "tooLong": "Un allenamento dura al massimo 24 ore.",
+        "short": "Tempo"
+      },
+      "injury": {
+        "question": "Hai qualche infortunio?",
+        "short": "Infortunio",
+        "yes": "Sì",
+        "no": "No",
+        "noteLabel": "Dove senti dolore? (facoltativo)",
+        "notePlaceholder": "Per esempio: il ginocchio sinistro fa male durante gli squat",
+        "noteHint": "Lo vedi solo tu."
+      },
+      "summary": {
+        "title": "È tutto giusto?",
+        "hint": "Controlla le risposte e salva l'allenamento. Tocca Modifica se qualcosa non va.",
+        "reflection": "Vuoi aggiungere qualcosa? (facoltativo)",
+        "edit": "Modifica",
+        "missing": "Non ancora risposto"
+      }
     }
   },
   "charts": {
@@ -557,7 +611,10 @@
       "lowMotivation": "La tua motivazione prima dell'allenamento era bassa (media {{avg, number}} su 5).",
       "noReasons_one": "Per {{count}} allenamento andato male non hai scritto il perché. Una breve riflessione ti aiuta a vedere degli schemi.",
       "noReasons_other": "Per {{count}} allenamenti andati male non hai scritto il perché. Una breve riflessione ti aiuta a vedere degli schemi.",
-      "streak": "La tua serie è ora di {{weeks}} settimane."
+      "streak": "La tua serie è ora di {{weeks}} settimane.",
+      "lowEnergy": "Il tuo livello di energia era basso (media {{avg, number}} su 5).",
+      "injuries_one": "Hai segnalato un infortunio in {{count}} allenamento. Fai attenzione.",
+      "injuries_other": "Hai segnalato un infortunio in {{count}} allenamenti. Fai attenzione."
     }
   },
   "social": {
@@ -666,7 +723,7 @@
   },
   "weight": {
     "title": "Peso",
-    "subtitle": "Lo storico del tuo peso, ogni misurazione verificata con una foto della bilancia.",
+    "subtitle": "Il tuo peso nel tempo. La foto della bilancia è facoltativa.",
     "add": "Aggiungi misurazione",
     "privacyPrivate": "Solo tu vedi il tuo peso e le tue foto.",
     "privacyShared": "Gli amici vedono i valori del tuo peso. Foto e note restano private.",
@@ -678,21 +735,22 @@
     "entries": "Misurazioni",
     "history": "Peso nel tempo",
     "measurements": "Misurazioni",
-    "empty": "Ancora nessuna misurazione. Aggiungi la prima con una foto della bilancia.",
+    "empty": "Ancora nessuna misurazione. Aggiungi la prima.",
     "evidence": "Foto della bilancia",
     "evidenceAlt": "Bilancia che mostra {{weight}}",
     "viewPhoto": "Foto",
     "delete": "Elimina misurazione",
     "deleteConfirm": "Elimina con foto",
     "weightKg": "Peso (kg)",
-    "evidenceHelp": "Obbligatoria. Scatta una foto in cui il display della bilancia sia leggibile. I dati di posizione vengono rimossi.",
+    "evidenceHelp": "Facoltativo. Non devi aggiungere una foto. Se lo fai, i numeri devono essere ben leggibili. I dati di posizione vengono rimossi.",
     "previewAlt": "Foto scelta",
     "choosePhoto": "Scatta o scegli una foto",
     "changePhoto": "Scegli un'altra foto",
     "note": "Nota (facoltativa)",
     "noteHint": "La vedi solo tu.",
     "save": "Salva misurazione",
-    "profileLink": "Storico del peso con prova fotografica. Privato per impostazione predefinita."
+    "profileLink": "Storico del peso con prova fotografica. Privato per impostazione predefinita.",
+    "evidenceOptional": "Foto della bilancia (facoltativo)"
   },
   "notifications": {
     "title": "Notifiche",

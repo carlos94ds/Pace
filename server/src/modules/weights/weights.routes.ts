@@ -24,18 +24,28 @@ const upload = multer({
   limits: { fileSize: EVIDENCE_MAX_BYTES, files: 1, fields: 5 },
 });
 
+const entrySelect = {
+  id: true,
+  weightKg: true,
+  measuredAt: true,
+  note: true,
+  createdAt: true,
+  evidence: { select: { id: true } },
+} as const;
+
 const toEntry = (w: {
   id: string;
   weightKg: { toString(): string };
   measuredAt: Date;
   note: string | null;
   createdAt: Date;
+  evidence: { id: string } | null;
 }): WeightEntry => ({
   id: w.id,
   measuredOn: fromUtcDate(w.measuredAt),
   weightKg: Number(w.weightKg.toString()),
   note: w.note,
-  evidenceUrl: `/api/v1/weights/${w.id}/evidence`,
+  evidenceUrl: w.evidence ? `/api/v1/weights/${w.id}/evidence` : null,
   createdAt: w.createdAt.toISOString(),
 });
 
@@ -46,8 +56,8 @@ function entryId(req: Request) {
 }
 
 /**
- * Weight history. Every entry needs a photo of the scale; entry and photo are created
- * together and deleted together. Only the owner can ever see the photos.
+ * Weight history. A photo of the scale is optional; when there is one, entry and photo are
+ * created together and deleted together. Only the owner can ever see the photos.
  */
 export function weightsRouter(ctx: AppContext): Router {
   const router = Router();
@@ -57,6 +67,7 @@ export function weightsRouter(ctx: AppContext): Router {
   router.get('/weights', async (req, res) => {
     const rows = await prisma.weightMeasurement.findMany({
       where: { userId: currentUserId(req) },
+      select: entrySelect,
       orderBy: [{ measuredAt: 'desc' }, { createdAt: 'desc' }],
       take: 1000,
     });
@@ -65,19 +76,20 @@ export function weightsRouter(ctx: AppContext): Router {
 
   router.post('/weights', upload.single('evidence'), async (req, res) => {
     const userId = currentUserId(req);
-    // No photo, no entry. Reported together with any other field errors.
-    let input;
-    try {
-      input = parseBody(weightInputSchema, req);
-    } catch (err) {
-      if (err instanceof HttpError && !req.file) {
-        throw new HttpError(400, 'validation_error', { ...err.fields, evidence: 'required' });
-      }
-      throw err;
-    }
-    if (!req.file) throw new HttpError(400, 'validation_error', { evidence: 'required' });
+    const input = parseBody(weightInputSchema, req);
     if (input.measuredOn > todayIn(await loadTimezone(prisma, userId))) {
       throw new HttpError(400, 'validation_error', { measuredOn: 'in_future' });
+    }
+    const data = {
+      userId,
+      weightKg: input.weightKg,
+      measuredAt: toUtcDate(input.measuredOn),
+      note: input.note,
+    };
+    if (!req.file) {
+      const row = await prisma.weightMeasurement.create({ data, select: entrySelect });
+      res.status(201).json(toEntry(row));
+      return;
     }
     const { image, sha256 } = await processEvidence(req.file.buffer);
 
@@ -86,14 +98,12 @@ export function weightsRouter(ctx: AppContext): Router {
     try {
       const row = await prisma.weightMeasurement.create({
         data: {
-          userId,
-          weightKg: input.weightKg,
-          measuredAt: toUtcDate(input.measuredOn),
-          note: input.note,
+          ...data,
           evidence: {
             create: { storageKey: key, mimeType: 'image/webp', sizeBytes: image.length, sha256 },
           },
         },
+        select: entrySelect,
       });
       res.status(201).json(toEntry(row));
     } catch (err) {
