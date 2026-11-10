@@ -1,11 +1,13 @@
 import {
   INJURY_NOTE_MAX,
   MAX_SESSION_MINUTES,
+  REASON_MAX,
   REFLECTION_MAX,
   SCORES,
   SPORT_COLORS,
   TRAINING_NAME_MAX,
   TRAINING_NAME_MIN,
+  asksReason,
   sessionInputSchema,
   todayIn,
   type Gym,
@@ -62,14 +64,17 @@ export function SessionDialog({ open, session, date, onClose }: SessionDialogPro
 interface Values {
   date: string;
   rating: number | null;
+  ratingReason: string;
   punctuality: Punctuality | null;
   /** What the user typed; matched to one of their sports when saving. */
   training: string;
   energy: number | null;
+  energyReason: string;
   hours: string;
   minutes: string;
   injured: boolean | null;
   injuryNote: string;
+  injuryCause: string;
   gym: Gym | null;
   reflection: string;
   shareDetails: boolean;
@@ -106,13 +111,16 @@ function CheckIn({
   const [values, setValues] = useState<Values>(() => ({
     date: session?.date ?? (date && date <= today ? date : today),
     rating: session?.rating ?? null,
+    ratingReason: session?.ratingReason ?? '',
     punctuality: session?.punctuality ?? null,
     training: session ? sportName(t, session.sport) : '',
     energy: session?.energy ?? null,
+    energyReason: session?.energyReason ?? '',
     hours: session ? String(Math.floor(session.durationMinutes / 60)) : '',
     minutes: session ? String(session.durationMinutes % 60) : '',
     injured: session ? session.injured : null,
     injuryNote: session?.injuryNote ?? '',
+    injuryCause: session?.injuryCause ?? '',
     gym: session ? session.gym : (me.profile.gyms[0] ?? null),
     reflection: session?.reflection ?? '',
     shareDetails: session?.shareDetails ?? false,
@@ -201,6 +209,10 @@ function CheckIn({
       intensity: session?.intensity ?? null,
       injured: values.injured ?? false,
       injuryNote: values.injured ? values.injuryNote : null,
+      injuryCause: values.injured ? values.injuryCause : null,
+      // A reason only belongs to a score that asks for one.
+      ratingReason: asksReason(values.rating) ? values.ratingReason : null,
+      energyReason: asksReason(values.energy) ? values.energyReason : null,
       reflection: values.reflection,
       shareDetails: values.shareDetails,
     });
@@ -264,16 +276,28 @@ function CheckIn({
       {step === 'rating' && (
         <Question
           title={t('training.checkin.rating.question')}
-          hint={t('training.checkin.tapHint')}
+          hint={t('training.checkin.scoreHint')}
         >
           <ScoreChoice
             name="rating"
             value={values.rating}
             onChange={(v) => {
               set('rating', v);
-              next('rating');
+              if (!asksReason(v)) next('rating');
             }}
           />
+          {asksReason(values.rating) && (
+            <ReasonForm
+              key={values.rating! > 3 ? 'good' : 'bad'}
+              label={t(`training.checkin.rating.reason.${values.rating! > 3 ? 'good' : 'bad'}`)}
+              placeholder={t(
+                `training.checkin.rating.reason.${values.rating! > 3 ? 'goodPlaceholder' : 'badPlaceholder'}`,
+              )}
+              value={values.ratingReason}
+              onChange={(v) => set('ratingReason', v)}
+              onNext={() => next('rating')}
+            />
+          )}
         </Question>
       )}
 
@@ -310,16 +334,28 @@ function CheckIn({
       {step === 'energy' && (
         <Question
           title={t('training.checkin.energy.question')}
-          hint={t('training.checkin.tapHint')}
+          hint={t('training.checkin.scoreHint')}
         >
           <ScoreChoice
             name="energy"
             value={values.energy}
             onChange={(v) => {
               set('energy', v);
-              next('energy');
+              if (!asksReason(v)) next('energy');
             }}
           />
+          {asksReason(values.energy) && (
+            <ReasonForm
+              key={values.energy! > 3 ? 'high' : 'low'}
+              label={t(`training.checkin.energy.reason.${values.energy! > 3 ? 'high' : 'low'}`)}
+              placeholder={t(
+                `training.checkin.energy.reason.${values.energy! > 3 ? 'highPlaceholder' : 'lowPlaceholder'}`,
+              )}
+              value={values.energyReason}
+              onChange={(v) => set('energyReason', v)}
+              onNext={() => next('energy')}
+            />
+          )}
         </Question>
       )}
 
@@ -339,11 +375,13 @@ function CheckIn({
         <InjuryStep
           injured={values.injured}
           note={values.injuryNote}
+          cause={values.injuryCause}
           onAnswer={(injured) => {
             set('injured', injured);
             if (!injured) next('injury');
           }}
           onNote={(note) => set('injuryNote', note)}
+          onCause={(cause) => set('injuryCause', cause)}
           onNext={() => next('injury')}
         />
       )}
@@ -358,6 +396,7 @@ function CheckIn({
             <SummaryRow
               label={t('training.checkin.rating.short')}
               value={values.rating ? t(`training.checkin.rating.labels.${values.rating}`) : null}
+              detail={asksReason(values.rating) ? values.ratingReason.trim() : ''}
               onEdit={() => edit('rating')}
             />
             <SummaryRow
@@ -373,6 +412,7 @@ function CheckIn({
             <SummaryRow
               label={t('training.checkin.energy.short')}
               value={values.energy ? t(`training.checkin.energy.labels.${values.energy}`) : null}
+              detail={asksReason(values.energy) ? values.energyReason.trim() : ''}
               onEdit={() => edit('energy')}
             />
             <SummaryRow
@@ -389,6 +429,7 @@ function CheckIn({
                     ? values.injuryNote.trim() || t('training.checkin.injury.yes')
                     : t('training.checkin.injury.no')
               }
+              detail={values.injured ? values.injuryCause.trim() : ''}
               onEdit={() => edit('injury')}
             />
           </dl>
@@ -745,14 +786,18 @@ function DurationStep({
 function InjuryStep({
   injured,
   note,
+  cause,
   onAnswer,
   onNote,
+  onCause,
   onNext,
 }: {
   injured: boolean | null;
   note: string;
+  cause: string;
   onAnswer: (injured: boolean) => void;
   onNote: (note: string) => void;
+  onCause: (cause: string) => void;
   onNext: () => void;
 }) {
   const { t } = useTranslation();
@@ -784,6 +829,14 @@ function InjuryStep({
             autoFocus
             placeholder={t('training.checkin.injury.notePlaceholder')}
             onChange={(e) => onNote(e.target.value)}
+          />
+          <TextArea
+            label={t('training.checkin.injury.causeLabel')}
+            value={cause}
+            maxLength={REASON_MAX}
+            rows={3}
+            placeholder={t('training.checkin.injury.causePlaceholder')}
+            onChange={(e) => onCause(e.target.value)}
             hint={t('training.checkin.injury.noteHint')}
           />
           <NextButton />
@@ -805,10 +858,13 @@ function NextButton() {
 function SummaryRow({
   label,
   value,
+  detail,
   onEdit,
 }: {
   label: string;
   value: string | null | false;
+  /** The reason the user gave, shown under the answer. */
+  detail?: string;
   onEdit: () => void;
 }) {
   const { t } = useTranslation();
@@ -818,8 +874,13 @@ function SummaryRow({
       <dd className="flex min-w-0 flex-1 items-center gap-2 text-sm font-medium">
         {value ? (
           <>
-            <Check className="size-4 shrink-0 text-success" aria-hidden="true" />
-            <span className="truncate">{value}</span>
+            <Check className="size-4 shrink-0 self-start text-success" aria-hidden="true" />
+            <span className="flex min-w-0 flex-col">
+              <span className="truncate">{value}</span>
+              {detail && (
+                <span className="line-clamp-2 text-xs font-normal text-muted">{detail}</span>
+              )}
+            </span>
           </>
         ) : (
           <span className="text-muted">{t('training.checkin.summary.missing')}</span>
@@ -835,5 +896,44 @@ function SummaryRow({
         {t('training.checkin.summary.edit')}
       </button>
     </div>
+  );
+}
+
+/** An optional "why" question under a score; the user can skip it with Next. */
+function ReasonForm({
+  label,
+  placeholder,
+  value,
+  onChange,
+  onNext,
+}: {
+  label: string;
+  placeholder: string;
+  value: string;
+  onChange: (value: string) => void;
+  onNext: () => void;
+}) {
+  const { t } = useTranslation();
+  return (
+    <form
+      noValidate
+      className="flex flex-col gap-4"
+      onSubmit={(e) => {
+        e.preventDefault();
+        onNext();
+      }}
+    >
+      <TextArea
+        label={label}
+        value={value}
+        maxLength={REASON_MAX}
+        rows={3}
+        autoFocus
+        placeholder={placeholder}
+        onChange={(e) => onChange(e.target.value)}
+        hint={t('training.checkin.reasonHint')}
+      />
+      <NextButton />
+    </form>
   );
 }

@@ -193,6 +193,8 @@ describe('privacy', () => {
           shareDetails: true,
           injured: true,
           injuryNote: 'private injury note',
+          injuryCause: 'private injury cause',
+          ratingReason: 'private rating reason',
         }),
       )
     ).body.id;
@@ -268,7 +270,8 @@ describe('privacy', () => {
       energy: 2,
     });
     // Injuries stay private, even on a session whose details are shared.
-    expect(JSON.stringify(view)).not.toContain('private injury note');
+    expect(JSON.stringify(view)).not.toContain('private injury');
+    expect(JSON.stringify(view)).not.toContain('private rating reason');
     expect(JSON.stringify(view)).not.toContain('injur');
     expect(recent.find((s) => s.id === privateId)!.details).toBeNull();
     expect(view.streaks).toEqual({ current: expect.any(Number), longest: expect.any(Number) });

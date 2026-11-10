@@ -422,6 +422,12 @@
           "3": "Oké",
           "4": "Goed",
           "5": "Top"
+        },
+        "reason": {
+          "good": "Waardoor ging het goed?",
+          "bad": "Waardoor ging het slecht?",
+          "goodPlaceholder": "Bijvoorbeeld: goed geslapen, fijne sparringpartner",
+          "badPlaceholder": "Bijvoorbeeld: slecht geslapen, te weinig gegeten, druk op werk"
         }
       },
       "punctuality": {
@@ -446,6 +452,12 @@
           "3": "Normaal",
           "4": "Hoog",
           "5": "Heel hoog"
+        },
+        "reason": {
+          "high": "Waardoor had je veel energie?",
+          "low": "Waardoor had je weinig energie?",
+          "highPlaceholder": "Bijvoorbeeld: goed uitgerust, goed gegeten voor de training",
+          "lowPlaceholder": "Bijvoorbeeld: korte nacht, stress, te weinig gegeten"
         }
       },
       "duration": {
@@ -463,7 +475,9 @@
         "no": "Nee",
         "noteLabel": "Waar heb je last van? (mag je overslaan)",
         "notePlaceholder": "Bijvoorbeeld: mijn linkerknie doet pijn bij squats",
-        "noteHint": "Alleen jij ziet dit."
+        "noteHint": "Alleen jij ziet dit.",
+        "causeLabel": "Waardoor denk je dat je deze blessure hebt? (mag je overslaan)",
+        "causePlaceholder": "Bijvoorbeeld: verkeerd geland, niet opgewarmd, te veel getraind"
       },
       "summary": {
         "title": "Klopt alles?",
@@ -471,7 +485,9 @@
         "reflection": "Wil je nog iets kwijt? (mag je overslaan)",
         "edit": "Aanpassen",
         "missing": "Nog niet ingevuld"
-      }
+      },
+      "scoreHint": "Tik op het antwoord dat het beste past.",
+      "reasonHint": "Mag je overslaan. Alleen jij ziet dit. Het komt terug in je weekrapport."
     }
   },
   "charts": {
@@ -566,7 +582,8 @@
       "goals": "Doelen",
       "wentWell": "Wat ging goed",
       "improve": "Wat kan beter",
-      "comparison": "Vergeleken met vorige week"
+      "comparison": "Vergeleken met vorige week",
+      "body": "Energie en blessures"
     },
     "noGoalsSet": "Je had deze week geen doelen.",
     "nothingToSay": "Te weinig gegevens om hier iets over te zeggen.",
@@ -615,7 +632,11 @@
       "lowEnergy": "Je energie was laag (gemiddeld {{avg, number}} van 5).",
       "injuries_one": "Je had bij {{count}} training een blessure. Let er goed op.",
       "injuries_other": "Je had bij {{count}} trainingen een blessure. Let er goed op."
-    }
+    },
+    "energySessions": "Je energie",
+    "injurySessions": "Blessures",
+    "injuryWhere": "Waar",
+    "injuryCause": "Oorzaak"
   },
   "social": {
     "title": "Vrienden",

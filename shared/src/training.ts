@@ -7,6 +7,8 @@ export const MIN_SESSION_DATE = '2000-01-01';
 export const MAX_SESSION_MINUTES = 1440;
 export const REFLECTION_MAX = 2000;
 export const INJURY_NOTE_MAX = 500;
+/** Same limit for every short "why" answer in the check-in. */
+export const REASON_MAX = 500;
 /** What a user can type as the name of the training they did. */
 export const TRAINING_NAME_MIN = 2;
 export const TRAINING_NAME_MAX = 50;
@@ -24,6 +26,19 @@ export type Punctuality = z.infer<typeof punctualitySchema>;
 export const scoreSchema = z.number().int().min(1).max(5);
 export const SCORES = [1, 2, 3, 4, 5] as const;
 
+/** An optional short text; empty means not given. */
+const reasonSchema = (max: number) =>
+  z
+    .string()
+    .trim()
+    .max(max)
+    .nullable()
+    .default(null)
+    .transform((v) => (v ? v : null));
+
+/** A score of 1–2 or 4–5 asks why; 3 is normal and doesn't. */
+export const asksReason = (score: number | null) => score !== null && score !== 3;
+
 export const sessionInputSchema = z.object({
   date: isoDateSchema,
   sportId: z.uuid(),
@@ -36,13 +51,10 @@ export const sessionInputSchema = z.object({
   motivation: scoreSchema.nullable().default(null),
   intensity: scoreSchema.nullable().default(null),
   injured: z.boolean(),
-  injuryNote: z
-    .string()
-    .trim()
-    .max(INJURY_NOTE_MAX)
-    .nullable()
-    .default(null)
-    .transform((v) => (v ? v : null)),
+  injuryNote: reasonSchema(INJURY_NOTE_MAX),
+  injuryCause: reasonSchema(REASON_MAX),
+  ratingReason: reasonSchema(REASON_MAX),
+  energyReason: reasonSchema(REASON_MAX),
   reflection: z
     .string()
     .trim()
@@ -103,6 +115,9 @@ export interface TrainingSession {
   intensity: number | null;
   injured: boolean;
   injuryNote: string | null;
+  injuryCause: string | null;
+  ratingReason: string | null;
+  energyReason: string | null;
   reflection: string | null;
   shareDetails: boolean;
   createdAt: string;

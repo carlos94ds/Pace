@@ -422,6 +422,12 @@
           "3": "Bien",
           "4": "Muy bien",
           "5": "Genial"
+        },
+        "reason": {
+          "good": "¿Por qué fue bien?",
+          "bad": "¿Por qué fue mal?",
+          "goodPlaceholder": "Por ejemplo: dormí bien, buen compañero de sparring",
+          "badPlaceholder": "Por ejemplo: dormí mal, comí poco, mucho trabajo"
         }
       },
       "punctuality": {
@@ -446,6 +452,12 @@
           "3": "Normal",
           "4": "Alto",
           "5": "Muy alto"
+        },
+        "reason": {
+          "high": "¿Por qué tenías mucha energía?",
+          "low": "¿Por qué tenías poca energía?",
+          "highPlaceholder": "Por ejemplo: bien descansado, comí bien antes de entrenar",
+          "lowPlaceholder": "Por ejemplo: noche corta, estrés, comí poco"
         }
       },
       "duration": {
@@ -463,7 +475,9 @@
         "no": "No",
         "noteLabel": "¿Dónde te duele? (opcional)",
         "notePlaceholder": "Por ejemplo: me duele la rodilla izquierda al hacer sentadillas",
-        "noteHint": "Solo tú lo ves."
+        "noteHint": "Solo tú lo ves.",
+        "causeLabel": "¿Por qué crees que tienes esta lesión? (opcional)",
+        "causePlaceholder": "Por ejemplo: caí mal, no calenté, entrené demasiado"
       },
       "summary": {
         "title": "¿Está todo bien?",
@@ -471,7 +485,9 @@
         "reflection": "¿Quieres añadir algo? (opcional)",
         "edit": "Cambiar",
         "missing": "Sin responder"
-      }
+      },
+      "scoreHint": "Toca la respuesta que mejor encaje.",
+      "reasonHint": "Opcional. Solo tú lo ves. Aparece en tu informe semanal."
     }
   },
   "charts": {
@@ -566,7 +582,8 @@
       "goals": "Objetivos",
       "wentWell": "Qué fue bien",
       "improve": "Qué se puede mejorar",
-      "comparison": "Comparado con la semana pasada"
+      "comparison": "Comparado con la semana pasada",
+      "body": "Energía y lesiones"
     },
     "noGoalsSet": "No tenías objetivos esta semana.",
     "nothingToSay": "No hay datos suficientes para decir algo aquí.",
@@ -615,7 +632,11 @@
       "lowEnergy": "Tu nivel de energía fue bajo (media de {{avg, number}} sobre 5).",
       "injuries_one": "Tuviste una lesión en {{count}} entrenamiento. Cuídate bien.",
       "injuries_other": "Tuviste una lesión en {{count}} entrenamientos. Cuídate bien."
-    }
+    },
+    "energySessions": "Tu energía",
+    "injurySessions": "Lesiones",
+    "injuryWhere": "Dónde",
+    "injuryCause": "Causa"
   },
   "social": {
     "title": "Amigos",

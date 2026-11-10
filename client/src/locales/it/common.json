@@ -422,6 +422,12 @@
           "3": "Ok",
           "4": "Bene",
           "5": "Benissimo"
+        },
+        "reason": {
+          "good": "Perché è andata bene?",
+          "bad": "Perché è andata male?",
+          "goodPlaceholder": "Per esempio: ho dormito bene, buon compagno di sparring",
+          "badPlaceholder": "Per esempio: ho dormito male, mangiato poco, tanto lavoro"
         }
       },
       "punctuality": {
@@ -446,6 +452,12 @@
           "3": "Normale",
           "4": "Alto",
           "5": "Molto alto"
+        },
+        "reason": {
+          "high": "Perché avevi tanta energia?",
+          "low": "Perché avevi poca energia?",
+          "highPlaceholder": "Per esempio: ben riposato, mangiato bene prima dell'allenamento",
+          "lowPlaceholder": "Per esempio: notte corta, stress, mangiato poco"
         }
       },
       "duration": {
@@ -463,7 +475,9 @@
         "no": "No",
         "noteLabel": "Dove senti dolore? (facoltativo)",
         "notePlaceholder": "Per esempio: il ginocchio sinistro fa male durante gli squat",
-        "noteHint": "Lo vedi solo tu."
+        "noteHint": "Lo vedi solo tu.",
+        "causeLabel": "Perché pensi di avere questo infortunio? (facoltativo)",
+        "causePlaceholder": "Per esempio: atterrato male, niente riscaldamento, allenato troppo"
       },
       "summary": {
         "title": "È tutto giusto?",
@@ -471,7 +485,9 @@
         "reflection": "Vuoi aggiungere qualcosa? (facoltativo)",
         "edit": "Modifica",
         "missing": "Non ancora risposto"
-      }
+      },
+      "scoreHint": "Tocca la risposta più adatta.",
+      "reasonHint": "Facoltativo. Lo vedi solo tu. Torna nel tuo report settimanale."
     }
   },
   "charts": {
@@ -566,7 +582,8 @@
       "goals": "Obiettivi",
       "wentWell": "Cosa è andato bene",
       "improve": "Cosa si può migliorare",
-      "comparison": "Rispetto alla settimana scorsa"
+      "comparison": "Rispetto alla settimana scorsa",
+      "body": "Energia e infortuni"
     },
     "noGoalsSet": "Questa settimana non avevi obiettivi.",
     "nothingToSay": "Dati insufficienti per dire qualcosa qui.",
@@ -615,7 +632,11 @@
       "lowEnergy": "Il tuo livello di energia era basso (media {{avg, number}} su 5).",
       "injuries_one": "Hai segnalato un infortunio in {{count}} allenamento. Fai attenzione.",
       "injuries_other": "Hai segnalato un infortunio in {{count}} allenamenti. Fai attenzione."
-    }
+    },
+    "energySessions": "La tua energia",
+    "injurySessions": "Infortuni",
+    "injuryWhere": "Dove",
+    "injuryCause": "Causa"
   },
   "social": {
     "title": "Amici",

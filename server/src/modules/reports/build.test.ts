@@ -17,6 +17,10 @@ const s = (date: string, o: Partial<SessionFact> = {}): SessionFact => ({
   intensity: 3,
   energy: 3,
   injured: false,
+  injuryNote: null,
+  injuryCause: null,
+  ratingReason: null,
+  energyReason: null,
   reflection: null,
   ...o,
 });
@@ -188,5 +192,42 @@ describe('weekly report', () => {
     expect(report.conclusion.improve).toContainEqual({ key: 'injuries', params: { count: 1 } });
     expect(report.stats.averageMotivation).toBeNull();
     expect(report.stats.averageEnergy).toBe(1.5);
+  });
+
+  it('shows the reasons the user gave for rating, energy and injuries', () => {
+    const report = buildReport({
+      weekStart: WEEK,
+      sessions: [
+        s('2026-11-02', {
+          rating: 1,
+          ratingReason: 'Slept badly',
+          energy: 1,
+          energyReason: 'Tired',
+        }),
+        s('2026-11-03', {
+          rating: 5,
+          ratingReason: 'Great partner',
+          energy: 5,
+          injured: true,
+          injuryNote: 'Left knee',
+          injuryCause: 'Landed wrong',
+        }),
+        s('2026-11-04', { rating: 3, energy: 3 }),
+      ],
+      goals: [],
+      sports,
+      streak: null,
+    });
+    expect(report.highlights.worst[0]).toMatchObject({ ratingReason: 'Slept badly' });
+    expect(report.highlights.best[0]).toMatchObject({ ratingReason: 'Great partner' });
+    // A reason counts as an explanation, so no "give reasons" advice.
+    expect(keys(report.conclusion.improve)).not.toContain('noReasons');
+    expect(report.highlights.energy!.map((x) => [x.date, x.energyReason ?? null])).toEqual([
+      ['2026-11-02', 'Tired'],
+      ['2026-11-03', null],
+    ]);
+    expect(report.highlights.injuries).toEqual([
+      expect.objectContaining({ injuryNote: 'Left knee', injuryCause: 'Landed wrong' }),
+    ]);
   });
 });

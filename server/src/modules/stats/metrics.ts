@@ -29,6 +29,10 @@ export interface SessionFact {
   intensity: number | null;
   energy: number | null;
   injured: boolean;
+  injuryNote: string | null;
+  injuryCause: string | null;
+  ratingReason: string | null;
+  energyReason: string | null;
   reflection: string | null;
 }
 

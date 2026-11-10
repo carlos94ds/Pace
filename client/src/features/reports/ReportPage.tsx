@@ -1,5 +1,17 @@
 import type { ReportLine, ReportSession, WeekSummary, WeeklyReport } from '@pace/shared';
-import { ArrowDown, ArrowLeft, ArrowUp, Check, Minus, ThumbsDown, ThumbsUp, X } from 'lucide-react';
+import {
+  ArrowDown,
+  ArrowLeft,
+  ArrowUp,
+  BatteryLow,
+  BatteryFull,
+  Check,
+  HeartPulse,
+  Minus,
+  ThumbsDown,
+  ThumbsUp,
+  X,
+} from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Link, useParams } from 'react-router';
 import { Card } from '../../components/Card';
@@ -94,6 +106,8 @@ export function ReportPage() {
         </Card>
       </div>
 
+      <BodyCard energy={r.highlights.energy ?? []} injuries={r.highlights.injuries ?? []} />
+
       <Comparison report={r} />
     </article>
   );
@@ -150,13 +164,10 @@ function Sessions({
                 {t('training.short.rating')} {s.rating}/5
               </span>
             </div>
-            {tone === 'bad' && (
-              <p className={`mt-1.5 ${s.reflection ? '' : 'text-muted italic'}`}>
-                {s.reflection ? `“${s.reflection}”` : t('reports.noReasonGiven')}
-              </p>
-            )}
-            {tone === 'good' && s.reflection && (
-              <p className="mt-1.5 text-muted">“{s.reflection}”</p>
+            {s.ratingReason && <p className="mt-1.5">“{s.ratingReason}”</p>}
+            {s.reflection && <p className="mt-1.5 text-muted">“{s.reflection}”</p>}
+            {tone === 'bad' && !s.ratingReason && !s.reflection && (
+              <p className="mt-1.5 text-muted">{t('reports.noReasonGiven')}</p>
             )}
           </li>
         ))}
@@ -364,6 +375,69 @@ function Comparison({ report }: { report: WeeklyReport }) {
           ]}
           format={(hours) => t('training.stats.hoursShort', { value: toHours(hours * 60, lang) })}
         />
+      </div>
+    </Card>
+  );
+}
+
+/** Energy levels and injuries of the week, with the reasons the user gave. */
+function BodyCard({ energy, injuries }: { energy: ReportSession[]; injuries: ReportSession[] }) {
+  const { t, i18n } = useTranslation();
+  if (energy.length === 0 && injuries.length === 0) return null;
+  const when = (s: ReportSession) =>
+    `${sportName(t, s.sport)} · ${formatDay(s.date, i18n.language, { weekday: 'long' })}`;
+  return (
+    <Card title={t('reports.sections.body')}>
+      <div className="grid gap-6 lg:grid-cols-2">
+        {energy.length > 0 && (
+          <div>
+            <h3 className="mb-2 text-sm font-medium">{t('reports.energySessions')}</h3>
+            <ul className="flex flex-col gap-2">
+              {energy.map((s) => {
+                const low = (s.energy ?? 3) < 3;
+                const Icon = low ? BatteryLow : BatteryFull;
+                return (
+                  <li key={s.id} className="rounded-xl border border-border p-3 text-sm">
+                    <div className="flex items-center gap-2">
+                      <span className="font-medium">{when(s)}</span>
+                      <span className="ml-auto inline-flex items-center gap-1 text-muted">
+                        <Icon
+                          className={`size-3.5 ${low ? 'text-danger' : 'text-success'}`}
+                          aria-hidden="true"
+                        />
+                        {t(`training.checkin.energy.labels.${s.energy}`)}
+                      </span>
+                    </div>
+                    <p className={`mt-1.5 ${s.energyReason ? '' : 'text-muted'}`}>
+                      {s.energyReason ? `“${s.energyReason}”` : t('reports.noReasonGiven')}
+                    </p>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        )}
+        {injuries.length > 0 && (
+          <div>
+            <h3 className="mb-2 text-sm font-medium">{t('reports.injurySessions')}</h3>
+            <ul className="flex flex-col gap-2">
+              {injuries.map((s) => (
+                <li key={s.id} className="rounded-xl border border-border p-3 text-sm">
+                  <div className="flex items-center gap-2">
+                    <HeartPulse className="size-3.5 text-danger" aria-hidden="true" />
+                    <span className="font-medium">{when(s)}</span>
+                  </div>
+                  <dl className="mt-1.5 grid grid-cols-[auto_1fr] gap-x-3 gap-y-1">
+                    <dt className="text-muted">{t('reports.injuryWhere')}</dt>
+                    <dd>{s.injuryNote || '–'}</dd>
+                    <dt className="text-muted">{t('reports.injuryCause')}</dt>
+                    <dd>{s.injuryCause || '–'}</dd>
+                  </dl>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </div>
     </Card>
   );

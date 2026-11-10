@@ -422,6 +422,12 @@
           "3": "Correct",
           "4": "Bien",
           "5": "Top"
+        },
+        "reason": {
+          "good": "Pourquoi ça s'est bien passé ?",
+          "bad": "Pourquoi ça s'est mal passé ?",
+          "goodPlaceholder": "Par exemple : bien dormi, bon partenaire de sparring",
+          "badPlaceholder": "Par exemple : mal dormi, pas assez mangé, beaucoup de travail"
         }
       },
       "punctuality": {
@@ -446,6 +452,12 @@
           "3": "Normal",
           "4": "Élevé",
           "5": "Très élevé"
+        },
+        "reason": {
+          "high": "Pourquoi avais-tu beaucoup d'énergie ?",
+          "low": "Pourquoi avais-tu peu d'énergie ?",
+          "highPlaceholder": "Par exemple : bien reposé, bien mangé avant l'entraînement",
+          "lowPlaceholder": "Par exemple : nuit courte, stress, pas assez mangé"
         }
       },
       "duration": {
@@ -463,7 +475,9 @@
         "no": "Non",
         "noteLabel": "Où as-tu mal ? (facultatif)",
         "notePlaceholder": "Par exemple : mon genou gauche me fait mal en squat",
-        "noteHint": "Toi seul peux voir ceci."
+        "noteHint": "Toi seul peux voir ceci.",
+        "causeLabel": "Pourquoi penses-tu avoir cette blessure ? (facultatif)",
+        "causePlaceholder": "Par exemple : mauvaise réception, pas d'échauffement, trop d'entraînement"
       },
       "summary": {
         "title": "Tout est correct ?",
@@ -471,7 +485,9 @@
         "reflection": "Autre chose à ajouter ? (facultatif)",
         "edit": "Modifier",
         "missing": "Pas encore répondu"
-      }
+      },
+      "scoreHint": "Touche la réponse qui correspond le mieux.",
+      "reasonHint": "Facultatif. Toi seul peux voir ceci. Cela apparaît dans ton rapport de la semaine."
     }
   },
   "charts": {
@@ -566,7 +582,8 @@
       "goals": "Objectifs",
       "wentWell": "Ce qui a bien marché",
       "improve": "Ce qui peut s'améliorer",
-      "comparison": "Par rapport à la semaine dernière"
+      "comparison": "Par rapport à la semaine dernière",
+      "body": "Énergie et blessures"
     },
     "noGoalsSet": "Tu n'avais pas d'objectifs cette semaine.",
     "nothingToSay": "Pas assez de données pour en dire quelque chose.",
@@ -615,7 +632,11 @@
       "lowEnergy": "Ton niveau d'énergie était bas (moyenne de {{avg, number}} sur 5).",
       "injuries_one": "Tu as signalé une blessure lors de {{count}} entraînement. Prends-en soin.",
       "injuries_other": "Tu as signalé une blessure lors de {{count}} entraînements. Prends-en soin."
-    }
+    },
+    "energySessions": "Ton énergie",
+    "injurySessions": "Blessures",
+    "injuryWhere": "Où",
+    "injuryCause": "Cause"
   },
   "social": {
     "title": "Amis",

@@ -422,6 +422,12 @@
           "3": "Okay",
           "4": "Gut",
           "5": "Super"
+        },
+        "reason": {
+          "good": "Warum lief es gut?",
+          "bad": "Warum lief es schlecht?",
+          "goodPlaceholder": "Zum Beispiel: gut geschlafen, guter Sparringspartner",
+          "badPlaceholder": "Zum Beispiel: schlecht geschlafen, zu wenig gegessen, viel Arbeit"
         }
       },
       "punctuality": {
@@ -446,6 +452,12 @@
           "3": "Normal",
           "4": "Hoch",
           "5": "Sehr hoch"
+        },
+        "reason": {
+          "high": "Warum hattest du viel Energie?",
+          "low": "Warum hattest du wenig Energie?",
+          "highPlaceholder": "Zum Beispiel: gut ausgeruht, vor dem Training gut gegessen",
+          "lowPlaceholder": "Zum Beispiel: kurze Nacht, Stress, zu wenig gegessen"
         }
       },
       "duration": {
@@ -463,7 +475,9 @@
         "no": "Nein",
         "noteLabel": "Wo hast du Beschwerden? (optional)",
         "notePlaceholder": "Zum Beispiel: mein linkes Knie tut bei Kniebeugen weh",
-        "noteHint": "Nur du siehst das."
+        "noteHint": "Nur du siehst das.",
+        "causeLabel": "Warum glaubst du, hast du diese Verletzung? (optional)",
+        "causePlaceholder": "Zum Beispiel: falsch gelandet, nicht aufgewärmt, zu viel trainiert"
       },
       "summary": {
         "title": "Stimmt alles?",
@@ -471,7 +485,9 @@
         "reflection": "Möchtest du noch etwas ergänzen? (optional)",
         "edit": "Ändern",
         "missing": "Noch nicht beantwortet"
-      }
+      },
+      "scoreHint": "Tippe auf die Antwort, die am besten passt.",
+      "reasonHint": "Optional. Nur du siehst das. Es erscheint in deinem Wochenbericht."
     }
   },
   "charts": {
@@ -566,7 +582,8 @@
       "goals": "Ziele",
       "wentWell": "Was gut lief",
       "improve": "Was besser geht",
-      "comparison": "Im Vergleich zur Vorwoche"
+      "comparison": "Im Vergleich zur Vorwoche",
+      "body": "Energie und Verletzungen"
     },
     "noGoalsSet": "Du hattest diese Woche keine Ziele.",
     "nothingToSay": "Zu wenige Daten, um hier etwas zu sagen.",
@@ -615,7 +632,11 @@
       "lowEnergy": "Dein Energielevel war niedrig (durchschnittlich {{avg, number}} von 5).",
       "injuries_one": "Du hattest bei {{count}} Training eine Verletzung. Pass gut darauf auf.",
       "injuries_other": "Du hattest bei {{count}} Trainings eine Verletzung. Pass gut darauf auf."
-    }
+    },
+    "energySessions": "Deine Energie",
+    "injurySessions": "Verletzungen",
+    "injuryWhere": "Wo",
+    "injuryCause": "Ursache"
   },
   "social": {
     "title": "Freunde",

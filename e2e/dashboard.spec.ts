@@ -33,10 +33,12 @@ test('dashboard, goals and weekly report', async ({ page }, testInfo) => {
   await page.getByRole('button', { name: 'Add training' }).click();
   const dialog = page.getByRole('dialog');
   await dialog.getByRole('button', { name: /Good/ }).click();
+  await dialog.getByRole('button', { name: 'Next' }).click(); // the reason is optional
   await dialog.getByRole('button', { name: 'On time' }).click();
   await dialog.getByLabel('Training', { exact: true }).fill('BJJ');
   await dialog.getByRole('button', { name: 'Next' }).click();
   await dialog.getByRole('button', { name: /High/ }).click();
+  await dialog.getByRole('button', { name: 'Next' }).click();
   await dialog.getByRole('button', { name: '1:30 h', exact: true }).click();
   await dialog.getByRole('button', { name: 'Next' }).click();
   await dialog.getByRole('button', { name: 'No', exact: true }).click();

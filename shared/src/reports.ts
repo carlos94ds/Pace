@@ -19,6 +19,12 @@ export interface ReportSession {
   motivation: number | null;
   /** The user's own words; never generated. */
   reflection: string | null;
+  /** Added November 2026; missing in reports generated before. All the user's own words. */
+  ratingReason?: string | null;
+  energyReason?: string | null;
+  injured?: boolean;
+  injuryNote?: string | null;
+  injuryCause?: string | null;
 }
 
 export interface WeekSummary extends PeriodTotals {
@@ -38,7 +44,14 @@ export interface WeeklyReport {
   goalResults: GoalResult[];
   /** The week before, computed at the same moment; null without any activity then. */
   previous: WeekSummary | null;
-  highlights: { best: ReportSession[]; worst: ReportSession[] };
+  highlights: {
+    best: ReportSession[];
+    worst: ReportSession[];
+    /** Sessions with low or high energy and the reason given. Missing in older reports. */
+    energy?: ReportSession[];
+    /** Sessions with an injury. Missing in older reports. */
+    injuries?: ReportSession[];
+  };
   conclusion: { summary: ReportLine[]; wentWell: ReportLine[]; improve: ReportLine[] };
   streak: number | null;
 }

@@ -32,6 +32,10 @@ const s = (date: string, overrides: Partial<SessionFact> = {}): SessionFact => (
   intensity: 3,
   energy: 3,
   injured: false,
+  injuryNote: null,
+  injuryCause: null,
+  ratingReason: null,
+  energyReason: null,
   reflection: null,
   ...overrides,
 });

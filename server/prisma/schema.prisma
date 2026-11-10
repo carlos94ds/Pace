@@ -269,7 +269,10 @@ model TrainingSession {
   intensity       Int?        @db.TinyInt // CHECK 1..5; no longer asked
   energy          Int?        @db.TinyInt // energy level, CHECK 1..5; null on older sessions
   injured         Boolean     @default(false)
-  injuryNote      String?     @db.VarChar(500) // private, never shared with friends
+  injuryNote      String?     @db.VarChar(500) // where it hurts; private, never shared
+  injuryCause     String?     @db.VarChar(500) // why the user thinks it happened; private
+  ratingReason    String?     @db.VarChar(500) // why the training went well or badly; private
+  energyReason    String?     @db.VarChar(500) // why energy was high or low; private
   reflection      String?     @db.Text // private unless shareDetails
   shareDetails    Boolean     @default(false)
   createdAt       DateTime    @default(now())

@@ -61,6 +61,11 @@ const toReportSession = (s: SessionFact, sports: Map<string, Sport>): ReportSess
   intensity: s.intensity,
   motivation: s.motivation,
   reflection: s.reflection,
+  ratingReason: s.ratingReason,
+  energyReason: s.energyReason,
+  injured: s.injured,
+  injuryNote: s.injuryNote,
+  injuryCause: s.injuryCause,
 });
 
 /** Change from `before` to `now` relative to `base`, in whole percent. */
@@ -178,7 +183,7 @@ export function buildReport(input: {
 
   if (stats.injuries > 0) improve.push({ key: 'injuries', params: { count: stats.injuries } });
 
-  const unexplained = worst.filter((s) => !s.reflection).length;
+  const unexplained = worst.filter((s) => !s.ratingReason && !s.reflection).length;
   if (unexplained > 0) improve.push({ key: 'noReasons', params: { count: unexplained } });
 
   if (streak !== null && streak >= 2) wentWell.push({ key: 'streak', params: { weeks: streak } });
@@ -190,6 +195,13 @@ export function buildReport(input: {
     highlights: {
       best: best.map((s) => toReportSession(s, sports)),
       worst: worst.map((s) => toReportSession(s, sports)),
+      // Low energy first: that is what needs attention.
+      energy: current
+        .filter((s) => s.energy !== null && s.energy !== 3)
+        .sort((a, b) => a.energy! - b.energy! || a.date.localeCompare(b.date))
+        .slice(0, 5)
+        .map((s) => toReportSession(s, sports)),
+      injuries: current.filter((s) => s.injured).map((s) => toReportSession(s, sports)),
     },
     conclusion: { summary, wentWell, improve },
     streak,

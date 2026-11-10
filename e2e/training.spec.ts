@@ -9,10 +9,14 @@ async function checkIn(
   const dialog = page.getByRole('dialog');
   await expect(dialog.getByText('Question 1 of 6')).toBeVisible();
   await dialog.getByRole('button', { name: new RegExp(a.rating) }).click();
+  await dialog.getByLabel('What made it go badly?').fill('Slept badly');
+  await dialog.getByRole('button', { name: 'Next' }).click();
   await dialog.getByRole('button', { name: a.late ? 'Late' : 'On time' }).click();
   await dialog.getByLabel('Training', { exact: true }).fill(a.training);
   await dialog.getByRole('button', { name: 'Next' }).click();
   await dialog.getByRole('button', { name: new RegExp(a.energy) }).click();
+  await dialog.getByLabel('Why was your energy low?').fill('Short night');
+  await dialog.getByRole('button', { name: 'Next' }).click();
   await dialog.getByRole('button', { name: a.duration, exact: true }).click();
   await dialog.getByRole('button', { name: 'Next' }).click();
   await dialog.getByRole('button', { name: 'No', exact: true }).click();
@@ -46,12 +50,15 @@ test('training calendar', async ({ page }, testInfo) => {
   await page.getByRole('button', { name: 'Add training' }).first().click();
   const dialog = page.getByRole('dialog');
   await dialog.getByRole('button', { name: /Good/ }).click();
+  await dialog.getByLabel('What made it go well?').fill('Great sparring partner');
+  await dialog.getByRole('button', { name: 'Next' }).click();
   await dialog.getByRole('button', { name: 'On time' }).click();
   await dialog.getByRole('button', { name: 'Next' }).click();
   await expect(dialog.getByText('Type at least 2 letters.')).toBeVisible();
   await dialog.getByLabel('Training', { exact: true }).fill('MMA');
   await dialog.getByRole('button', { name: 'Next' }).click();
   await dialog.getByRole('button', { name: /High/ }).first().click();
+  await dialog.getByRole('button', { name: 'Next' }).click(); // the reason is optional
   await dialog.getByRole('button', { name: 'Next' }).click();
   await expect(dialog.getByText('Choose how long you trained.')).toBeVisible();
   await dialog.getByLabel('Hours').fill('1');
@@ -59,9 +66,12 @@ test('training calendar', async ({ page }, testInfo) => {
   await dialog.getByRole('button', { name: 'Next' }).click();
   await dialog.getByRole('button', { name: 'Yes', exact: true }).click();
   await dialog.getByLabel(/Where does it hurt/).fill('Left knee');
+  await dialog.getByLabel(/Why do you think/).fill('Landed wrong');
   await dialog.getByRole('button', { name: 'Next' }).click();
   await expect(dialog.getByRole('heading', { name: 'Check your answers' })).toBeVisible();
   await expect(dialog.getByText('Left knee')).toBeVisible();
+  await expect(dialog.getByText('Landed wrong')).toBeVisible();
+  await expect(dialog.getByText('Great sparring partner')).toBeVisible();
   await dialog.getByLabel(/Anything else to add/).fill('Good sparring, slow start.');
   await shot('form');
   await dialog.getByRole('button', { name: 'Save training' }).click();

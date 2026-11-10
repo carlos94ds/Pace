@@ -422,6 +422,12 @@
           "3": "Okay",
           "4": "Good",
           "5": "Great"
+        },
+        "reason": {
+          "good": "What made it go well?",
+          "bad": "What made it go badly?",
+          "goodPlaceholder": "For example: slept well, good sparring partner",
+          "badPlaceholder": "For example: slept badly, too little food, busy at work"
         }
       },
       "punctuality": {
@@ -446,6 +452,12 @@
           "3": "Normal",
           "4": "High",
           "5": "Very high"
+        },
+        "reason": {
+          "high": "Why was your energy high?",
+          "low": "Why was your energy low?",
+          "highPlaceholder": "For example: rested well, ate well before training",
+          "lowPlaceholder": "For example: short night, stress, ate too little"
         }
       },
       "duration": {
@@ -463,7 +475,9 @@
         "no": "No",
         "noteLabel": "Where does it hurt? (optional)",
         "notePlaceholder": "For example: my left knee hurts when I squat",
-        "noteHint": "Only you can see this."
+        "noteHint": "Only you can see this.",
+        "causeLabel": "Why do you think you got this injury? (optional)",
+        "causePlaceholder": "For example: landed wrong, no warm-up, trained too much"
       },
       "summary": {
         "title": "Check your answers",
@@ -471,7 +485,9 @@
         "reflection": "Anything else to add? (optional)",
         "edit": "Change",
         "missing": "Not answered yet"
-      }
+      },
+      "scoreHint": "Tap the answer that fits best.",
+      "reasonHint": "Optional. Only you can see this. It comes back in your weekly report."
     }
   },
   "charts": {
@@ -566,7 +582,8 @@
       "goals": "Goals",
       "wentWell": "What went well",
       "improve": "What could be better",
-      "comparison": "Compared with last week"
+      "comparison": "Compared with last week",
+      "body": "Energy and injuries"
     },
     "noGoalsSet": "You had no goals this week.",
     "nothingToSay": "Not enough data to say anything here.",
@@ -615,7 +632,11 @@
       "lowEnergy": "Your energy level was low (average {{avg, number}} out of 5).",
       "injuries_one": "You reported an injury in {{count}} training. Take good care of it.",
       "injuries_other": "You reported an injury in {{count}} trainings. Take good care of it."
-    }
+    },
+    "energySessions": "Your energy",
+    "injurySessions": "Injuries",
+    "injuryWhere": "Where",
+    "injuryCause": "Cause"
   },
   "social": {
     "title": "Friends",
